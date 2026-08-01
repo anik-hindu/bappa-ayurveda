@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-background: #f7f3ed;
+  --color-surface: #ede8e0;
+  --color-dark: #2a2a2a;
+  --color-muted: #8a8880;
+
+  --color-accent: #b8892a;
+  --color-accent-light: #d4a84b;
+  --color-accent-dark: #8a6520;
+
+  --color-primary: #2c4a3e;
+  --color-primary-light: #3d6455;
+  --color-primary-dark: #1a2e26;
+
+  /* Font Families connected to Next.js CSS variables */
+  --font-display: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  --font-body: var(--font-body), "DM Sans", system-ui, sans-serif;
+
+  /* Custom Box Shadows */
+  --shadow-card: 0 2px 12px rgba(44, 74, 62, 0.08);
+  --shadow-hover: 0 8px 24px rgba(44, 74, 62, 0.14);
+  --shadow-focus: 0 0 0 3px rgba(184, 137, 42, 0.35);
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    @apply box-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background font-body leading-normal text-dark antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-display text-primary;
+  }
+
+  ::selection {
+    @apply bg-accent text-white;
+  }
+
+  :focus-visible {
+    @apply rounded outline-2 outline-offset-[3px] outline-accent;
+  }
+
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    @apply block h-auto max-w-full;
+  }
+
+  .skip-to-content {
+    @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-white;
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "cSpell.words": ["Bappa", "Stylesheet"],
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+
+  "css.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
+
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]* construct)?[\"'`]"],
+    ["cx\\(([^)]*)\\)", "(?:\"|'|`)([^\"'`](?:\"|'|`))"]
+  ],
+
+  "tailwindCSS.includeLanguages": {
+    "css": "css"
+  },
+  "tailwindCSS.emmetCompletions": true
+}
