@@ -15,5 +15,6 @@
   "tailwindCSS.includeLanguages": {
     "css": "css"
   },
-  "tailwindCSS.emmetCompletions": true
+  "tailwindCSS.emmetCompletions": true,
+  "js/ts.tsdk.path": "node_modules/typescript/lib"
 }

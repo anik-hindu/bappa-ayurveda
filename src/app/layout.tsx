@@ -15,7 +15,13 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Bappa Ayurveda",
+  title: {
+    default: "Bappa Ayurveda",
+    template: "%s | Bappa Ayurveda",
+  },
+
+  description:
+    "Modern Ayurveda rooted in classical science and evidence-based wellness.",
 };
 
 export default function RootLayout({
@@ -25,7 +31,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${dmSans.variable} ${cormorant.variable}`}>
-      <body className="flex min-h-screen flex-col" suppressHydrationWarning>
+      <body
+        className="flex min-h-screen flex-col font-body text-text antialiased"
+        suppressHydrationWarning
+      >
         {children}
       </body>
     </html>

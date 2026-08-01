@@ -4,7 +4,7 @@
   /* Colors */
   --color-background: #f7f3ed;
   --color-surface: #ede8e0;
-  --color-dark: #2a2a2a;
+  --color-text: #2a2a2a;
   --color-muted: #8a8880;
 
   --color-accent: #b8892a;
@@ -37,7 +37,7 @@
   }
 
   body {
-    @apply bg-background font-body leading-normal text-dark antialiased;
+    @apply bg-background font-body leading-normal text-text antialiased;
   }
 
   h1,
@@ -49,12 +49,16 @@
     @apply font-display text-primary;
   }
 
+  p {
+    @apply font-body;
+  }
+
   ::selection {
     @apply bg-accent text-white;
   }
 
   :focus-visible {
-    @apply rounded outline-2 outline-offset-[3px] outline-accent;
+    @apply rounded ring-2 ring-accent ring-offset-2;
   }
 
   img,
@@ -65,7 +69,7 @@
     @apply block h-auto max-w-full;
   }
 
-  .skip-to-content {
+  .skip-link {
     @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-white;
   }
 }
