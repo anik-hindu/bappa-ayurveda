@@ -1,7 +1,7 @@
 import { client } from "@/sanity/lib/client";
 import { Author, Category, Post } from "@/types/index";
 
-// Posts 
+// Posts
 
 export async function getAllPosts(): Promise<Post[]> {
   return client.fetch(`
@@ -12,9 +12,8 @@ export async function getAllPosts(): Promise<Post[]> {
       excerpt,
       mainImage,
       publishedAt,
-      likes,
       author-> { _id, name, slug, image, role },
-      category-> { _id, title, slug }
+      category-> { _id, name, slug }
     }
   `);
 }
@@ -29,7 +28,7 @@ export async function getLatestPosts(count: number = 3): Promise<Post[]> {
       mainImage,
       publishedAt,
       author-> { name, slug },
-      category-> { title, slug }
+      category-> { name, slug }
     }`,
     { count: count - 1 },
   );
@@ -45,9 +44,8 @@ export async function getPost(slug: string): Promise<Post | null> {
       mainImage,
       publishedAt,
       excerpt,
-      likes,
       author-> { _id, name, slug, image, bio, role },
-      category-> { _id, title, slug }
+      category-> { _id, name, slug }
     }`,
     { slug },
   );
@@ -64,7 +62,7 @@ export async function getPostsByCategory(slug: string): Promise<Post[]> {
       mainImage,
       publishedAt,
       author-> { name, slug },
-      category-> { title, slug }
+      category-> { name, slug }
     }`,
     { slug },
   );
@@ -85,13 +83,13 @@ export async function getRelatedPosts(
       excerpt,
       mainImage,
       publishedAt,
-      category-> { title, slug }
+      category-> { name, slug }
     }`,
     { categoryId, currentSlug },
   );
 }
 
-// Authors 
+// Authors
 
 export async function getAllAuthors(): Promise<Author[]> {
   return client.fetch(`
@@ -125,27 +123,27 @@ export async function getAuthorWithPosts(slug: string) {
         excerpt,
         mainImage,
         publishedAt,
-        category-> { title, slug }
+        category-> { name, slug }
       }
     }`,
     { slug },
   );
 }
 
-// Categories 
+// Categories
 
 export async function getAllCategories(): Promise<Category[]> {
   return client.fetch(`
     *[_type == "category"] | order(title asc) {
       _id,
-      title,
+      name,
       slug,
       description
     }
   `);
 }
 
-// Static Params Helpers 
+// Static Params Helpers
 
 export async function getAllPostSlugs() {
   const posts = await client.fetch<{ slug: { current: string } }[]>(`

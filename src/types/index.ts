@@ -1,4 +1,8 @@
+import { PortableTextBlock } from "@portabletext/types";
+import { ImageCrop, ImageHotspot } from "@sanity/types";
+
 // Sanity Base
+
 export type SanityImage = {
   _type: "image";
   asset: {
@@ -6,12 +10,8 @@ export type SanityImage = {
     _type: "reference";
   };
   alt?: string;
-  hotspot?: {
-    x: number;
-    y: number;
-    height: number;
-    width: number;
-  };
+  crop?: ImageCrop;
+  hotspot?: ImageHotspot;
 };
 
 export type SanitySlug = {
@@ -27,13 +27,13 @@ export type Author = {
   slug: SanitySlug;
   image: SanityImage;
   role: string;
-  bio: string;
+  bio: PortableTextBlock[];
   linkedIn?: string;
 };
 
 export type Category = {
   _id: string;
-  title: string;
+  name: string;
   slug: SanitySlug;
   description?: string;
 };
@@ -47,6 +47,5 @@ export type Post = {
   mainImage: SanityImage;
   excerpt: string;
   publishedAt: string;
-  body: unknown[];
-  likes?: number;
+  body: PortableTextBlock[];
 };

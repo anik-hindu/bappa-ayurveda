@@ -65,13 +65,6 @@ export const post = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "likes",
-      title: "Like Count",
-      type: "number",
-      initialValue: 0,
-      readOnly: true,
-    }),
-    defineField({
       name: "body",
       title: "Body",
       type: "blockContent",
