@@ -28,7 +28,7 @@ export const author = defineType({
       name: "role",
       title: "Role / Title",
       type: "string",
-      placeholder: "e.g. Founder & CEO, BAMS Scholar",
+      placeholder: "e.g. Founder & CEO, Bappa Ayurveda",
     }),
     defineField({
       name: "bio",
