@@ -100,7 +100,11 @@ const typography = [
 
 export default function DesignSystemPage() {
   return (
-    <main className="container-page space-y-24 py-16">
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="container-page space-y-24 py-16"
+    >
       {/* Hero */}
 
       <section className="space-y-4">

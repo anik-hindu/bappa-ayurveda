@@ -82,9 +82,9 @@
   --z-toast: 1000;
 
   /* ── Border Widths ────────────────────────────── */
-  --border-thin: 1px;
-  --border-medium: 1.5px;
-  --border-thick: 3px;
+  --border-width-thin: 1px;
+  --border-width-medium: 1.5px;
+  --border-width-thick: 3px;
 
   /* ── Border Radius ────────────────────────────── */
   --radius-btn: 4px;

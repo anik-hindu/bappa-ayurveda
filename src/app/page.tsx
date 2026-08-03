@@ -1,18 +1,21 @@
-import Image from "next/image";
-import logo from "../../public/images/logo.jpeg";
+import Button from "@/components/ui/Button";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className="flex min-h-screen items-center justify-center">
-      <div className="space-y-4 text-center">
-        <Image
-          src={logo}
-          alt="brand logo of Bappa Ayurveda"
-          className="max-w-75 object-cover mix-blend-multiply"
-        />
-        <h1 className="text-5xl font-bold">Bappa Ayurveda</h1>
-        <p className="text-lg text-text/70">Foundation Sprint — In Progress</p>
-        <div className="mx-auto h-px w-16 bg-accent" />
+    <main
+      id="main-content"
+      tabIndex={-1}
+      className="flex min-h-screen items-center justify-center bg-[var(--color-bg-page)]"
+    >
+      <div className="space-y-8 text-center">
+        <h1 className="text-hero text-text-primary">Bappa Ayurveda</h1>
+        <div className="flex flex-wrap justify-center gap-4">
+          <Button variant="primary">Shop SHUKRAVITA</Button>
+          <Button variant="secondary">Our Story</Button>
+          <Button variant="ghost" href="#main-content">
+            Read Blog
+          </Button>
+        </div>
       </div>
     </main>
   );
