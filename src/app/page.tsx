@@ -12,7 +12,7 @@ export default function HomePage() {
         <div className="flex flex-wrap justify-center gap-4">
           <Button variant="primary">Shop SHUKRAVITA</Button>
           <Button variant="secondary">Our Story</Button>
-          <Button variant="ghost" href="#main-content">
+          <Button variant="link" href="#main-content">
             Read Blog
           </Button>
         </div>
