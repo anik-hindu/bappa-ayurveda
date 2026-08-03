@@ -23,6 +23,13 @@
   --shadow-card: 0 2px 12px rgba(44, 74, 62, 0.08);
   --shadow-hover: 0 8px 24px rgba(44, 74, 62, 0.14);
   --shadow-focus: 0 0 0 3px rgba(184, 137, 42, 0.35);
+
+  /* Border Radius */
+  --radius-button: 4px;
+  --radius-card: 8px;
+  --radius-badge: 9999px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
 }
 
 @layer base {
@@ -70,6 +77,6 @@
   }
 
   .skip-link {
-    @apply sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-white;
+    @apply focus:rounded-md sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:bg-accent focus:px-4 focus:py-2 focus:text-white;
   }
 }
