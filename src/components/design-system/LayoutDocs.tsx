@@ -1,4 +1,4 @@
-function Layout() {
+function LayoutDocs() {
   return (
     <section id="layout" className="space-y-8">
       <h2>Layout Widths</h2>
@@ -32,4 +32,4 @@ function Layout() {
   );
 }
 
-export default Layout;
+export default LayoutDocs;

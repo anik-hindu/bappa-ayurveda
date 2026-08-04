@@ -1,15 +1,17 @@
-import BadgeDocs from "@/components/design-system/BadgeDocs";
-import ButtonDocs from "@/components/design-system/ButtonDocs";
-import Elevation from "@/components/design-system/Elevation";
-import Guidelines from "@/components/design-system/Guidelines";
-import Hero from "@/components/design-system/Hero";
-import InputDocs from "@/components/design-system/InputDocs";
-import Layout from "@/components/design-system/Layout";
-import PrimitiveColors from "@/components/design-system/PrimitiveColors";
-import SectionDocs from "@/components/design-system/SectionDocs";
-import SemanticTokens from "@/components/design-system/SemanticTokens";
-import SidebarNavigation from "@/components/design-system/SidebarNavigation";
-import Typography from "@/components/design-system/Typography";
+import {
+  BadgeDocs,
+  ButtonDocs,
+  Elevation,
+  Guidelines,
+  Hero,
+  InputDocs,
+  LayoutDocs,
+  PrimitiveColors,
+  SectionDocs,
+  SemanticTokens,
+  SidebarNavigation,
+  Typography,
+} from "@/components/design-system";
 
 export default function DesignSystemPage() {
   return (
@@ -21,7 +23,7 @@ export default function DesignSystemPage() {
           <PrimitiveColors />
           <SemanticTokens />
           <Typography />
-          <Layout />
+          <LayoutDocs />
           <Elevation />
           <ButtonDocs />
           <BadgeDocs />
