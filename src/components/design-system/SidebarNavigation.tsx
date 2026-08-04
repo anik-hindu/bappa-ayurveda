@@ -9,25 +9,26 @@ const navigation = [
   { id: "elevation", label: "Elevation" },
   { id: "button", label: "Button" },
   { id: "badge", label: "Badge" },
+  { id: "section", label: "Section" },
   { id: "guidelines", label: "Guidelines" },
 ];
 
 function SidebarNavigation() {
   return (
     <>
-      <aside className="">
+      <aside>
         <div className="overflow-x-auto lg:hidden">
           <div className="w-full min-w-175">
             <nav aria-label="Design system mobile navigation" className="mb-10">
               <ul className="flex gap-2 whitespace-nowrap">
                 {navigation.map((item) => (
                   <li key={item.id}>
-                    <a
+                    <Link
                       href={`#${item.id}`}
                       className="block rounded-full border px-4 py-2 text-sm"
                     >
                       {item.label}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
