@@ -1,3 +1,4 @@
+import ScrollToTop from "@/components/ui/ScrollToTop";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
@@ -49,6 +50,7 @@ export default function RootLayout({
           Skip to main content
         </Link>
         {children}
+        <ScrollToTop />
       </body>
     </html>
   );

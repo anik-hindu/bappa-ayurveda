@@ -16,8 +16,8 @@ function SidebarNavigation() {
     <>
       <aside className="">
         <div className="overflow-x-auto lg:hidden">
-          <table className="w-full min-w-175">
-            <nav className="mb-10 overflow-x-auto">
+          <div className="w-full min-w-175">
+            <nav className="mb-10">
               <ul className="flex gap-2 whitespace-nowrap">
                 {navigation.map((item) => (
                   <li key={item.id}>
@@ -31,7 +31,7 @@ function SidebarNavigation() {
                 ))}
               </ul>
             </nav>
-          </table>
+          </div>
         </div>
         <nav
           aria-label="Design system navigation"
