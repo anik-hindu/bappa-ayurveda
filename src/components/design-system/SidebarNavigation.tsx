@@ -8,6 +8,7 @@ const navigation = [
   { id: "layout", label: "Layout" },
   { id: "elevation", label: "Elevation" },
   { id: "button", label: "Button" },
+  { id: "badge", label: "Badge" },
   { id: "guidelines", label: "Guidelines" },
 ];
 
@@ -17,7 +18,7 @@ function SidebarNavigation() {
       <aside className="">
         <div className="overflow-x-auto lg:hidden">
           <div className="w-full min-w-175">
-            <nav className="mb-10">
+            <nav aria-label="Design system mobile navigation" className="mb-10">
               <ul className="flex gap-2 whitespace-nowrap">
                 {navigation.map((item) => (
                   <li key={item.id}>

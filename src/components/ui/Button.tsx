@@ -1,4 +1,5 @@
 import { cn } from "@/lib/cn";
+import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { ButtonHTMLAttributes } from "react";
 
@@ -11,7 +12,6 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
   href?: string;
   external?: boolean;
-  ariaLabel?: string;
 }
 
 const variants: Record<ButtonVariant, string> = {
@@ -50,7 +50,7 @@ export default function Button({
   fullWidth = false,
   href,
   external = false,
-  ariaLabel,
+  "aria-label": ariaLabel,
   className = "",
   children,
   ...props
@@ -63,10 +63,6 @@ export default function Button({
     "rounded-btn",
     "transition-colors duration-normal",
     "disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed",
-    "focus-visible:outline-none",
-    "focus-visible:ring-2",
-    "focus-visible:ring-gold",
-    "focus-visible:ring-offset-2",
     fullWidth && "w-full",
   );
 
@@ -82,6 +78,7 @@ export default function Button({
         aria-label={ariaLabel}
       >
         {children}
+        <ArrowUpRightIcon className="h-4 w-4" />
         <span className="sr-only">(opens in new tab)</span>
       </a>
     );

@@ -1,4 +1,5 @@
-import Button from "@/components/ui/Button";
+import Badge from "@/components/ui/Badge";
+import { SparklesIcon } from "@heroicons/react/24/outline";
 
 export default function HomePage() {
   return (
@@ -6,11 +7,13 @@ export default function HomePage() {
       <div id="main-content" tabIndex={-1} className="space-y-8 text-center">
         <h1 className="text-hero text-text-primary">Bappa Ayurveda</h1>
         <div className="flex flex-wrap justify-center gap-4">
-          <Button variant="primary">Shop SHUKRAVITA</Button>
-          <Button variant="secondary">Our Story</Button>
-          <Button variant="link" href="#main-content">
-            Read Blog
-          </Button>
+          <Badge>Ayurveda</Badge>
+
+          <Badge variant="accent">Featured</Badge>
+
+          <Badge icon={<SparklesIcon className="size-4" />}>New</Badge>
+
+          <Badge variant="outline">Verified</Badge>
         </div>
       </div>
     </main>

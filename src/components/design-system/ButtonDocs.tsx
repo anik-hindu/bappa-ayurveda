@@ -27,7 +27,9 @@ function ButtonDocs() {
 
           <Button variant="secondary">Secondary Button</Button>
 
-          <Button variant="link">Link Button</Button>
+          <Button variant="link" href="#">
+            Link Button
+          </Button>
         </div>
       </div>
 
@@ -107,7 +109,7 @@ function ButtonDocs() {
       <div className="space-y-4">
         <h3 className="font-display text-sub">Component API</h3>
 
-        <div className="overflow-scroll rounded-card border border-border-default">
+        <div className="overflow-auto rounded-card border border-border-default">
           <table className="w-full text-left">
             <thead className="bg-bg-surface">
               <tr>
