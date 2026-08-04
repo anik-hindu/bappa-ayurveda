@@ -29,10 +29,10 @@ const primitiveColors = [
 
 function PrimitiveColors() {
   return (
-    <section className="space-y-8">
+    <section id="primitive-colors" className="space-y-8">
       <h2>Primitive Colors</h2>
 
-      <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
         {primitiveColors.map((color) => (
           <article key={color.name} className="rounded-lg border p-4 shadow-sm">
             <div className={cn(`h-24 rounded-md border`, color.className)} />

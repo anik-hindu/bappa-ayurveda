@@ -1,11 +1,11 @@
 function Guidelines() {
   return (
-    <section className="space-y-8">
+    <section  id="guidelines" className="space-y-8">
       <h2>Usage Guidelines</h2>
 
       <div className="grid gap-8 lg:grid-cols-2">
         <div>
-          <h3>Do</h3>
+          <h3>Best Practices</h3>
 
           <ul className="list-disc space-y-2 pl-6">
             <li>Use semantic tokens.</li>
@@ -17,7 +17,7 @@ function Guidelines() {
         </div>
 
         <div>
-          <h3>Don&apos;t</h3>
+          <h3>Avoid</h3>
 
           <ul className="list-disc space-y-2 pl-6">
             <li>Hardcode colors.</li>

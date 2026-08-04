@@ -1,9 +1,8 @@
 import Button from "@/components/ui/Button";
 
-
 function ButtonDocs() {
   return (
-    <section className="space-y-8">
+    <section id="button" className="space-y-8">
       <div className="space-y-2">
         <p className="text-label tracking-[0.2em] text-text-accent uppercase">
           Atom
@@ -108,7 +107,7 @@ function ButtonDocs() {
       <div className="space-y-4">
         <h3 className="font-display text-sub">Component API</h3>
 
-        <div className="overflow-hidden rounded-card border border-border-default">
+        <div className="overflow-scroll rounded-card border border-border-default">
           <table className="w-full text-left">
             <thead className="bg-bg-surface">
               <tr>

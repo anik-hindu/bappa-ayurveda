@@ -1,5 +1,3 @@
-import React from 'react'
-
 const semanticColors = [
   ["Page Background", "--color-bg-page"],
   ["Surface", "--color-bg-surface"],
@@ -21,31 +19,31 @@ const semanticColors = [
 
 function SemanticTokens() {
   return (
-    <section className="space-y-8">
-        <h2>Semantic Tokens</h2>
+    <section id="semantic-tokens" className="space-y-8">
+      <h2>Semantic Tokens</h2>
 
-        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {semanticColors.map(([title, variable]) => (
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+        {semanticColors.map(([title, variable]) => (
+          <div
+            key={variable}
+            className="flex items-center gap-4 rounded-card border p-4"
+          >
             <div
-              key={variable}
-              className="flex items-center gap-4 rounded-card border p-4"
-            >
-              <div
-                className="h-16 w-16 shrink-0 rounded border"
-                style={{
-                  background: `var(${variable})`,
-                }}
-              />
+              className="h-16 w-16 shrink-0 rounded border"
+              style={{
+                background: `var(${variable})`,
+              }}
+            />
 
-              <div>
-                <p className="font-medium">{title}</p>
-                <code>{variable}</code>
-              </div>
+            <div>
+              <p className="font-medium">{title}</p>
+              <code>{variable}</code>
             </div>
-          ))}
-        </div>
-      </section>
-  )
+          </div>
+        ))}
+      </div>
+    </section>
+  );
 }
 
-export default SemanticTokens
+export default SemanticTokens;

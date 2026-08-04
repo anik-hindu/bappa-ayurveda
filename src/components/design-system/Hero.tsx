@@ -1,6 +1,6 @@
 function Hero() {
   return (
-    <section className="space-y-4">
+    <section id="overview" className="space-y-4">
       <span className="text-label tracking-[0.2em] text-text-accent uppercase">
         Living Documentation
       </span>

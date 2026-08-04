@@ -54,7 +54,7 @@ const typography = [
 
 function Typography () {
   return (
-     <section className="space-y-10">
+     <section id="typography" className="space-y-10">
         <h2>Typography Scale</h2>
 
         <div className="space-y-10">
