@@ -67,10 +67,6 @@
   --spacing-page-x-mobile: 24px;
 
   /* ── Layout ───────────────────────────────────── */
-  --width-content: 1200px;
-  --width-article: 760px;
-  --width-narrow: 560px;
-
   --container-content: 1200px;
   --container-article: 760px;
   --container-narrow: 560px;
@@ -109,7 +105,7 @@
   }
 
   .container-page {
-    max-width: var(--width-content);
+    max-width: var(--container-content);
     margin-inline: auto;
     padding-inline: var(--spacing-page-x-mobile);
   }
@@ -128,24 +124,32 @@
 }
 
 @layer base {
-  *,
-  ::before,
-  ::after {
-    box-sizing: border-box;
-  }
+  /* ── Document ─────────────────────────────────── */
 
   html {
     scroll-behavior: smooth;
   }
 
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
   body {
+    min-height: 100vh;
     background-color: var(--color-bg-page);
     color: var(--color-text-body);
     font-family: var(--font-body);
+    font-size: var(--text-body);
     line-height: var(--leading-body);
-    min-height: 100vh;
     -webkit-font-smoothing: antialiased;
+    text-wrap: pretty;
   }
+
+  /* ── Typography ───────────────────────────────── */
 
   h1,
   h2,
@@ -153,27 +157,98 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-display);
     color: var(--color-text-primary);
-    line-height: var(--leading-heading);
+    font-family: var(--font-display);
     font-weight: 500;
     letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  h1 {
+    font-size: var(--text-hero);
+    line-height: var(--leading-hero);
+  }
+
+  h2 {
+    font-size: var(--text-section);
+    line-height: var(--leading-heading);
+  }
+
+  h3 {
+    font-size: var(--text-sub);
+    line-height: var(--leading-sub);
+  }
+
+  h4 {
+    font-size: var(--text-body-lg);
+    line-height: var(--leading-heading);
+  }
+
+  h5 {
+    font-size: var(--text-body);
+    line-height: var(--leading-heading);
+  }
+
+  h6 {
+    font-size: var(--text-caption);
+    line-height: var(--leading-heading);
   }
 
   p {
-    font-family: var(--font-body);
     line-height: var(--leading-body);
   }
 
-  ::selection {
-    background-color: var(--color-bg-accent);
-    color: var(--color-text-inverse);
+  strong,
+  b {
+    color: var(--color-text-primary);
+    font-weight: 600;
   }
 
-  :focus-visible {
-    outline: 2px solid var(--color-border-accent);
-    outline-offset: 3px;
-    border-radius: var(--radius-btn);
+  blockquote {
+    border-left: var(--border-width-thick) solid var(--color-border-accent);
+    padding-left: 1.5rem;
+    color: var(--color-text-primary);
+    font-family: var(--font-display);
+    font-size: var(--text-sub);
+    font-style: italic;
+    line-height: var(--leading-sub);
+  }
+
+  /* ── Links ────────────────────────────────────── */
+
+  a {
+    color: inherit;
+    text-decoration-skip-ink: auto;
+    transition: color var(--duration-fast) var(--ease-default);
+  }
+
+  /* ── Forms ────────────────────────────────────── */
+
+  input,
+  textarea,
+  select {
+    width: 100%;
+    border: var(--border-width-thin) solid var(--color-border-default);
+    border-radius: var(--radius-card);
+    background-color: transparent;
+    padding: 0.75rem 1rem;
+    font: inherit;
+    transition:
+      border-color var(--duration-fast) var(--ease-default),
+      box-shadow var(--duration-fast) var(--ease-default);
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    border-color: var(--color-border-accent);
+    box-shadow: var(--shadow-focus);
+    outline: none;
+  }
+
+  textarea {
+    min-height: 8rem;
+    resize: vertical;
   }
 
   img,
@@ -186,25 +261,68 @@
     height: auto;
   }
 
+  hr {
+    border: none;
+    border-top: var(--border-width-thin) solid var(--color-border-subtle);
+    margin-block: 2rem;
+  }
+
+  :disabled {
+    cursor: not-allowed;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-border-accent);
+    outline-offset: 3px;
+    border-radius: var(--radius-btn);
+  }
+
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  /* ── Tables ───────────────────────────────────── */
+
+  th {
+    border-bottom: var(--border-width-medium) solid var(--color-border-default);
+    padding: 0.75rem 1rem;
+    color: var(--color-text-primary);
+    font-weight: 600;
+    text-align: left;
+  }
+
+  td {
+    border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
+    padding: 0.75rem 1rem;
+  }
+
+  /* ── Misc ─────────────────────────────────────── */
+
+  ::selection {
+    background: var(--color-bg-accent);
+    color: var(--color-text-inverse);
+  }
+
   .skip-link {
     position: absolute;
     width: 1px;
     height: 1px;
     overflow: hidden;
-    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
   }
 
   .skip-link:focus {
     position: fixed;
     top: 1rem;
     left: 1rem;
-    z-index: 50;
+    z-index: var(--z-toast);
     width: auto;
     height: auto;
-    clip: auto;
-    padding: 0.5rem 1rem;
+    clip-path: none;
     border-radius: var(--radius-btn);
-    background-color: var(--color-bg-accent);
+    background: var(--color-bg-accent);
+    padding: 0.75rem 1rem;
     color: var(--color-text-inverse);
+    font-weight: 600;
   }
 }
