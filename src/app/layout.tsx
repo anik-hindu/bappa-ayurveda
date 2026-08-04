@@ -44,10 +44,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${dmSans.variable} ${cormorant.variable}`}>
-      <body
-        className="flex min-h-screen flex-col font-body antialiased"
-        suppressHydrationWarning
-      >
+      <body suppressHydrationWarning>
         <Link href="#main-content" className="skip-link">
           Skip to main content
         </Link>

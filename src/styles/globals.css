@@ -100,11 +100,8 @@
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-
   .container-page {
+    width: 100%;
     max-width: var(--container-content);
     margin-inline: auto;
     padding-inline: var(--spacing-page-x-mobile);
@@ -265,6 +262,15 @@
     border: none;
     border-top: var(--border-width-thin) solid var(--color-border-subtle);
     margin-block: 2rem;
+  }
+
+  code {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 0.875em;
+    background-color: var(--color-bg-surface);
+    padding: 0.15em 0.4em;
+    border-radius: 4px;
+    color: var(--color-text-primary);
   }
 
   :disabled {
