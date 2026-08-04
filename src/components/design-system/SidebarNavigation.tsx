@@ -9,6 +9,7 @@ const navigation = [
   { id: "elevation", label: "Elevation" },
   { id: "button", label: "Button" },
   { id: "badge", label: "Badge" },
+  { id: "input", label: "Input" },
   { id: "section", label: "Section" },
   { id: "guidelines", label: "Guidelines" },
 ];

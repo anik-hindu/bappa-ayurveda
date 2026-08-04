@@ -3,6 +3,7 @@ import ButtonDocs from "@/components/design-system/ButtonDocs";
 import Elevation from "@/components/design-system/Elevation";
 import Guidelines from "@/components/design-system/Guidelines";
 import Hero from "@/components/design-system/Hero";
+import InputDocs from "@/components/design-system/InputDocs";
 import Layout from "@/components/design-system/Layout";
 import PrimitiveColors from "@/components/design-system/PrimitiveColors";
 import SectionDocs from "@/components/design-system/SectionDocs";
@@ -24,6 +25,7 @@ export default function DesignSystemPage() {
           <Elevation />
           <ButtonDocs />
           <BadgeDocs />
+          <InputDocs />
           <SectionDocs />
           <Guidelines />
         </article>

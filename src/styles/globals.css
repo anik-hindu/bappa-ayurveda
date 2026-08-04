@@ -304,6 +304,17 @@
 
   /* ── Misc ─────────────────────────────────────── */
 
+  /* Offset anchor scroll for sticky navbar */
+  [id] {
+    scroll-margin-top: 5rem;
+  }
+
+  @media (min-width: 768px) {
+    [id] {
+      scroll-margin-top: 6rem;
+    }
+  }s
+
   ::selection {
     background: var(--color-bg-accent);
     color: var(--color-text-inverse);
