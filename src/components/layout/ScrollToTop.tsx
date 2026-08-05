@@ -1,30 +1,20 @@
 "use client";
 
+import useScrolled from "@/hooks/useScrolled";
 import { cn } from "@/lib/cn";
 import { ArrowUpIcon } from "@heroicons/react/24/outline";
-import { useEffect, useState } from "react";
 
 export default function ScrollToTop() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setVisible(window.scrollY > 400);
-    };
-
-    handleScroll();
-
-    window.addEventListener("scroll", handleScroll, {
-      passive: true,
-    });
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const visible = useScrolled(400);
 
   const scrollToTop = () => {
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: prefersReducedMotion ? "auto" : "smooth",
     });
   };
 
@@ -32,16 +22,18 @@ export default function ScrollToTop() {
     <button
       type="button"
       aria-label="Back to top"
+      aria-hidden={!visible}
+      tabIndex={visible ? 0 : -1}
       onClick={scrollToTop}
       className={cn(
-        "z-toast fixed right-6 bottom-6",
-        "flex h-12 w-12 items-center justify-center",
+        "fixed right-8 bottom-8 z-(--z-toast)",
+        "flex size-12 items-center justify-center",
         "rounded-full",
         "bg-btn-primary-bg text-btn-primary-text",
         "shadow-card",
-        "duration-normal transition-all",
+        "transition-all duration-(--duration-normal)",
         "hover:bg-btn-primary-bg-hover",
-        "hover:shadow-hover",
+        "hover:-translate-y-1 hover:shadow-hover",
         "focus-visible:ring-2 focus-visible:ring-gold",
         visible
           ? "translate-y-0 opacity-100"
