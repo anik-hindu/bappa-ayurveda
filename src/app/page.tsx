@@ -1,4 +1,4 @@
-import Badge from "@/components/ui/Badge";
+import { Badge } from "@/components/ui/";
 import { SparklesIcon } from "@heroicons/react/24/outline";
 
 export default function HomePage() {
