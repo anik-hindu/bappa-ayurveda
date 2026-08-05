@@ -15,27 +15,27 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const variants: Record<ButtonVariant, string> = {
-  primary: [
+  primary: cn(
     "bg-btn-primary-bg",
     "text-btn-primary-text",
     "border-2 border-transparent",
     "hover:bg-btn-primary-bg-hover",
-  ].join(" "),
+  ),
 
-  secondary: [
+  secondary: cn(
     "bg-transparent",
     "text-btn-secondary-text",
     "border-2 border-forest",
     "hover:bg-btn-secondary-bg-hover",
     "hover:text-btn-secondary-text-hover",
-  ].join(" "),
+  ),
 
-  link: [
+  link: cn(
     "bg-transparent",
     "hover:text-text-accent",
     "text-btn-secondary-text",
     "underline underline-offset-4",
-  ].join(" "),
+  ),
 };
 
 const sizes: Record<ButtonSize, string> = {

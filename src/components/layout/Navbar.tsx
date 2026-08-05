@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/ui/Button";
+import useScrolled from "@/hooks/useScrolled";
 import { cn } from "@/lib/cn";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
@@ -11,14 +12,14 @@ import { useEffect, useState } from "react";
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "Blog", href: "/blog" },
-  { label: "Quiz", href: "/quiz" },
+  { label: "PIE", href: "/pie" },
   { label: "About", href: "/#about" },
 ];
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const scrolled = useScrolled();
 
   // Close menu on route change
   useEffect(() => {
@@ -26,20 +27,16 @@ export default function Navbar() {
     return () => clearTimeout(timeout);
   }, [pathname]);
 
-  // Scrolled state for shadow
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 8);
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+  }, [menuOpen]);
 
   return (
     <header
       className={cn(
-        "z-navbar sticky top-0",
+        "sticky top-0 z-(--z-navbar)",
         "w-full bg-bg-page",
-        "transition-shadow duration-[250ms]",
+        "transition-shadow duration-(--duration-normal)",
         scrolled && "shadow-card",
       )}
     >
@@ -59,7 +56,7 @@ export default function Navbar() {
               alt="Bappa Ayurveda"
               width={40}
               height={40}
-              className="h-10 w-auto rounded-sm mix-blend-multiply"
+              className="size-10 rounded-sm object-cover mix-blend-multiply"
               priority
             />
             <span className="hidden font-display text-xl text-text-primary sm:block">
@@ -75,11 +72,11 @@ export default function Navbar() {
                   href={link.href}
                   className={cn(
                     "font-body text-nav font-medium",
-                    "transition-colors duration-[150ms]",
+                    "transition-colors duration-(--duration-fast)",
                     "relative pb-0.5",
                     "after:absolute after:bottom-0 after:left-0",
                     "after:h-px after:w-0 after:bg-text-accent",
-                    "after:transition-[width] after:duration-[250ms]",
+                    "after:transition-[width] after:duration-(--duration-normal)",
                     "hover:text-text-accent hover:after:w-full",
                     pathname === link.href
                       ? "font-semibold text-text-accent after:w-full"
@@ -94,7 +91,7 @@ export default function Navbar() {
 
           {/* Desktop CTA */}
           <div className="hidden md:block">
-            <Button href="https://amazon.in" external size="sm">
+            <Button href="https://amzn.in/d/0irbMWo1" external size="sm">
               Shop Now
             </Button>
           </div>
@@ -109,9 +106,9 @@ export default function Navbar() {
             className={cn(
               "md:hidden",
               "flex h-10 w-10 items-center justify-center",
-              "rounded-[var(--radius-btn)]",
+              "rounded-btn",
               "text-text-primary",
-              "transition-colors duration-[150ms]",
+              "transition-colors duration-(--duration-fast)",
               "hover:bg-bg-hover",
             )}
           >
@@ -133,7 +130,7 @@ export default function Navbar() {
           "overflow-hidden",
           "border-t border-border-subtle",
           "bg-bg-page",
-          "transition-all duration-[300ms]",
+          "transition-all duration-300",
           menuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0",
         )}
       >
@@ -145,9 +142,9 @@ export default function Navbar() {
                   href={link.href}
                   className={cn(
                     "block px-3 py-3",
-                    "font-body text-[length:var(--text-nav)] font-medium",
+                    "font-body text-nav font-medium",
                     "rounded-btn",
-                    "transition-colors duration-[150ms]",
+                    "transition-colors duration-(--duration-fast)",
                     pathname === link.href
                       ? "bg-bg-hover text-text-accent"
                       : "text-text-body hover:bg-bg-hover hover:text-text-primary",
@@ -160,7 +157,12 @@ export default function Navbar() {
           </ul>
 
           <div className="border-t border-border-subtle pt-4">
-            <Button href="https://amazon.in" external fullWidth size="sm">
+            <Button
+              href="https://amzn.in/d/0irbMWo1"
+              external
+              fullWidth
+              size="sm"
+            >
               Shop SHUKRAVITA on Amazon
             </Button>
           </div>
