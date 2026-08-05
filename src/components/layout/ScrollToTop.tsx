@@ -22,8 +22,6 @@ export default function ScrollToTop() {
     <button
       type="button"
       aria-label="Back to top"
-      aria-hidden={!visible}
-      tabIndex={visible ? 0 : -1}
       onClick={scrollToTop}
       className={cn(
         "fixed right-8 bottom-8 z-(--z-toast)",
