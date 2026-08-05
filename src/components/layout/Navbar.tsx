@@ -147,7 +147,7 @@ export default function Navbar() {
                     "transition-colors duration-(--duration-fast)",
                     pathname === link.href
                       ? "bg-bg-hover text-text-accent"
-                      : "text-text-body hover:bg-bg-hover hover:text-text-primary",
+                      : "text-text-body hover:bg-bg-hover hover:text-text-primary active:bg-bg-hover active:text-text-primary",
                   )}
                 >
                   {link.label}
