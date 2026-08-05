@@ -66,7 +66,7 @@ export default function Footer() {
                 alt="Bappa Ayurveda"
                 width={36}
                 height={36}
-                className="h-9 w-auto rounded-sm brightness-200"
+                className="h-9 w-auto rounded-sm"
               />
               <span className="font-display text-xl text-text-inverse">
                 Bappa Ayurveda
