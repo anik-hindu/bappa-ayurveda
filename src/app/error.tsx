@@ -17,6 +17,7 @@ export default function Error({ error, reset }: ErrorProps) {
   return (
     <main
       id="main-content"
+      tabIndex={-1}
       className="flex min-h-[calc(100vh-5rem)] flex-col items-center justify-center text-center"
     >
       <Section container={false} className="space-y-4 px-4" padding="sm">
@@ -46,8 +47,8 @@ export default function Error({ error, reset }: ErrorProps) {
             Something Went Wrong
           </h1>
           <p className="font-body text-body-lg text-text-muted">
-            An unexpected error occurred. Please try again or return to the
-            homepage.
+            Something unexpected happened while loading this page. Please try
+            again. If the problem persists, return to the homepage.
           </p>
         </div>
 
@@ -62,7 +63,7 @@ export default function Error({ error, reset }: ErrorProps) {
         </div>
 
         {/* Brand note */}
-        <p className="font-body text-caption text-text-muted">
+        <p className="font-body text-caption text-text-muted opacity-70">
           Bappa Ayurveda · DPIIT Recognized · AYUSH Licensed
         </p>
       </Section>
