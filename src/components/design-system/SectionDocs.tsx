@@ -1,16 +1,13 @@
-import Section from "@/components/ui/Section";
+import { Badge, Section } from "@/components/ui/";
 
 function SectionDocs() {
   return (
-    <section id="section" className="space-y-8">
+    <Section container={false} id="section" className="space-y-8">
+
       <div className="space-y-2">
-        <p className="text-label tracking-[0.2em] text-text-accent uppercase">
-          Layout
-        </p>
-
+        <Badge variant="accent" >Layout</Badge>
         <h2>Section</h2>
-
-        <p className="max-w-article text-text-body">
+        <p className="max-w-article">
           The Section component provides a consistent layout wrapper for major
           page sections. It standardizes vertical spacing, background variants,
           and optional content constraints while encouraging semantic page
@@ -109,7 +106,7 @@ function SectionDocs() {
       <div className="space-y-4">
         <h3>Component API</h3>
 
-        <div className="overflow-hidden rounded-card border border-border-default">
+        <div className="overflow-x-auto rounded-card border border-border-default">
           <table className="w-full text-left">
             <thead className="bg-bg-surface">
               <tr>
@@ -169,7 +166,7 @@ function SectionDocs() {
           </table>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 

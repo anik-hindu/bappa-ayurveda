@@ -1,16 +1,14 @@
-import Button from "@/components/ui/Button";
+import { Badge, Button, Section } from "@/components/ui/";
 
 function ButtonDocs() {
   return (
-    <section id="button" className="space-y-8">
+    <Section id="button" container={false} className="space-y-8">
       <div className="space-y-2">
-        <p className="text-label tracking-[0.2em] text-text-accent uppercase">
+        <Badge variant="accent" className="tracking-[0.2em] uppercase">
           Atom
-        </p>
-
-        <h2 className="font-display text-text-primary">Button</h2>
-
-        <p className="max-w-article text-text-body">
+        </Badge>
+        <h2>Button</h2>
+        <p className="max-w-article">
           The Button component provides a consistent call-to-action across the
           application. It supports primary, secondary, and text-link styles,
           multiple sizes, internal navigation, external links, disabled states,
@@ -107,7 +105,7 @@ function ButtonDocs() {
 
       {/* Component API */}
       <div className="space-y-4">
-        <h3 className="font-display text-sub">Component API</h3>
+        <h3 className="text-sub">Component API</h3>
 
         <div className="overflow-auto rounded-card border border-border-default">
           <table className="w-full text-left">
@@ -170,7 +168,7 @@ function ButtonDocs() {
           </table>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 

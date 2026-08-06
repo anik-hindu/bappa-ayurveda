@@ -20,6 +20,8 @@ const variants: Record<ButtonVariant, string> = {
     "text-btn-primary-text",
     "border-2 border-transparent",
     "hover:bg-btn-primary-bg-hover",
+    "active:scale-[0.97] active:opacity-90",
+    "active:bg-btn-primary-bg-hover",
   ),
 
   secondary: cn(
@@ -28,13 +30,18 @@ const variants: Record<ButtonVariant, string> = {
     "border-2 border-forest",
     "hover:bg-btn-secondary-bg-hover",
     "hover:text-btn-secondary-text-hover",
+    "active:bg-btn-secondary-bg-hover",
+    "active:text-btn-secondary-text-hover",
+    "active:scale-[0.97] active:opacity-90",
   ),
 
   link: cn(
     "bg-transparent",
     "hover:text-text-accent",
+    "active:text-text-accent",
     "text-btn-secondary-text",
     "underline underline-offset-4",
+    "active:opacity-60",
   ),
 };
 

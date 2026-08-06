@@ -1,6 +1,8 @@
+import { Section } from "@/components/ui";
+
 function Guidelines() {
   return (
-    <section  id="guidelines" className="space-y-8">
+    <Section container={false} id="guidelines" className="space-y-8">
       <h2>Usage Guidelines</h2>
 
       <div className="grid gap-8 lg:grid-cols-2">
@@ -28,7 +30,7 @@ function Guidelines() {
           </ul>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 

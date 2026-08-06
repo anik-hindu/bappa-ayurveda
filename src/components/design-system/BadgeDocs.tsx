@@ -1,24 +1,24 @@
-import Badge from "@/components/ui/Badge";
-import { SparklesIcon } from "@heroicons/react/24/outline";
-import { CheckBadgeIcon } from '@heroicons/react/24/outline'
-import { TagIcon } from '@heroicons/react/24/outline';
-
-
+import { Badge, Section } from "@/components/ui/";
+import {
+  CheckBadgeIcon,
+  SparklesIcon,
+  TagIcon,
+} from "@heroicons/react/24/outline";
 
 function BadgeDocs() {
   return (
-    <section id="badge" className="space-y-8">
+    <Section id="badge" container={false} className="space-y-8">
       <div className="space-y-2">
-        <p className="text-label tracking-[0.2em] text-text-accent uppercase">
+        <Badge variant="accent" className="tracking-[0.2em] uppercase">
           Atom
-        </p>
-
+        </Badge>
         <h2>Badge</h2>
-
-        <p className="max-w-article text-text-body">
+        <p className="max-w-article">
           Badges communicate status, categories, metadata, or small labels. They
           provide low-emphasis visual context while maintaining consistency
-          through semantic design tokens and reusable variants.
+          through semantic design tokens and reusable variants. Used for
+          category tags, status indicators, and credibility markers. Always
+          uppercase with letter spacing.
         </p>
       </div>
 
@@ -124,7 +124,7 @@ function BadgeDocs() {
           </table>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 

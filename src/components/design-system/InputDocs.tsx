@@ -1,20 +1,20 @@
-import Input from "@/components/ui/Input";
+import { Badge, Input, Section } from "@/components/ui/";
 
 function InputDocs() {
   return (
-    <section id="input" className="space-y-8">
+    <Section container={false} id="input" className="space-y-8">
       <div className="space-y-2">
-        <p className="text-label tracking-[0.2em] text-text-accent uppercase">
-          Form
-        </p>
-
+        <Badge variant="accent" className="tracking-[0.2em] uppercase">
+          Atom
+        </Badge>
         <h2>Input</h2>
-
-        <p className="max-w-article text-text-body">
+        <p className="max-w-article text-text-muted">
           The Input component provides a consistent and accessible text field
           for collecting user input. It supports labels, helper text, validation
           feedback, required fields, and all native HTML input attributes while
-          following the project&rsquo;s design tokens.
+          following the project&rsquo;s design tokens. Form input with label,
+          hint, and error states. Accessible by default, uses useId() for stable
+          IDs.
         </p>
       </div>
 
@@ -87,7 +87,7 @@ function InputDocs() {
 
           <Input label="Password" type="password" placeholder="••••••••" />
 
-          <Input label="Phone" type="tel" placeholder="+880 1XXX XXX XXX" />
+          <Input label="Phone" type="tel" placeholder="+91 8XXXXX XXXX" />
 
           <Input
             label="Search"
@@ -134,7 +134,7 @@ function InputDocs() {
       <div className="space-y-4">
         <h3>Component API</h3>
 
-        <div className="overflow-hidden rounded-card border border-border-default">
+        <div className="overflow-x-auto rounded-card border border-border-default">
           <table className="w-full text-left">
             <thead className="bg-bg-surface">
               <tr>
@@ -204,7 +204,7 @@ function InputDocs() {
           </table>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 

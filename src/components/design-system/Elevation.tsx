@@ -1,6 +1,8 @@
+import { Section } from "@/components/ui";
+
 function Elevation() {
   return (
-    <section id="elevation" className="space-y-8">
+    <Section id="elevation" container={false} className="space-y-8">
       <h2>Elevation</h2>
 
       <div className="flex flex-wrap gap-8">
@@ -16,7 +18,7 @@ function Elevation() {
           <code>shadow-focus</code>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 

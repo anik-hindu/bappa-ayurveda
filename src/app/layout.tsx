@@ -19,7 +19,7 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
   title: {
-    default: "Bappa Ayurveda — Rooted in Science, Backed by Tradition",
+    default: "Bappa Ayurveda: Rooted in Science, Backed by Tradition",
     template: "%s | Bappa Ayurveda",
   },
   description:

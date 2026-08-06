@@ -1,4 +1,4 @@
-import React from 'react'
+import { Section } from "@/components/ui";
 
 const typography = [
   {
@@ -52,27 +52,29 @@ const typography = [
   },
 ];
 
-function Typography () {
+function Typography() {
   return (
-     <section id="typography" className="space-y-10">
+    <Section id="typography" container={false} className="space-y-10">
+      <div className="space-y-2">
         <h2>Typography Scale</h2>
+        <p className="text-text-muted">
+          Cormorant Garamond for display. DM Sans for everything else.
+        </p>
+      </div>
 
-        <div className="space-y-10">
-          {typography.map((item) => (
-            <div key={item.label} className="border-b pb-8">
-              <div style={item.style}>
-                Ayurveda Redefined for the Modern Age
-              </div>
+      <div className="space-y-10">
+        {typography.map((item) => (
+          <div key={item.label} className="border-b pb-8">
+            <div style={item.style}>Ayurveda Redefined for the Modern Age</div>
 
-              <p className="mt-2">
-                Token: <code>{item.variable}</code>
-              </p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-  )
+            <p className="mt-2">
+              Token: <code>{item.variable}</code>
+            </p>
+          </div>
+        ))}
+      </div>
+    </Section>
+  );
 }
 
-export default Typography 
+export default Typography;

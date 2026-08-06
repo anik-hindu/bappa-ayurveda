@@ -20,9 +20,9 @@ const backgrounds = {
 } as const;
 
 const spacings = {
-  sm: "py-section-y-mobile md:py-[calc(var(--spacing-section-y-desktop)*0.6)]",
-  md: "py-section-y-mobile md:py-[var(--spacing-section-y-desktop)]",
-  lg: "py-[calc(var(--spacing-section-y-mobile)*1.5)] md:py-[calc(var(--spacing-section-y-desktop)*1.25)]",
+  sm: "py-section-sm-mobile lg:py-section-sm-desktop",
+  md: "py-section-md-mobile lg:py-section-md-desktop",
+  lg: "py-section-lg-mobile lg:py-section-lg-desktop",
 } as const;
 
 export default function Section({

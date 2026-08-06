@@ -1,3 +1,4 @@
+import { Section } from "@/components/ui";
 import { cn } from "@/lib/cn";
 
 const primitiveColors = [
@@ -29,8 +30,14 @@ const primitiveColors = [
 
 function PrimitiveColors() {
   return (
-    <section id="primitive-colors" className="space-y-8">
-      <h2>Primitive Colors</h2>
+    <Section id="primitive-colors" container={false} className="space-y-8">
+      <div className="space-y-2">
+        <h2>Primitive Colors</h2>
+        <p className="text-text-muted">
+          The complete palette. No additional colors may be introduced. Use
+          opacity variants for lighter tones.
+        </p>
+      </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-4">
         {primitiveColors.map((color) => (
@@ -45,7 +52,7 @@ function PrimitiveColors() {
           </article>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
 

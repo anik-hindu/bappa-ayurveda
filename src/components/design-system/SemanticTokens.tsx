@@ -1,3 +1,5 @@
+import { Section } from "@/components/ui";
+
 const semanticColors = [
   ["Page Background", "--color-bg-page"],
   ["Surface", "--color-bg-surface"],
@@ -19,8 +21,14 @@ const semanticColors = [
 
 function SemanticTokens() {
   return (
-    <section id="semantic-tokens" className="space-y-8">
-      <h2>Semantic Tokens</h2>
+    <Section id="semantic-tokens" container={false} className="space-y-8">
+      <div className="space-y-2">
+        <h2>Semantic Tokens</h2>
+        <p className="text-text-muted">
+          Always use semantic tokens in components, not primitive tokens
+          directly.
+        </p>
+      </div>
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
         {semanticColors.map(([title, variable]) => (
@@ -42,7 +50,7 @@ function SemanticTokens() {
           </div>
         ))}
       </div>
-    </section>
+    </Section>
   );
 }
 

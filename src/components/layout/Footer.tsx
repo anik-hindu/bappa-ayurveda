@@ -129,7 +129,7 @@ export default function Footer() {
         className="border-t border-[rgba(247,243,237,0.08)]"
       >
         <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-          <p className="font-body text-caption text-text-inverse/40">
+          <p className="text-center sm:text-left text-caption text-text-inverse/40">
             &copy; {new Date().getFullYear()} SPRTA Ayurenigma Private Limited.
             All rights reserved.
           </p>

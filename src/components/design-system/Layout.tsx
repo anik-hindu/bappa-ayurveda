@@ -1,6 +1,8 @@
-function LayoutDocs() {
+import { Section } from "@/components/ui";
+
+function Layout() {
   return (
-    <section id="layout" className="space-y-8">
+    <Section id="layout" container={false} className="space-y-8">
       <h2>Layout Widths</h2>
 
       <div className="space-y-6">
@@ -28,8 +30,8 @@ function LayoutDocs() {
           </div>
         </div>
       </div>
-    </section>
+    </Section>
   );
 }
 
-export default LayoutDocs;
+export default Layout;
