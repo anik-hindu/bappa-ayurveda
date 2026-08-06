@@ -15,7 +15,7 @@ export function estimateReadTime(body?: PortableTextBlock[]): number {
     if (block._type !== "block") return count;
 
     const text =
-      block.children?.map((child: any) => child.text ?? "").join(" ") ?? "";
+      block.children?.map((child) => child.text ?? "").join(" ") ?? "";
 
     return count + text.trim().split(/\s+/).filter(Boolean).length;
   }, 0);
