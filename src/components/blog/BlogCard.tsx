@@ -40,7 +40,6 @@ export default function BlogCard({
           "focus-visible:ring-2 focus-visible:ring-border-accent focus-visible:ring-offset-2 focus-visible:outline-none",
         )}
       >
-
         {imageUrl ? (
           <div className="relative aspect-3/2 overflow-hidden">
             <Image
@@ -49,13 +48,12 @@ export default function BlogCard({
               fill
               priority={priority}
               sizes="(max-width:768px)100vw,(max-width:1024px)50vw,33vw"
-              className="duration-slow object-cover transition-transform group-hover:scale-105"
+              className="duration-(--duration-slow) object-cover transition-transform group-hover:scale-105"
             />
           </div>
         ) : (
           <div className="aspect-3/2 bg-bg-surface" />
         )}
-
 
         <div className="flex flex-1 flex-col gap-4 p-6">
           <div className="flex items-center justify-between gap-3">
