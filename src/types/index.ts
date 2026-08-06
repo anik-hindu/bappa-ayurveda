@@ -39,13 +39,14 @@ export type Category = {
 };
 
 export type Post = {
-  _id: string;
-  title: string;
-  slug: SanitySlug;
-  author: Author;
-  category: Category;
-  mainImage: SanityImage;
-  excerpt: string;
-  publishedAt: string;
-  body: PortableTextBlock[];
-};
+  _id: string
+  title: string
+  slug: SanitySlug
+  author: Author
+  category: Category
+  mainImage: SanityImage
+  excerpt: string
+  publishedAt: string
+  body: PortableTextBlock[]
+  likes?: number
+}

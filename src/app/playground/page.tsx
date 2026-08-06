@@ -12,11 +12,12 @@ import {
   SidebarNavigation,
   Typography,
 } from "@/components/design-system";
+import type { Metadata } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Design System",
   description:
-    "Bappa Ayurveda design system — tokens, components, and guidelines.",
+    "Bappa Ayurveda design system: tokens, components, and guidelines.",
 };
 
 export default function DesignSystemPage() {

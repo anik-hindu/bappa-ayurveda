@@ -1,6 +1,12 @@
 import { Badge } from "@/components/ui/";
 import { SparklesIcon } from "@heroicons/react/24/outline";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Homepage | Bappa Ayurveda",
+};
+
 export default function HomePage() {
   return (
     <main className="flex min-h-screen items-center justify-center">

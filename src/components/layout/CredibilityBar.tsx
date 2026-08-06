@@ -39,8 +39,11 @@ export default function CredibilityBar() {
             key={label}
             className="flex flex-col items-center gap-4 sm:flex-row"
           >
-            <div className="flex items-center justify-center gap-2 px-4">
-              <Icon className="size-4 text-text-accent" aria-hidden="true" />
+            <div className="inline-flex items-center gap-2 rounded-badge border border-border-subtle bg-white/5 px-4 py-2 backdrop-blur-sm">
+              <Icon
+                className="size-4 shrink-0 text-text-accent"
+                aria-hidden="true"
+              />
 
               <span className="font-body text-caption font-medium tracking-wider text-text-inverse uppercase">
                 {label}
