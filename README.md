@@ -129,11 +129,13 @@ src/
 The CMS Studio is embedded at `/studio`. Founders can log in and manage content without touching code.
 
 **Content types:**
+
 - **Blog Post** — title, slug, author, category, image, excerpt, body, published date
 - **Author** — name, slug, photo, role, bio, LinkedIn
 - **Category** — title, slug, description
 
 **To publish a blog post:**
+
 1. Go to `bappa-ayurveda.vercel.app/studio`
 2. Click **Blog Post → Create**
 3. Fill in all fields
@@ -158,10 +160,10 @@ Preview deployments are created automatically for every push to `dev`.
 
 ## Branch Strategy
 
-| Branch | Purpose |
-|---|---|
+| Branch | Purpose                             |
+| ------ | ----------------------------------- |
 | `main` | Production — auto-deploys to Vercel |
-| `dev` | Daily development work |
+| `dev`  | Daily development work              |
 
 ```bash
 # Start working
@@ -190,12 +192,12 @@ Full documentation at `/playground`. Covers:
 
 ## 4-Week Delivery Plan
 
-| Week | Focus | Status |
-|---|---|---|
-| Week 1 | Foundation, design system, CMS, components | ✅ Complete |
-| Week 2 | Homepage — all sections | 🔄 In progress |
-| Week 3 | Blog system — listing, posts, authors, SEO | ⏳ Upcoming |
-| Week 4 | Polish, testing, deployment, handover | ⏳ Upcoming |
+| Week   | Focus                                      | Status         |
+| ------ | ------------------------------------------ | -------------- |
+| Week 1 | Foundation, design system, CMS, components | ✅ Complete    |
+| Week 2 | Homepage — all sections                    | 🔄 In progress |
+| Week 3 | Blog system — listing, posts, authors, SEO | ⏳ Upcoming    |
+| Week 4 | Polish, testing, deployment, handover      | ⏳ Upcoming    |
 
 ---
 
@@ -204,10 +206,10 @@ Full documentation at `/playground`. Covers:
 **SPRTA Ayurenigma Private Limited**  
 Operating as **Bappa Ayurveda**  
 DPIIT Recognition No. DIPP247782  
-AYUSH Licensed · GMP Certified  
+AYUSH Licensed · GMP Certified
 
 **Founder & CEO:** Shivansh Mishra  
-**Website:** [bappaayurveda.com](https://bappaayurveda.com)  
+**Website:** [bappaayurveda.com](https://bappaayurveda.com)
 
 ---
 
