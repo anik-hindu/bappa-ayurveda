@@ -50,3 +50,12 @@ export type Post = {
   body: PortableTextBlock[]
   likes?: number
 }
+
+
+// NavLink
+
+export type NavLink = {
+  label: string;
+  href: string;
+  external?: boolean;
+}
