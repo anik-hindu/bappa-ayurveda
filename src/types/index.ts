@@ -1,5 +1,6 @@
 import { PortableTextBlock } from "@portabletext/types";
 import { ImageCrop, ImageHotspot } from "@sanity/types";
+import type { StaticImageData } from "next/image";
 
 // Sanity Base
 
@@ -39,18 +40,17 @@ export type Category = {
 };
 
 export type Post = {
-  _id: string
-  title: string
-  slug: SanitySlug
-  author: Author
-  category: Category
-  mainImage: SanityImage
-  excerpt: string
-  publishedAt: string
-  body: PortableTextBlock[]
-  likes?: number
-}
-
+  _id: string;
+  title: string;
+  slug: SanitySlug;
+  author: Author;
+  category: Category;
+  mainImage: SanityImage;
+  excerpt: string;
+  publishedAt: string;
+  body: PortableTextBlock[];
+  likes?: number;
+};
 
 // NavLink
 
@@ -58,4 +58,12 @@ export type NavLink = {
   label: string;
   href: string;
   external?: boolean;
-}
+};
+
+// Credibility Bar types
+
+export type CredibilityItem = {
+  label: string;
+  description: string;
+  img: StaticImageData;
+};

@@ -1,10 +1,10 @@
 import { cn } from "@/lib/cn";
-import type { ReactNode } from "react";
+import type { HTMLAttributes, ReactNode } from "react";
 
 type SectionBackground = "page" | "surface" | "inverse";
 type SectionSpacing = "sm" | "md" | "lg";
 
-interface SectionProps {
+interface SectionProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
   container?: boolean;
   id?: string;
@@ -32,6 +32,7 @@ export default function Section({
   background = "page",
   padding = "md",
   className = "",
+  ...props
 }: SectionProps) {
   return (
     <section
@@ -41,6 +42,7 @@ export default function Section({
         backgrounds[background],
         spacings[padding],
         className,
+        { ...props },
       )}
     >
       {container ? <div className="container-page">{children}</div> : children}

@@ -1,4 +1,3 @@
-import { CredibilityBar } from "@/components/layout";
 import { Section } from "@/components/ui";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
@@ -31,8 +30,6 @@ const footerLinks = {
 export default function Footer() {
   return (
     <footer className="bg-bg-inverse text-text-inverse" role="contentinfo">
-      <CredibilityBar />
-
       {/* Main Footer */}
       <Section padding="sm" background="inverse">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4">

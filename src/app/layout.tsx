@@ -1,4 +1,9 @@
-import { Footer, Navbar, ScrollToTop } from "@/components/layout";
+import {
+  CredibilityBar,
+  Footer,
+  Navbar,
+  ScrollToTop,
+} from "@/components/layout";
 import "@/styles/globals.css";
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
@@ -63,6 +68,7 @@ export default function RootLayout({
         </Link>
         <Navbar />
         {children}
+        <CredibilityBar />
         <Footer />
         <ScrollToTop />
       </body>

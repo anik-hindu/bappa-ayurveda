@@ -1,5 +1,6 @@
 "use client";
 
+import AnnouncementBar from "@/components/home/AnnouncementBar";
 import { Button } from "@/components/ui";
 import { navLinks } from "@/data/links";
 import useScrolled from "@/hooks/useScrolled";
@@ -9,7 +10,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import AnnouncementBar from "./AnnouncementBar";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -41,7 +41,7 @@ export default function Navbar() {
 
   return (
     <>
-      {pathname === "/" && <AnnouncementBar />}
+      {isActiveLink("/") && <AnnouncementBar />}
       <header
         className={cn(
           "sticky top-0 z-(--z-navbar)",

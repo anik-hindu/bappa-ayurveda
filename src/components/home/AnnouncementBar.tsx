@@ -55,7 +55,8 @@ export default function AnnouncementBar() {
   };
 
   return (
-    <aside
+    <div
+      role="region"
       aria-label="PIE announcement"
       className="bg-bg-inverse text-text-inverse"
       onMouseEnter={() => setIsPaused(true)}
@@ -166,6 +167,6 @@ export default function AnnouncementBar() {
           </div>
         </div>
       </div>
-    </aside>
+    </div>
   );
 }
