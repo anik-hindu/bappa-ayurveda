@@ -49,7 +49,6 @@ export type Post = {
   excerpt: string;
   publishedAt: string;
   body: PortableTextBlock[];
-  likes?: number;
 };
 
 // NavLink

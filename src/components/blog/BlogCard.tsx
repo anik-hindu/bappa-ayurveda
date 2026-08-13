@@ -18,6 +18,7 @@ export default function BlogCard({
   priority = false,
   className,
 }: BlogCardProps) {
+
   const imageUrl = post.mainImage
     ? urlFor(post.mainImage).width(600).height(400).url()
     : null;
@@ -48,7 +49,7 @@ export default function BlogCard({
               fill
               priority={priority}
               sizes="(max-width:768px)100vw,(max-width:1024px)50vw,33vw"
-              className="duration-(--duration-slow) object-cover transition-transform group-hover:scale-105"
+              className="object-cover transition-transform duration-(--duration-slow) group-hover:scale-105"
             />
           </div>
         ) : (

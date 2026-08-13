@@ -9,19 +9,12 @@ import { schema } from "./src/sanity/schemaTypes";
 import { structure } from "./src/sanity/structure";
 
 export default defineConfig({
-  // Studio
   name: "bappa-ayurveda",
   title: "Bappa Ayurveda CMS",
   basePath: "/studio",
-
-  // Project
   projectId,
   dataset,
-
-  // Schema
   schema,
-
-  // Plugins
   plugins: [
     structureTool({ structure }),
 

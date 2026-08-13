@@ -1,3 +1,4 @@
+import BlogList from "@/components/blog/BlogList";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -12,11 +13,7 @@ export default function HomePage() {
       tabIndex={-1}
     >
       <div className="space-y-4 text-center">
-        <h1 className="text-5xl font-bold">Bappa Ayurveda</h1>
-        <p className="text-dark/70 text-lg">
-          Foundation Sprint : <strong>Completed</strong>
-        </p>
-        <div className="bg-accent mx-auto h-px w-16" />
+        <BlogList />
       </div>
     </main>
   );

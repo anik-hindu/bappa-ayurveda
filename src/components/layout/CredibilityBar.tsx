@@ -17,6 +17,7 @@ function CredibilityItem({ label, description, img }: CredibilityItemProps) {
         "px-4 py-4",
         "md:px-6 md:py-2",
         "lg:px-8",
+        "border-b border-border-subtle sm:border-b-0",
       )}
     >
       <div
@@ -59,19 +60,18 @@ export default function CredibilityBar() {
       background="surface"
       className="border-y border-border-default"
     >
-      <h3 className="text-center">
+      <p className="mb-5 text-center font-display text-sub text-text-primary">
         Trusted by Authorities. Chosen by Thousands.
-      </h3>
+      </p>
 
       <ul
         role="list"
         aria-label="Bappa Ayurveda credibility and availability"
         className={cn(
-          "mt-5 grid grid-cols-2 gap-2",
-          "sm:flex sm:flex-wrap sm:gap-4",
+          "mt-5 grid grid-cols-2",
+          "gap-4 sm:flex sm:flex-wrap",
           "sm:items-center sm:justify-center",
-          "divide-y divide-border-subtle",
-          "sm:divide-x sm:divide-y-0 sm:divide-border-default",
+          "sm:divide-x sm:divide-border-default",
         )}
       >
         {credibilityItems.map((item) => (
