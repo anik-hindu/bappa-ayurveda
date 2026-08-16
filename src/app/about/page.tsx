@@ -1,5 +1,10 @@
 import { Button, Section } from "@/components/ui";
 import { cn } from "@/lib/cn";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About",
+};
 
 const principles = [
   {
@@ -34,7 +39,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-4xl text-center">
           <p
             className={cn(
-              "font-body text-label font-semibold",
+              "text-label font-semibold",
               "tracking-wider uppercase",
               "text-text-primary",
             )}
@@ -42,7 +47,7 @@ export default function AboutPage() {
             About Bappa Ayurveda
           </p>
 
-          <h1 id="about-heading" className="mt-4 text-text-primary">
+          <h1 id="about-heading" className="mt-4">
             Classical Roots.
             <br />
             Clinical Credibility.
@@ -51,8 +56,7 @@ export default function AboutPage() {
           <p
             className={cn(
               "mx-auto mt-6 max-w-2xl",
-              "font-body text-body-lg leading-relaxed",
-              "text-text-body",
+              "text-body-lg leading-relaxed",
             )}
           >
             A clinically serious Ayurvedic company built to respect both ancient
@@ -69,11 +73,11 @@ export default function AboutPage() {
       >
         <div className="mx-auto max-w-4xl">
           <div className="max-w-2xl">
-            <p className="font-body text-label font-semibold tracking-wider text-text-primary uppercase">
+            <p className="text-label font-semibold tracking-wider text-text-primary uppercase">
               The Founding Story
             </p>
 
-            <h2 id="founding-story-heading" className="mt-3 text-text-primary">
+            <h2 id="founding-story-heading" className="mt-3">
               Why Bappa Ayurveda exists.
             </h2>
           </div>
@@ -82,8 +86,7 @@ export default function AboutPage() {
             className={cn(
               "mt-10 max-w-3xl",
               "space-y-6",
-              "font-body text-body-lg leading-relaxed",
-              "text-text-body",
+              "text-body-lg leading-relaxed",
             )}
           >
             <p>
@@ -261,7 +264,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <Button href="https://amzn.in/d/0irbMWo1" external size="lg">
+          <Button href="https://amzn.in/d/0irbMWo1" external>
             Explore SHUKRAVITA
           </Button>
         </div>

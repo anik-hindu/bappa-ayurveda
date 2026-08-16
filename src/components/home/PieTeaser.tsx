@@ -4,28 +4,23 @@ import { Button, Section } from "@/components/ui";
 import { pie } from "@/data/pie";
 import { cn } from "@/lib/cn";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 
 export default function PieTeaser() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event) {
     event.preventDefault();
 
     if (!email.trim()) return;
 
-    // TODO: Connect to the approved waitlist backend.
+    // TODO: Connect to the waitlist backend.
     setSubmitted(true);
   }
 
   return (
-    <Section
-      id="pie"
-      background="page"
-      padding="lg"
-      aria-labelledby="pie-heading"
-    >
+    <Section background="page" padding="lg" aria-labelledby="pie-heading">
       <div
         className={cn(
           "relative overflow-hidden",
@@ -73,12 +68,7 @@ export default function PieTeaser() {
           </span>
 
           {/* Headline */}
-          <h2
-            id="pie-heading"
-            className={cn("mt-6", "text-balance", "text-text-primary")}
-          >
-            {pie.headline}
-          </h2>
+          <h2 className="mt-6">{pie.headline}</h2>
 
           {/* Product name */}
           <p
