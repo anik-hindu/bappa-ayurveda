@@ -136,7 +136,7 @@ export default function AboutPage() {
           >
             <p
               className={cn(
-                "sm:text-heading-3 font-display text-sub",
+                "font-display text-sub sm:text-sub",
                 "leading-relaxed text-text-primary",
               )}
             >

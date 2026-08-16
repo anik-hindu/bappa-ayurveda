@@ -1,5 +1,6 @@
 import BrandStory from "@/components/home/BrandStory";
 import { Hero } from "@/components/home/Hero";
+import Product from "@/components/home/Product";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,6 +16,7 @@ export default function HomePage() {
     >
       <Hero />
       <BrandStory />
+      <Product />
     </main>
   );
 }
