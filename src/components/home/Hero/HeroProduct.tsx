@@ -3,34 +3,21 @@ import { cn } from "@/lib/cn";
 
 import Image from "next/image";
 
-export default function ProductImage() {
+export default function HeroProduct() {
   return (
     <div
       className={cn(
-        "relative isolate",
-        "flex items-center justify-center",
+        "relative",
+        "flex items-center justify-center self-start",
         "order-first md:order-last",
       )}
-      aria-hidden="false"
     >
-      {/* Subtle decorative ring */}
-      <div
-        className={cn(
-          "absolute inset-0 m-auto",
-          "aspect-square w-[85%]",
-          "rounded-full",
-          "bg-bg-surface",
-          "opacity-60",
-        )}
-        aria-hidden="true"
-      />
-
       {/* Product image */}
       <div
         className={cn(
           "relative z-10",
-          "w-full max-w-xs md:max-w-sm lg:max-w-md",
-          "aspect-square bg-bg-surface",
+          "w-full max-w-70 sm:max-w-85 lg:max-w-110",
+          "aspect-square",
         )}
       >
         <Image
@@ -41,8 +28,8 @@ export default function ProductImage() {
           fetchPriority="high"
           className={cn(
             "object-contain",
-            "mix-blend-multiply",
             "motion-safe:animate-[fadeInUp_0.6s_ease_0.2s_both]",
+            "h-full w-full",
           )}
           sizes="(max-width: 640px) 80vw,
                  (max-width: 1024px) 45vw,

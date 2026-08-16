@@ -18,12 +18,12 @@ export default function HeroCTAs() {
       </Button>
 
       <Button
-        href="/quiz"
+        href="/#about"
         variant="secondary"
         size="lg"
         className="w-full sm:w-auto"
       >
-        Take Health Quiz
+        Discover Our Story
       </Button>
     </div>
   );

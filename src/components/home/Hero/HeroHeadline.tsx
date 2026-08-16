@@ -17,12 +17,12 @@ export default function HeroHeadline() {
       <p
         className={cn(
           "font-body text-body-lg text-text-muted",
-          "max-w-[52ch]", 
+          "max-w-[52ch]",
           "leading-relaxed",
         )}
       >
-        Authentic Ayurvedic solutions crafted with natural ingredients to
-        support your health, naturally.
+        Classical Ayurvedic formulations, thoughtfully crafted for modern life
+        and held to modern standards.
       </p>
     </div>
   );

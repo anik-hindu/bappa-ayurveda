@@ -5,20 +5,13 @@ import Image from "next/image";
 export default function TrustBar({ items }: { items: TrustItem[] }) {
   return (
     <div className={cn("border-t border-border-subtle", "pt-6 md:pt-8")}>
-      <p
-        className={cn(
-          "mb-3",
-          "font-body text-label font-semibold",
-          "tracking-wider text-text-muted uppercase",
-        )}
-      >
-        Recognised & Available
-      </p>
-
       <ul
         role="list"
         aria-label="Certifications and availability"
-        className={cn("flex flex-wrap items-center", "gap-x-5 gap-y-3")}
+        className={cn(
+          "flex flex-wrap items-center justify-center",
+          "gap-x-5 gap-y-3",
+        )}
       >
         {items.map((item, index) => (
           <li key={item.label} className="flex items-center gap-3">

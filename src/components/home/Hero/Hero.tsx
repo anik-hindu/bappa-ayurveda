@@ -6,27 +6,18 @@ import {
   HeroCTAs,
   HeroEyebrow,
   HeroHeadline,
-  ProductImage,
+  HeroProduct,
   TrustBar,
 } from "@/components/home/Hero";
 
 export default function Hero() {
   return (
     <Section
-      id="hero"
       background="page"
       padding="sm"
       aria-label="Hero — Bappa Ayurveda"
       className={cn("relative overflow-hidden", "flex items-center")}
     >
-      {/* Background accent — decorative */}
-      <div
-        className={cn(
-          "pointer-events-none absolute inset-0",
-          "bg-[radial-gradient(ellipse_80%_50%_at_70%_40%,rgba(44,74,62,0.04),transparent)]",
-        )}
-        aria-hidden="true"
-      />
 
       <div
         className={cn(
@@ -49,7 +40,7 @@ export default function Hero() {
           <TrustBar items={trustItems} />
         </div>
 
-        <ProductImage />
+        <HeroProduct />
       </div>
     </Section>
   );

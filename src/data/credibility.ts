@@ -38,6 +38,4 @@ export const trustItems: TrustItem[] = [
   { label: "DPIIT Recognized", img: dpiitLogo },
   { label: "AYUSH Licensed", img: ayushLogo },
   { label: "GMP Certified", img: gmpLogo },
-  { label: "Available on Amazon", img: amazonLogo },
-  { label: "Available on Flipkart", img: flipkartLogo },
 ];

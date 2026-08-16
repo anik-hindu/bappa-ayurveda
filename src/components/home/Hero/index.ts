@@ -1,6 +1,6 @@
 export { default as HeroCTAs } from "./HeroCTAs"
 export { default as HeroEyebrow } from "./HeroEyebrow"
 export { default as HeroHeadline } from "./HeroHeadline"
-export { default as ProductImage } from "./ProductImage"
+export { default as HeroProduct } from "./HeroProduct"
 export { default as TrustBar } from "./TrustBar"
 export { default as Hero } from "./Hero"
