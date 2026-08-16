@@ -1,5 +1,6 @@
 import BrandStory from "@/components/home/BrandStory";
 import { Hero } from "@/components/home/Hero";
+import PieTeaser from "@/components/home/PieTeaser";
 import Product from "@/components/home/Product";
 import type { Metadata } from "next";
 
@@ -17,6 +18,7 @@ export default function HomePage() {
       <Hero />
       <BrandStory />
       <Product />
+      <PieTeaser />
     </main>
   );
 }
