@@ -66,3 +66,9 @@ export type CredibilityItem = {
   description: string;
   img: StaticImageData;
 };
+
+// Hero Types
+export type TrustItem = {
+  label: string;
+  img: StaticImageData;
+};
