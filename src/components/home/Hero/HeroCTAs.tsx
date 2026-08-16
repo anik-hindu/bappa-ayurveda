@@ -18,7 +18,7 @@ export default function HeroCTAs() {
       </Button>
 
       <Button
-        href="/#about"
+        href="/about"
         variant="secondary"
         size="lg"
         className="w-full sm:w-auto"
