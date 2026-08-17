@@ -63,13 +63,7 @@ export default async function BlogPreview() {
       </div>
 
       {/* Posts */}
-      <div
-        className={cn(
-          "mt-10 grid gap-6 md:gap-6 lg:gap-8",
-          "md:grid-cols-2",
-          "lg:grid-cols-3",
-        )}
-      >
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {posts.map((post, index) => (
           <BlogCard key={post._id} post={post} priority={index === 0} />
         ))}
