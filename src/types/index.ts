@@ -6,7 +6,7 @@ import type { StaticImageData } from "next/image";
 
 export type SanityImage = {
   _type: "image";
-  asset: {
+  asset?: {
     _ref: string;
     _type: "reference";
   };

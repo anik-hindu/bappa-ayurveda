@@ -1,3 +1,4 @@
+import BlogPreview from "@/components/home/BlogPreview";
 import BrandStory from "@/components/home/BrandStory";
 import { Hero } from "@/components/home/Hero";
 import PieTeaser from "@/components/home/PieTeaser";
@@ -19,6 +20,7 @@ export default function HomePage() {
       <BrandStory />
       <Product />
       <PieTeaser />
+      <BlogPreview />
     </main>
   );
 }

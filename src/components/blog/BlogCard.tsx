@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Badge } from "@/components/ui/";
+import { Badge } from "@/components/ui";
 import { estimateReadTime, formatDate } from "@/lib/blog";
 import { cn } from "@/lib/cn";
 import { urlFor } from "@/sanity/lib/image";
@@ -18,9 +18,8 @@ export default function BlogCard({
   priority = false,
   className,
 }: BlogCardProps) {
-
-  const imageUrl = post.mainImage
-    ? urlFor(post.mainImage).width(600).height(400).url()
+  const imageUrl = post.mainImage?.asset?._ref
+    ? urlFor(post.mainImage).width(800).height(533).url()
     : null;
 
   const readTime = estimateReadTime(post.body);
@@ -30,59 +29,134 @@ export default function BlogCard({
     <article className={cn("group h-full", className)}>
       <Link
         href={`/blog/${post.slug.current}`}
-        aria-label={`Read "${post.title}"`}
+        aria-label={`Read article: ${post.title}`}
         className={cn(
-          "flex h-full flex-col overflow-hidden rounded-card",
+          "flex h-full flex-col overflow-hidden",
+          "rounded-card",
           "border border-border-default",
           "bg-bg-page",
-          "shadow-card",
-          "transition-all duration-(--duration-normal)",
-          "hover:-translate-y-1 hover:border-border-accent hover:shadow-hover",
-          "focus-visible:ring-2 focus-visible:ring-border-accent focus-visible:ring-offset-2 focus-visible:outline-none",
+
+          // Interaction
+          "transition-[transform,border-color,box-shadow]",
+          "duration-(--duration-normal)",
+          "hover:-translate-y-0.5",
+          "hover:border-border-accent",
+          "hover:shadow-card",
+
+          // Keyboard accessibility
+          "focus-visible:outline-none",
+          "focus-visible:ring-2",
+          "focus-visible:ring-border-accent",
+          "focus-visible:ring-offset-2",
         )}
       >
-        {imageUrl ? (
-          <div className="relative aspect-3/2 overflow-hidden">
+        {/* Image */}
+        <div className="relative aspect-3/2 overflow-hidden bg-bg-surface">
+          {imageUrl ? (
             <Image
               src={imageUrl}
               alt={post.mainImage?.alt || post.title}
               fill
               priority={priority}
-              sizes="(max-width:768px)100vw,(max-width:1024px)50vw,33vw"
-              className="object-cover transition-transform duration-(--duration-slow) group-hover:scale-105"
+              sizes="
+                (max-width: 767px) 100vw,
+                (max-width: 1023px) 50vw,
+                33vw
+              "
+              className={cn(
+                "object-cover",
+                "transition-transform duration-(--duration-slow)",
+                "group-hover:scale-[1.03]",
+              )}
             />
-          </div>
-        ) : (
-          <div className="aspect-3/2 bg-bg-surface" />
-        )}
+          ) : (
+            <div
+              className={cn(
+                "flex size-full items-center justify-center",
+                "bg-bg-surface",
+              )}
+              aria-hidden="true"
+            >
+              <span
+                className={cn(
+                  "font-display text-sub italic",
+                  "text-text-muted",
+                )}
+              >
+                Bappa Ayurveda
+              </span>
+            </div>
+          )}
+        </div>
 
-        <div className="flex flex-1 flex-col gap-4 p-6">
-          <div className="flex items-center justify-between gap-3">
+        {/* Content */}
+        <div className="flex flex-1 flex-col p-6">
+          {/* Metadata */}
+          <div className="flex items-center gap-3">
             {post.category?.name && (
-              <Badge variant="accent">{post.category.name}</Badge>
+              <>
+                <Badge variant="accent">{post.category.name}</Badge>
+
+                <span
+                  className="size-1 rounded-full bg-border-default"
+                  aria-hidden="true"
+                />
+              </>
             )}
 
-            <span className="text-caption whitespace-nowrap text-text-muted">
+            <span className="font-body text-caption text-text-muted">
               {readTime} min read
             </span>
           </div>
 
-          <h3 className="transition-colors group-hover:text-text-accent">
+          {/* Title */}
+          <h3
+            className={cn(
+              "mt-4",
+              "text-text-primary",
+              "transition-colors duration-(--duration-fast)",
+              "group-hover:text-text-accent",
+            )}
+          >
             {post.title}
           </h3>
 
+          {/* Excerpt */}
           {post.excerpt && (
-            <p className="line-clamp-3 text-text-muted">{post.excerpt}</p>
+            <p
+              className={cn(
+                "mt-3",
+                "line-clamp-3",
+                "font-body text-body leading-relaxed",
+                "text-text-muted",
+              )}
+            >
+              {post.excerpt}
+            </p>
           )}
 
-          <div className="mt-auto flex items-center justify-between border-t border-border-subtle pt-4">
-            <span className="text-caption font-medium text-text-primary">
+          {/* Footer metadata */}
+          <div
+            className={cn(
+              "mt-auto pt-5",
+              "flex items-center justify-between gap-4",
+              "border-t border-border-subtle",
+              "mt-6",
+            )}
+          >
+            <span
+              className={cn(
+                "min-w-0 truncate",
+                "font-body text-caption font-medium",
+                "text-text-primary",
+              )}
+            >
               {post.author?.name ?? "Bappa Ayurveda"}
             </span>
 
             <time
               dateTime={post.publishedAt}
-              className="text-caption text-text-muted"
+              className="shrink-0 font-body text-caption text-text-muted"
             >
               {formattedDate}
             </time>
