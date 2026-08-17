@@ -1,3 +1,4 @@
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -222,14 +223,11 @@ export default function BlogCard({
             <span
               aria-hidden="true"
               className={cn(
-                "ml-auto",
-                "text-2xl leading-none font-light",
-                "text-text-primary",
-                "transition-transform duration-(--duration-fast)",
-                "group-hover:translate-x-1",
+                "ml-auto text-2xl leading-none font-light text-text-primary",
+                "transition-transform duration-(--duration-fast) group-hover:translate-x-1",
               )}
             >
-              →
+              <ArrowRightIcon className="size-4" />
             </span>
           </div>
         </div>
