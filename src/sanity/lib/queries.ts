@@ -30,7 +30,7 @@ export async function getLatestPosts(count: number = 3): Promise<Post[]> {
       author-> { name, slug },
       category-> { name, slug }
     }`,
-    { count: count - 1 },
+    { count: count },
   );
 }
 
