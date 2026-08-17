@@ -1,23 +1,23 @@
 "use client";
 
-import { Button, Section } from "@/components/ui";
+import { Button, Input, Section } from "@/components/ui";
 import { pie } from "@/data/pie";
 import { cn } from "@/lib/cn";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { SubmitEvent, useState } from "react";
 
 export default function PieTeaser() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  function handleSubmit(event) {
+  const handleSubmit = (event: SubmitEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
     if (!email.trim()) return;
 
     // TODO: Connect to the waitlist backend.
     setSubmitted(true);
-  }
+  };
 
   return (
     <Section background="page" padding="lg" aria-labelledby="pie-heading">
@@ -119,37 +119,23 @@ export default function PieTeaser() {
                 </p>
 
                 <form
+                  aria-live="polite"
                   onSubmit={handleSubmit}
                   className="flex flex-col gap-3 sm:flex-row"
                 >
-                  <label htmlFor="pie-email" className="sr-only">
-                    Email address
-                  </label>
-
-                  <input
-                    id="pie-email"
-                    type="email"
-                    name="email"
-                    value={email}
-                    onChange={(event) => setEmail(event.target.value)}
-                    placeholder={pie.waitlist.placeholder}
-                    autoComplete="email"
-                    required
-                    className={cn(
-                      "min-w-0 flex-1",
-                      "rounded-btn",
-                      "border border-border-default",
-                      "bg-bg-page",
-                      "px-4 py-3",
-                      "font-body text-body",
-                      "text-text-primary",
-                      "placeholder:text-text-muted",
-                      "outline-none",
-                      "transition-colors duration-(--duration-fast)",
-                      "focus:border-border-accent",
-                      "focus:ring-2 focus:ring-border-accent/20",
-                    )}
-                  />
+                  <div className="min-w-0 flex-1">
+                    <Input
+                      label="Email address"
+                      labelHidden
+                      type="email"
+                      name="email"
+                      value={email}
+                      onChange={(event) => setEmail(event.target.value)}
+                      placeholder={pie.waitlist.placeholder}
+                      autoComplete="email"
+                      required
+                    />
+                  </div>
 
                   <Button
                     type="submit"

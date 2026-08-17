@@ -1,11 +1,12 @@
 import { cn } from "@/lib/cn";
 import type { InputHTMLAttributes, ReactNode } from "react";
-import { useId } from "react";
+import { JSX, useId } from "react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: ReactNode;
   hint?: string;
   error?: string;
+  labelHidden?: boolean;
 }
 
 export default function Input({
@@ -13,9 +14,10 @@ export default function Input({
   hint,
   error,
   id,
+  labelHidden,
   className = "",
   ...props
-}: InputProps) {
+}: InputProps): JSX.Element {
   const generatedId = useId();
   const inputId = id ?? generatedId;
   const errorId = error ? `${inputId}-error` : undefined;
@@ -24,8 +26,11 @@ export default function Input({
   return (
     <div className="flex flex-col gap-1.5">
       <label
-        htmlFor={inputId}
-        className="font-body text-caption font-semibold tracking-wider text-text-primary uppercase"
+        className={cn(
+          "font-body text-caption font-semibold tracking-wider",
+          "text-text-primary uppercase",
+          labelHidden && "sr-only",
+        )}
       >
         {label}
         {props.required && (
