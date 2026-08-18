@@ -4,7 +4,7 @@ import { cn } from "@/lib/cn";
 import { CheckIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 
-export default function Product() {
+export default function ProductPreview() {
   return (
     <Section
       id="shukravita"

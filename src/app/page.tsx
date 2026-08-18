@@ -1,12 +1,14 @@
-import BlogPreview from "@/components/home/BlogPreview";
-import BrandStory from "@/components/home/BrandStory";
-import { Hero } from "@/components/home/Hero";
-import PieTeaser from "@/components/home/PieTeaser";
-import Product from "@/components/home/Product";
+import {
+  BlogPreview,
+  BrandStory,
+  Hero,
+  PieTeaser,
+  ProductPreview,
+} from "@/components/home/";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Homepage | Bappa Ayurveda",
+  title: "Home | Bappa Ayurveda",
 };
 
 export default function HomePage() {
@@ -18,7 +20,7 @@ export default function HomePage() {
     >
       <Hero />
       <BrandStory />
-      <Product />
+      <ProductPreview />
       <PieTeaser />
       <BlogPreview />
     </main>

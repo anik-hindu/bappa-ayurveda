@@ -195,8 +195,8 @@ Full documentation at `/playground`. Covers:
 | Week   | Focus                                      | Status         |
 | ------ | ------------------------------------------ | -------------- |
 | Week 1 | Foundation, design system, CMS, components | ✅ Complete    |
-| Week 2 | Homepage — all sections                    | 🔄 In progress |
-| Week 3 | Blog system — listing, posts, authors, SEO | ⏳ Upcoming    |
+| Week 2 | Homepage — all sections                    | ✅ Complete    |
+| Week 3 | Blog system — listing, posts, authors, SEO | 🔄 In progress |
 | Week 4 | Polish, testing, deployment, handover      | ⏳ Upcoming    |
 
 ---
@@ -216,4 +216,4 @@ AYUSH Licensed · GMP Certified
 ## Developer
 
 **Anik Saha** — Website Development Intern  
-August 1–29, 2025
+August 1–29, 2026
