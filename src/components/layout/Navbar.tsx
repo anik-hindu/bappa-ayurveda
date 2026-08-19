@@ -1,6 +1,6 @@
 "use client";
 
-import AnnouncementBar from "@/components/home/AnnouncementBar";
+import { AnnouncementBar } from "@/components/home/";
 import { Button } from "@/components/ui";
 import { navLinks } from "@/data/links";
 import useScrolled from "@/hooks/useScrolled";
