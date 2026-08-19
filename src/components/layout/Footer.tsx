@@ -1,140 +1,125 @@
 import { Section } from "@/components/ui";
+import { footerLinks } from "@/data/links";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 
-const footerLinks = {
-  navigate: [
-    { label: "Home", href: "/" },
-    { label: "Blog", href: "/blog" },
-    { label: "PIE", href: "/pie" },
-  ],
-  shop: [
-    {
-      label: "SHUKRAVITA on Amazon",
-      href: "https://amzn.in/d/0irbMWo1",
-      external: true,
-    },
-    {
-      label: "SHUKRAVITA on Flipkart",
-      href: "https://dl.flipkart.com/s/SBDbjNuuuN",
-      external: true,
-    },
-  ],
-  legal: [
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Terms of Use", href: "/terms" },
-  ],
-};
+const linkStyles =
+  "inline-flex min-h-9 items-center gap-2 font-body text-caption text-text-inverse/90 transition-colors duration-(--duration-fast) hover:text-text-inverse focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-text-inverse";
+
+const headingStyles =
+  "mb-4 font-body text-label font-semibold tracking-[0.14em] text-text-inverse/80 uppercase";
 
 export default function Footer() {
   return (
     <footer className="bg-bg-inverse text-text-inverse" role="contentinfo">
-      {/* Main Footer */}
       <Section padding="sm" background="inverse">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
-          {/* Brand Column */}
-          <div className="md:col-span-1">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 md:grid-cols-4 md:gap-x-10 md:gap-y-12">
+          {/* Brand */}
+          <div className="col-span-2 md:col-span-1">
             <Link
               href="/"
-              className="mb-4 flex items-center gap-2"
               aria-label="Bappa Ayurveda home"
+              className="group inline-flex items-center gap-3 rounded-card focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-text-inverse"
             >
               <Image
                 src="/images/logo.jpeg"
-                alt="Bappa Ayurveda"
-                width={36}
-                height={36}
-                className="size-9 rounded-card"
+                alt=""
+                width={40}
+                height={40}
+                className="size-10 rounded-card object-cover"
               />
+
               <span className="font-display text-xl text-text-inverse">
                 Bappa Ayurveda
               </span>
             </Link>
-            <p className="max-w-xs font-body text-caption leading-relaxed text-text-inverse/60">
+
+            <p className="mt-5 max-w-sm font-body text-caption leading-relaxed text-text-inverse/75">
               Modernizing classical Ayurveda with scientific validation, modern
               branding, and technology.
             </p>
           </div>
 
-          {/* Navigate Column */}
-          <div>
-            <h3 className="mb-5 font-body text-label font-semibold tracking-widest text-text-inverse/40 uppercase">
+          {/* Navigate */}
+          <nav aria-labelledby="footer-navigate">
+            <h2 id="footer-navigate" className={headingStyles}>
               Navigate
-            </h3>
-            <ul className="space-y-3" role="list">
+            </h2>
+
+            <ul className="space-y-1" role="list">
               {footerLinks.navigate.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="font-body text-caption text-text-inverse/70 transition-colors duration-(--duration-fast) hover:text-text-inverse"
-                  >
+                  <Link href={link.href} className={linkStyles}>
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          {/* Shop Column */}
-          <div>
-            <h3 className="mb-5 font-body text-label font-semibold tracking-widest text-text-inverse/40 uppercase">
+          {/* Shop */}
+          <nav aria-labelledby="footer-shop">
+            <h2 id="footer-shop" className={headingStyles}>
               Shop
-            </h3>
-            <ul className="space-y-3" role="list">
+            </h2>
+
+            <ul className="space-y-1" role="list">
               {footerLinks.shop.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 font-body text-caption text-text-inverse/70 transition-colors duration-(--duration-fast) hover:text-text-inverse"
+                    className={linkStyles}
+                    aria-label={`${link.label} (opens in a new tab)`}
                   >
-                    {link.label}
-                    <ArrowTopRightOnSquareIcon className="size-3" aria-hidden />
+                    <span>{link.label}</span>
+
+                    <ArrowTopRightOnSquareIcon
+                      className="size-3.5 shrink-0 text-text-inverse/60"
+                      aria-hidden="true"
+                    />
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          {/* Legal Column */}
-          <div>
-            <h3 className="mb-5 font-body text-label font-semibold tracking-widest text-text-inverse/40 uppercase">
+          {/* Legal */}
+          <nav aria-labelledby="footer-legal">
+            <h2 id="footer-legal" className={headingStyles}>
               Legal
-            </h3>
-            <ul className="space-y-3" role="list">
+            </h2>
+
+            <ul className="space-y-1" role="list">
               {footerLinks.legal.map((link) => (
                 <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    className="font-body text-caption text-text-inverse/70 transition-colors duration-(--duration=fast) hover:text-text-inverse"
-                  >
+                  <Link href={link.href} className={linkStyles}>
                     {link.label}
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
         </div>
       </Section>
 
       {/* Bottom Bar */}
-      <Section
-        background="inverse"
-        padding="sm"
-        className="border-t border-[rgba(247,243,237,0.08)]"
-      >
-        <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-          <p className="text-center sm:text-left text-caption text-text-inverse/40">
-            &copy; {new Date().getFullYear()} SPRTA Ayurenigma Private Limited.
-            All rights reserved.
-          </p>
-          <p className="font-body text-caption text-text-inverse/40">
-            DPIIT Recognition No. DIPP247782
-          </p>
-        </div>
-      </Section>
+      <div className="border-t border-[rgba(247,243,237,0.12)]">
+        <Section background="inverse" padding="sm">
+          <div className="text-center flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <p className="font-body text-caption text-text-inverse/70">
+              &copy; {new Date().getFullYear()} SPRTA Ayurenigma Private
+              Limited. All rights reserved.
+            </p>
+
+            <p className="font-body text-caption text-text-inverse/55">
+              DPIIT Recognition No. DIPP247782
+            </p>
+          </div>
+        </Section>
+      </div>
     </footer>
   );
 }
