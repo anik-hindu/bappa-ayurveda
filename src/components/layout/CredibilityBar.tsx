@@ -1,7 +1,10 @@
+"use client";
+
 import { Section } from "@/components/ui";
 import { credibilityItems } from "@/data/credibility";
 import { cn } from "@/lib/cn";
-import Image, { StaticImageData } from "next/image";
+import type { StaticImageData } from "next/image";
+import Image from "next/image";
 
 interface CredibilityItemProps {
   label: string;
@@ -11,45 +14,78 @@ interface CredibilityItemProps {
 
 function CredibilityItem({ label, description, img }: CredibilityItemProps) {
   return (
-    <li
-      className={cn(
-        "flex min-w-0 items-center gap-3",
-        "px-4 py-4",
-        "md:px-6 md:py-2",
-        "lg:px-8",
-        "border-b border-border-subtle sm:border-b-0",
-      )}
-    >
+    <li className="shrink-0">
       <div
         className={cn(
-          "flex size-9 shrink-0 items-center justify-center",
-          "md:size-10",
+          "flex items-center gap-3",
+          "px-5 sm:px-7 lg:px-9",
+          "py-2",
+          "border-r border-border-default",
         )}
-        aria-hidden="true"
       >
-        <Image src={img} alt="" className="size-full object-contain" />
-      </div>
-
-      <div className="min-w-0">
-        <p
+        <div
           className={cn(
-            "font-body text-label font-semibold",
-            "text-text-primary",
+            "flex shrink-0 items-center justify-center",
+            "size-11 sm:size-13 lg:size-14",
           )}
+          aria-hidden="true"
         >
-          {label}
-        </p>
+          <Image src={img} alt="" className="size-full object-contain" />
+        </div>
 
-        <p
-          className={cn(
-            "font-body text-caption leading-tight",
-            "text-text-muted",
-          )}
-        >
-          {description}
-        </p>
+        <div className="min-w-0">
+          <p
+            className={cn(
+              "text-label font-semibold",
+              "whitespace-nowrap text-text-primary",
+            )}
+          >
+            {label}
+          </p>
+
+          <p
+            className={cn(
+              "text-label leading-tight",
+              "whitespace-nowrap text-text-muted",
+            )}
+          >
+            {description}
+          </p>
+        </div>
       </div>
     </li>
+  );
+}
+
+function CredibilityTrack() {
+  const items = [...credibilityItems, ...credibilityItems];
+
+  return (
+    <div
+      className={cn(
+        "group relative overflow-hidden",
+        "mask-[linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]",
+      )}
+    >
+      <ul
+        className={cn(
+          "flex w-max list-none items-center",
+          "animate-credibility-marquee",
+          "group-hover:[animation-play-state:paused]",
+          "group-focus-within:[animation-play-state:paused]",
+          "motion-reduce:animate-none",
+        )}
+      >
+        {items.map((item, index) => (
+          <CredibilityItem
+            key={`${item.label}-${index}`}
+            label={item.label}
+            description={item.description}
+            img={item.img}
+          />
+        ))}
+      </ul>
+    </div>
   );
 }
 
@@ -60,29 +96,17 @@ export default function CredibilityBar() {
       background="surface"
       className="border-y border-border-default"
     >
-      <p className="mb-5 text-center font-display text-sub text-text-primary">
-        Trusted by Authorities. Chosen by Thousands.
-      </p>
+      <div className="flex flex-col gap-5 sm:gap-6">
+        <div className="text-center">
+          <h3 className="leading-tight">Trusted by Authorities.</h3>
 
-      <ul
-        role="list"
-        aria-label="Bappa Ayurveda credibility and availability"
-        className={cn(
-          "mt-5 grid grid-cols-2",
-          "gap-4 sm:flex sm:flex-wrap",
-          "sm:items-center sm:justify-center",
-          "sm:divide-x sm:divide-border-default",
-        )}
-      >
-        {credibilityItems.map((item) => (
-          <CredibilityItem
-            key={item.label}
-            label={item.label}
-            description={item.description}
-            img={item.img}
-          />
-        ))}
-      </ul>
+          <h3 className="leading-tight text-text-muted">
+            Chosen by Thousands.
+          </h3>
+        </div>
+
+        <CredibilityTrack />
+      </div>
     </Section>
   );
 }

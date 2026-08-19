@@ -135,6 +135,32 @@
       padding-inline: var(--spacing-page-x-desktop);
     }
   }
+
+  @keyframes credibility-marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .animate-credibility-marquee {
+      animation: credibility-marquee 35s linear infinite;
+    }
+  }
+
+  .animate-credibility-marquee {
+    animation-duration: 35s;
+  }
+
+  @media (max-width: 640px) {
+    .animate-credibility-marquee {
+      animation-duration: 28s;
+    }
+  }
 }
 
 @layer base {
