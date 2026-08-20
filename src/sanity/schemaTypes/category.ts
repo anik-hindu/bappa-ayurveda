@@ -18,12 +18,6 @@ export const category = defineType({
       options: { source: "name" },
       validation: (Rule) => Rule.required(),
     }),
-    defineField({
-      name: "description",
-      title: "Description",
-      type: "text",
-      rows: 2,
-    }),
   ],
   preview: {
     select: { title: "name" },

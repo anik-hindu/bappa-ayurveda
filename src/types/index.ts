@@ -36,7 +36,6 @@ export type Category = {
   _id: string;
   name: string;
   slug: SanitySlug;
-  description?: string;
 };
 
 export type Post = {

@@ -137,8 +137,7 @@ export async function getAllCategories(): Promise<Category[]> {
     *[_type == "category"] | order(title asc) {
       _id,
       name,
-      slug,
-      description
+      slug
     }
   `);
 }
