@@ -17,6 +17,7 @@ function CategoryButtons({ categories }: CategoryButtonsProps) {
 
   const handleClick = (slug: string) => {
     const params = new URLSearchParams(searchParams.toString());
+    params.set("page", "1");
 
     if (slug === "all") {
       params.delete("category");
@@ -44,7 +45,11 @@ function CategoryButtons({ categories }: CategoryButtonsProps) {
             onClick={() => handleClick(category.slug.current)}
             size="sm"
             variant="secondary"
-            className={active === category.slug.current ? "bg-btn-secondary-bg-hover text-btn-secondary-text-hover" : ""}
+            className={
+              active === category.slug.current
+                ? "bg-btn-secondary-bg-hover text-btn-secondary-text-hover"
+                : ""
+            }
           >
             {category.name}
           </Button>

@@ -17,12 +17,13 @@ export default async function BlogListingPage({
   const params = await searchParams;
 
   const category = params.category || "all";
+  const page = Number(params.page) || 1;
 
   return (
     <main>
       <BlogHeader />
       <CategoryFilter />
-      <PostGrid category={category} />
+      <PostGrid category={category} page={page} />
     </main>
   );
 }
