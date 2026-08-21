@@ -7,17 +7,23 @@ export const metadata: Metadata = {
   title: "Blog",
 };
 
+type BlogListingSearchParams = {
+  category?: string;
+  page?: string;
+};
+
 type BlogListingPageProps = {
-  searchParams: Promise<{ [key: string]: string | undefined }>;
+  searchParams: Promise<BlogListingSearchParams>;
 };
 
 export default async function BlogListingPage({
   searchParams,
 }: BlogListingPageProps) {
-  const params = await searchParams;
+  const { category = "all", page: pageParam } = await searchParams;
 
-  const category = params.category || "all";
-  const page = Number(params.page) || 1;
+  const parsedPage = Number(pageParam);
+
+  const page = Number.isInteger(parsedPage) && parsedPage > 0 ? parsedPage : 1;
 
   return (
     <main>
