@@ -8,7 +8,7 @@ import {
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Home | Bappa Ayurveda",
+  title: "Home",
 };
 
 export default function HomePage() {

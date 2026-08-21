@@ -1,9 +1,3 @@
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "CMS | Bappa Ayurveda",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{

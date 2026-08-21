@@ -1,5 +1,13 @@
 {
-  "cSpell.words": ["Bappa", "hotspot", "SHUKRAVITA", "Stylesheet"],
+  "cSpell.words": [
+    "Ayurvedic",
+    "AYUSH",
+    "Bappa",
+    "DPIIT",
+    "hotspot",
+    "SHUKRAVITA",
+    "Stylesheet"
+  ],
   "files.associations": {
     "*.css": "tailwindcss"
   },

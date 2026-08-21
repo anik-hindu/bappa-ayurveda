@@ -4,14 +4,7 @@ import { cn } from "@/lib/cn";
 import { getLatestPosts } from "@/sanity/lib/queries";
 
 export default async function BlogPreview() {
-  let posts = [];
-
-  try {
-    posts = await getLatestPosts();
-  } catch (error) {
-    console.error("BlogPreview fetch failed:", error);
-    return null;
-  }
+  const posts = await getLatestPosts();
 
   if (!posts.length) return null;
 
