@@ -7,42 +7,38 @@ type SectionSpacing = "sm" | "md" | "lg";
 interface SectionProps extends HTMLAttributes<HTMLElement> {
   children: ReactNode;
   container?: boolean;
-  id?: string;
   background?: SectionBackground;
   padding?: SectionSpacing;
-  className?: string;
 }
 
-const backgrounds = {
+const backgrounds: Record<SectionBackground, string> = {
   page: "bg-bg-page",
   surface: "bg-bg-surface",
   inverse: "bg-bg-inverse text-text-inverse",
-} as const;
+};
 
-const spacings = {
+const spacings: Record<SectionSpacing, string> = {
   sm: "py-section-sm-mobile lg:py-section-sm-desktop",
   md: "py-section-md-mobile lg:py-section-md-desktop",
   lg: "py-section-lg-mobile lg:py-section-lg-desktop",
-} as const;
+};
 
 export default function Section({
   children,
   container = true,
-  id,
   background = "page",
   padding = "md",
-  className = "",
+  className,
   ...props
 }: SectionProps) {
   return (
     <section
-      id={id}
+      {...props}
       className={cn(
         "w-full",
         backgrounds[background],
         spacings[padding],
         className,
-        { ...props },
       )}
     >
       {container ? <div className="container-page">{children}</div> : children}

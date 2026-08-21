@@ -31,34 +31,37 @@ export default function BlogCard({
   const authorName = post.author?.name ?? "Bappa Ayurveda";
 
   return (
-    <article className={cn("group h-full", className)}>
+    <article className={cn("group flex h-full", className)}>
       <Link
         href={`/blog/${post.slug.current}`}
-        aria-label={`Read "${post.title}"`}
+        aria-label={`Read ${post.title}`}
         className={cn(
-          "flex h-full flex-col overflow-hidden",
-          "rounded-card",
-          "border border-border-default",
-          "bg-bg-page",
-          "shadow-card",
+          // Layout
+          "flex h-full w-full flex-col overflow-hidden",
 
-          "transition-all duration-(--duration-normal)",
-          "hover:-translate-y-1",
-          "hover:border-border-accent",
-          "hover:shadow-hover",
+          // Surface
+          "rounded-card border border-border-default",
+          "bg-bg-page shadow-card",
 
-          "active:-translate-y-1",
-          "active:border-border-accent",
-          "active:shadow-hover",
+          // Interaction
+          "duration-normal transition-[transform,border-color,box-shadow]",
 
-          "focus-visible:outline-none",
-          "focus-visible:ring-2",
-          "focus-visible:ring-border-accent",
-          "focus-visible:ring-offset-4",
+          // Hover only where hover actually exists
+          "motion-safe:hover:-translate-y-0.5",
+          "motion-safe:hover:border-border-accent",
+          "motion-safe:hover:shadow-hover",
+
+          // Keyboard accessibility
+          "focus-visible:outline-2",
+          "focus-visible:outline-offset-4",
+          "focus-visible:outline-border-accent",
+
+          // Touch
+          "active:scale-[0.99]",
         )}
       >
         {/* Image */}
-        <div className="relative aspect-[16/10] shrink-0 overflow-hidden bg-bg-surface">
+        <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden bg-bg-surface">
           {imageUrl ? (
             <Image
               src={imageUrl}
@@ -66,19 +69,19 @@ export default function BlogCard({
               fill
               priority={priority}
               sizes="
-                (max-width: 767px) 100vw,
+                (max-width: 639px) 100vw,
                 (max-width: 1023px) 50vw,
                 33vw
               "
               className={cn(
                 "object-cover",
-                "transition-transform duration-(--duration-slow)",
-                "group-hover:scale-[1.03]",
+                "motion-safe:duration-slow motion-safe:transition-transform",
+                "motion-safe:group-hover:scale-[1.02]",
               )}
             />
           ) : (
             <div
-              className="flex size-full items-center justify-center"
+              className="flex size-full items-center justify-center px-6"
               aria-hidden="true"
             >
               <span className="font-display text-sub text-text-muted italic">
@@ -90,30 +93,29 @@ export default function BlogCard({
           {/* Read time */}
           <span
             className={cn(
-              "absolute top-4 right-4",
-              "rounded-md",
+              "absolute top-3 right-3 sm:top-4 sm:right-4",
+              "rounded-btn",
               "bg-bg-page/95",
-              "px-3 py-1.5",
-              "font-body text-[0.625rem] font-semibold",
+              "px-2.5 py-1.5 sm:px-3",
+              "font-body text-label font-semibold",
               "tracking-[0.08em] uppercase",
               "text-text-primary",
-              "shadow-sm",
             )}
           >
             {readTime} min read
           </span>
         </div>
 
-        {/* Main content */}
+        {/* Content */}
         <div className="flex flex-1 flex-col">
-          <div className="flex flex-1 flex-col px-6 pt-5">
-            {/* Category + PublishedDate */}
-            <div className="flex min-h-4 items-center gap-2">
+          <div className="flex flex-1 flex-col px-5 pt-5 sm:px-6">
+            {/* Category + date */}
+            <div className="flex min-h-4 flex-wrap items-center gap-x-2 gap-y-1">
               {post.category?.name && (
                 <span
                   className={cn(
-                    "font-body text-[0.625rem] font-semibold",
-                    "tracking-[0.14em] uppercase",
+                    "font-body text-label font-semibold",
+                    "tracking-[0.12em] uppercase",
                     "text-text-accent",
                   )}
                 >
@@ -123,7 +125,7 @@ export default function BlogCard({
 
               {post.category?.name && (
                 <span
-                  className="size-1 rounded-full bg-border-default"
+                  className="size-1 shrink-0 rounded-full bg-border-default"
                   aria-hidden="true"
                 />
               )}
@@ -139,35 +141,32 @@ export default function BlogCard({
             {/* Title */}
             <h3
               className={cn(
-                "mt-4",
-                "line-clamp-2",
-                "min-h-[3.5rem]",
-                "font-display",
-                "text-[1.45rem]",
-                "leading-[1.2]",
-                "font-medium",
-                "tracking-[-0.015em]",
+                "mt-4 line-clamp-2",
+                "min-h-[3.9rem] sm:min-h-[4.2rem]",
+                "font-display text-sub leading-sub",
+                "font-medium tracking-[-0.015em]",
                 "text-text-primary",
-                "transition-colors duration-(--duration-fast)",
-                "group-hover:text-text-accent",
               )}
             >
               {post.title}
             </h3>
 
             {/* Excerpt */}
-            <div className="mt-4 min-h-[4.5rem]">
-              {post.excerpt && (
+            <div className="mt-3 min-h-[4.5rem] sm:mt-4">
+              {post.excerpt ? (
                 <p
                   className={cn(
                     "line-clamp-3",
-                    "font-body text-[0.8125rem]",
-                    "leading-[1.7]",
+                    "font-body text-[0.875rem] leading-relaxed",
                     "text-text-muted",
                   )}
                 >
                   {post.excerpt}
                 </p>
+              ) : (
+                <span className="sr-only">
+                  Read this article to learn more.
+                </span>
               )}
             </div>
           </div>
@@ -177,13 +176,13 @@ export default function BlogCard({
             className={cn(
               "mt-5 flex items-center",
               "border-t border-border-subtle",
-              "px-6 py-4",
+              "px-5 py-4 sm:px-6",
             )}
           >
             {/* Avatar */}
             <div
               className={cn(
-                "relative size-9 shrink-0",
+                "relative size-8 shrink-0 sm:size-9",
                 "overflow-hidden rounded-full",
                 "bg-bg-surface",
               )}
@@ -205,26 +204,23 @@ export default function BlogCard({
                   )}
                   aria-hidden="true"
                 >
-                  {authorName.charAt(0)}
+                  {authorName.charAt(0).toUpperCase()}
                 </span>
               )}
             </div>
 
             {/* Author */}
-            <div className="ml-3 min-w-0">
-              <p className="truncate font-body text-[0.75rem] font-semibold text-text-primary">
-                {authorName}
-              </p>
-
-              {/* Role */}
-            </div>
+            <p className="ml-3 min-w-0 truncate font-body text-xs font-semibold text-text-primary">
+              {authorName}
+            </p>
 
             {/* Arrow */}
             <span
               aria-hidden="true"
               className={cn(
-                "ml-auto text-2xl leading-none font-light text-text-primary",
-                "transition-transform duration-(--duration-fast) group-hover:translate-x-1",
+                "ml-auto shrink-0 text-text-primary",
+                "motion-safe:duration-fast motion-safe:transition-transform",
+                "motion-safe:group-hover:translate-x-1",
               )}
             >
               <ArrowRightIcon className="size-4" />

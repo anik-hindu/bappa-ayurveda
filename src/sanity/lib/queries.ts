@@ -3,6 +3,66 @@ import { Author, Category, Post } from "@/types/index";
 import { CACHE_TAGS } from "./cache-tags";
 
 // Posts
+type PaginatedPostsResult = {
+  posts: Post[];
+  total: number;
+};
+
+type GetPaginatedPostsParams = {
+  category: string;
+  page: number;
+  pageSize: number;
+};
+
+export async function getPaginatedPosts({
+  category,
+  page,
+  pageSize,
+}: GetPaginatedPostsParams): Promise<PaginatedPostsResult> {
+  const start = (page - 1) * pageSize;
+  const end = start + pageSize;
+
+  const categoryFilter =
+    category === "all"
+      ? `_type == "post"`
+      : `_type == "post" && category->slug.current == $category`;
+
+  return client.fetch(
+    `{
+      "posts": *[${categoryFilter}]
+        | order(publishedAt desc)
+        [${start}...${end}] {
+          _id,
+          title,
+          slug,
+          excerpt,
+          body,
+          mainImage,
+          publishedAt,
+          author-> {
+            _id,
+            name,
+            slug,
+            image,
+            role
+          },
+          category-> {
+            _id,
+            name,
+            slug
+          }
+        },
+
+      "total": count(*[${categoryFilter}])
+    }`,
+    category === "all" ? {} : { category },
+    {
+      next: {
+        tags: [CACHE_TAGS.posts],
+      },
+    },
+  );
+}
 
 export async function getAllPosts(): Promise<Post[]> {
   return client.fetch(
@@ -86,7 +146,7 @@ export async function getPostsByCategory(slug: string): Promise<Post[]> {
     { slug },
     {
       next: {
-        tags: [CACHE_TAGS.categories],
+        tags: [CACHE_TAGS.posts],
       },
     },
   );
