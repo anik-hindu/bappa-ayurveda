@@ -1,10 +1,12 @@
 import { client } from "@/sanity/lib/client";
 import { Author, Category, Post } from "@/types/index";
+import { CACHE_TAGS } from "./cache-tags";
 
 // Posts
 
 export async function getAllPosts(): Promise<Post[]> {
-  return client.fetch(`
+  return client.fetch(
+    `
     *[_type == "post"] | order(publishedAt desc) {
       _id,
       title,
@@ -15,7 +17,14 @@ export async function getAllPosts(): Promise<Post[]> {
       author-> { _id, name, slug, image, role },
       category-> { _id, name, slug }
     }
-  `);
+  `,
+    {},
+    {
+      next: {
+        tags: [CACHE_TAGS.posts],
+      },
+    },
+  );
 }
 
 export async function getLatestPosts(count: number = 3): Promise<Post[]> {
@@ -31,6 +40,11 @@ export async function getLatestPosts(count: number = 3): Promise<Post[]> {
       category-> { name, slug }
     }`,
     { count: count },
+    {
+      next: {
+        tags: [CACHE_TAGS.posts],
+      },
+    },
   );
 }
 
@@ -48,6 +62,11 @@ export async function getPost(slug: string): Promise<Post | null> {
       category-> { _id, name, slug }
     }`,
     { slug },
+    {
+      next: {
+        tags: [CACHE_TAGS.posts],
+      },
+    },
   );
 }
 
@@ -65,6 +84,11 @@ export async function getPostsByCategory(slug: string): Promise<Post[]> {
       category-> { name, slug }
     }`,
     { slug },
+    {
+      next: {
+        tags: [CACHE_TAGS.categories],
+      },
+    },
   );
 }
 
@@ -86,13 +110,19 @@ export async function getRelatedPosts(
       category-> { name, slug }
     }`,
     { categoryId, currentSlug },
+    {
+      next: {
+        tags: [CACHE_TAGS.posts],
+      },
+    },
   );
 }
 
 // Authors
 
 export async function getAllAuthors(): Promise<Author[]> {
-  return client.fetch(`
+  return client.fetch(
+    `
     *[_type == "author"] {
       _id,
       name,
@@ -102,7 +132,14 @@ export async function getAllAuthors(): Promise<Author[]> {
       role,
       linkedIn
     }
-  `);
+  `,
+    {},
+    {
+      next: {
+        tags: [CACHE_TAGS.authors],
+      },
+    },
+  );
 }
 
 export async function getAuthorWithPosts(slug: string) {
@@ -127,40 +164,77 @@ export async function getAuthorWithPosts(slug: string) {
       }
     }`,
     { slug },
+    {
+      next: {
+        tags: [CACHE_TAGS.posts],
+      },
+    },
   );
 }
 
 // Categories
 
 export async function getAllCategories(): Promise<Category[]> {
-  return client.fetch(`
+  return client.fetch(
+    `
     *[_type == "category"] | order(title asc) {
       _id,
       name,
       slug
     }
-  `);
+  `,
+    {},
+    {
+      next: {
+        tags: [CACHE_TAGS.categories],
+      },
+    },
+  );
 }
 
 // Static Params Helpers
 
 export async function getAllPostSlugs() {
-  const posts = await client.fetch<{ slug: { current: string } }[]>(`
+  const posts = await client.fetch<{ slug: { current: string } }[]>(
+    `
     *[_type == "post"] { slug }
-  `);
+  `,
+    {},
+    {
+      next: {
+        tags: [CACHE_TAGS.posts],
+      },
+    },
+  );
   return posts.map((p) => ({ slug: p.slug.current }));
 }
 
 export async function getAllAuthorSlugs() {
-  const authors = await client.fetch<{ slug: { current: string } }[]>(`
+  const authors = await client.fetch<{ slug: { current: string } }[]>(
+    `
     *[_type == "author"] { slug }
-  `);
+  `,
+    {},
+    {
+      next: {
+        tags: [CACHE_TAGS.authors],
+      },
+    },
+  );
   return authors.map((a) => ({ slug: a.slug.current }));
 }
 
 export async function getAllCategorySlugs() {
-  const categories = await client.fetch<{ slug: { current: string } }[]>(`
+  const categories = await client.fetch<{ slug: { current: string } }[]>(
+    `
     *[_type == "category"] { slug }
-  `);
+  `,
+    {},
+    {
+      next: {
+        tags: [CACHE_TAGS.tags],
+      },
+    },
+  );
   return categories.map((c) => ({ slug: c.slug.current }));
 }

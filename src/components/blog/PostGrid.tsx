@@ -8,7 +8,7 @@ type BlogPostsProps = {
   page: number;
 };
 
-const pageSize = 1;
+const pageSize = 2;
 
 async function BlogPosts({ category, page }: BlogPostsProps) {
   let posts = await getPostsByCategory(category);
@@ -32,7 +32,11 @@ async function BlogPosts({ category, page }: BlogPostsProps) {
           <BlogCard key={post._id} post={post} />
         ))}
       </div>
-      <Pagination currentPage={page} totalPages={totalPages} />
+      <Pagination
+        category={category}
+        currentPage={page}
+        totalPages={totalPages}
+      />
     </Section>
   );
 }

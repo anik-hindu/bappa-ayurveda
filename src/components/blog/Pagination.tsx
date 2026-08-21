@@ -3,9 +3,10 @@ import { Button } from "@/components/ui/";
 type PaginationProps = {
   currentPage: number;
   totalPages: number;
+  category: string;
 };
 
-function Pagination({ currentPage, totalPages }: PaginationProps) {
+function Pagination({ currentPage, totalPages, category }: PaginationProps) {
   const pages = Array.from({ length: totalPages }, (_, index) => index + 1);
 
   return (
@@ -26,7 +27,7 @@ function Pagination({ currentPage, totalPages }: PaginationProps) {
         </Button>
       ))}
       {currentPage < totalPages ? (
-        <Button href={`/blog?page=${currentPage + 1}`} size="sm">
+        <Button href={`/blog?page=${currentPage + 1}&category=${category}`} size="sm">
           Next
         </Button>
       ) : null}
