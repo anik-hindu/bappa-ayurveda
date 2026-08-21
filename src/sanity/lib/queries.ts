@@ -93,10 +93,11 @@ export async function getLatestPosts(count: number = 3): Promise<Post[]> {
       _id,
       title,
       slug,
+      body,
       excerpt,
       mainImage,
       publishedAt,
-      author-> { name, slug },
+      author-> { name, slug, image, role },
       category-> { name, slug }
     }`,
     { count: count },
