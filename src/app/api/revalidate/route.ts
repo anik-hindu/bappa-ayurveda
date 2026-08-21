@@ -24,8 +24,6 @@ export async function POST(req: NextRequest) {
     true,
   );
 
-  console.log("Sanity webhook received:", body);
-
   if (!isValidSignature) {
     return NextResponse.json(
       {
@@ -37,20 +35,14 @@ export async function POST(req: NextRequest) {
 
   switch (body?._type) {
     case "post":
-      console.log("Revalidating posts");
-
       revalidateTag("posts", "max");
       break;
 
     case "author":
-      console.log("Revalidating authors");
-
       revalidateTag("authors", "max");
       break;
 
     case "category":
-      console.log("Revalidating categories");
-
       revalidateTag("categories", "max");
       break;
 
