@@ -28,7 +28,9 @@ function CategoryButtons({ categories }: CategoryButtonsProps) {
 
     const queryString = params.toString();
 
-    router.replace(queryString ? `${pathname}?${queryString}` : pathname);
+    router.replace(queryString ? `${pathname}?${queryString}` : pathname, {
+      scroll: false,
+    });
   };
 
   const allCategories = [

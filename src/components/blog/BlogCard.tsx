@@ -28,7 +28,8 @@ export default function BlogCard({
 
   const readTime = estimateReadTime(post.body);
   const formattedDate = formatDate(post.publishedAt);
-  const authorName = post.author?.name ?? "Bappa Ayurveda";
+  const authorName = post.author?.name ?? "Bappa Ayurveda Team";
+  const authorRole = post.author?.role;
 
   return (
     <article className={cn("group flex h-full", className)}>
@@ -36,32 +37,24 @@ export default function BlogCard({
         href={`/blog/${post.slug.current}`}
         aria-label={`Read ${post.title}`}
         className={cn(
-          // Layout
           "flex h-full w-full flex-col overflow-hidden",
-
-          // Surface
           "rounded-card border border-border-default",
           "bg-bg-page shadow-card",
 
-          // Interaction
           "duration-normal transition-[transform,border-color,box-shadow]",
-
-          // Hover only where hover actually exists
           "motion-safe:hover:-translate-y-0.5",
           "motion-safe:hover:border-border-accent",
           "motion-safe:hover:shadow-hover",
 
-          // Keyboard accessibility
           "focus-visible:outline-2",
           "focus-visible:outline-offset-4",
           "focus-visible:outline-border-accent",
 
-          // Touch
           "active:scale-[0.99]",
         )}
       >
         {/* Image */}
-        <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden bg-bg-surface">
+        <div className="relative aspect-16/10 w-full shrink-0 overflow-hidden bg-bg-surface">
           {imageUrl ? (
             <Image
               src={imageUrl}
@@ -93,29 +86,28 @@ export default function BlogCard({
           {/* Read time */}
           <span
             className={cn(
-              "absolute top-3 right-3 sm:top-4 sm:right-4",
+              "absolute top-2.5 right-2.5 sm:top-3 sm:right-3",
               "rounded-btn",
-              "bg-bg-page/95",
-              "px-2.5 py-1.5 sm:px-3",
-              "font-body text-label font-semibold",
-              "tracking-[0.08em] uppercase",
+              "bg-bg-page/90",
+              "px-2 py-1",
+              "font-body text-[0.625rem] font-medium",
               "text-text-primary",
             )}
           >
-            {readTime} min read
+            {readTime} min
           </span>
         </div>
 
         {/* Content */}
         <div className="flex flex-1 flex-col">
-          <div className="flex flex-1 flex-col px-5 pt-5 sm:px-6">
+          <div className="flex flex-1 flex-col px-5 pt-4 sm:px-5">
             {/* Category + date */}
-            <div className="flex min-h-4 flex-wrap items-center gap-x-2 gap-y-1">
+            <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1">
               {post.category?.name && (
                 <span
                   className={cn(
-                    "font-body text-label font-semibold",
-                    "tracking-[0.12em] uppercase",
+                    "font-body text-[0.625rem] font-semibold",
+                    "tracking-widest uppercase",
                     "text-text-accent",
                   )}
                 >
@@ -125,14 +117,14 @@ export default function BlogCard({
 
               {post.category?.name && (
                 <span
-                  className="size-1 shrink-0 rounded-full bg-border-default"
+                  className="size-0.5 shrink-0 rounded-full bg-border-default"
                   aria-hidden="true"
                 />
               )}
 
               <time
                 dateTime={post.publishedAt}
-                className="font-body text-label text-text-muted"
+                className="font-body text-[0.625rem] text-text-muted"
               >
                 {formattedDate}
               </time>
@@ -141,9 +133,9 @@ export default function BlogCard({
             {/* Title */}
             <h3
               className={cn(
-                "mt-4 line-clamp-2",
-                "min-h-[3.9rem] sm:min-h-[4.2rem]",
-                "font-display text-sub leading-sub",
+                "mt-3",
+                "line-clamp-3 min-h-[4.95rem]",
+                "font-display text-[1.375rem] leading-[1.2]",
                 "font-medium tracking-[-0.015em]",
                 "text-text-primary",
               )}
@@ -152,12 +144,12 @@ export default function BlogCard({
             </h3>
 
             {/* Excerpt */}
-            <div className="mt-3 min-h-[4.5rem] sm:mt-4">
+            <div className="mt-2.5 min-h-[3.9rem]">
               {post.excerpt ? (
                 <p
                   className={cn(
                     "line-clamp-3",
-                    "font-body text-[0.875rem] leading-relaxed",
+                    "font-body text-[0.8125rem] leading-[1.6]",
                     "text-text-muted",
                   )}
                 >
@@ -174,15 +166,15 @@ export default function BlogCard({
           {/* Author footer */}
           <div
             className={cn(
-              "mt-5 flex items-center",
+              "mt-4 flex items-center",
               "border-t border-border-subtle",
-              "px-5 py-4 sm:px-6",
+              "px-5 py-3.5",
             )}
           >
             {/* Avatar */}
             <div
               className={cn(
-                "relative size-8 shrink-0 sm:size-9",
+                "relative size-8 shrink-0",
                 "overflow-hidden rounded-full",
                 "bg-bg-surface",
               )}
@@ -192,7 +184,7 @@ export default function BlogCard({
                   src={authorImage}
                   alt=""
                   fill
-                  sizes="36px"
+                  sizes="32px"
                   className="object-cover"
                 />
               ) : (
@@ -210,9 +202,17 @@ export default function BlogCard({
             </div>
 
             {/* Author */}
-            <p className="ml-3 min-w-0 truncate font-body text-xs font-semibold text-text-primary">
-              {authorName}
-            </p>
+            <div className="ml-3 min-w-0">
+              <p className="truncate font-body text-xs leading-tight font-semibold text-text-primary">
+                {authorName}
+              </p>
+
+              {authorRole && (
+                <p className="mt-0.5 truncate font-body text-[0.625rem] leading-tight text-text-muted">
+                  {authorRole}
+                </p>
+              )}
+            </div>
 
             {/* Arrow */}
             <span

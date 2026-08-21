@@ -64,7 +64,7 @@ async function BlogPosts({ category, page }: BlogPostsProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
+      <div className="grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-8">
         {posts.map((post) => (
           <BlogCard key={post._id} post={post} />
         ))}
