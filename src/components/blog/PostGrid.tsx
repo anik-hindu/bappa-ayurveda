@@ -26,7 +26,8 @@ async function BlogPosts({ category, page }: BlogPostsProps) {
   posts = posts.slice(skip, skip + pageSize);
 
   return (
-    <Section padding="sm" background="surface">
+    <Section id="main-content"
+      tabIndex={-1} padding="sm" background="surface">
       <div className="mb-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {posts.map((post) => (
           <BlogCard key={post._id} post={post} />

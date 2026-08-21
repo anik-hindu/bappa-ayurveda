@@ -15,8 +15,8 @@ export default function HomePage() {
   return (
     <main
       id="main-content"
-      className="flex min-h-screen flex-col items-center justify-center"
       tabIndex={-1}
+      className="flex min-h-screen flex-col items-center justify-center"
     >
       <Hero />
       <BrandStory />

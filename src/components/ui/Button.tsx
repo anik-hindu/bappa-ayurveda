@@ -3,7 +3,7 @@ import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { ButtonHTMLAttributes } from "react";
 
-type ButtonVariant = "primary" | "secondary" | "link";
+type ButtonVariant = "primary" | "secondary" | "link" | "filter";
 type ButtonSize = "sm" | "md" | "lg";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -17,6 +17,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 const variants: Record<ButtonVariant, string> = {
   primary: cn(
     "bg-btn-primary-bg",
+    "rounded-btn",
     "text-btn-primary-text",
     "border-2 border-transparent",
     "hover:bg-btn-primary-bg-hover",
@@ -28,6 +29,8 @@ const variants: Record<ButtonVariant, string> = {
     "bg-transparent",
     "text-btn-secondary-text",
     "border-2 border-forest",
+    "rounded-btn",
+
     "hover:bg-btn-secondary-bg-hover",
     "hover:text-btn-secondary-text-hover",
     "active:bg-btn-secondary-bg-hover",
@@ -43,12 +46,35 @@ const variants: Record<ButtonVariant, string> = {
     "underline underline-offset-4",
     "active:opacity-60",
   ),
+  filter: cn(
+    "relative",
+    "rounded-none",
+    "border-0",
+    "bg-transparent",
+    "text-text-muted",
+    "hover:bg-transparent",
+    "hover:text-text-primary",
+    "aria-pressed:text-text-primary",
+    "after:absolute",
+    "after:bottom-0",
+    "after:left-3",
+    "after:right-3",
+    "after:h-0.5",
+    "after:origin-center",
+    "after:scale-x-0",
+    "after:bg-border-accent",
+    "after:transition-transform",
+    "after:duration-normal",
+    "after:ease-default",
+    "aria-pressed:after:scale-x-100",
+    "motion-reduce:after:transition-none",
+  ),
 };
 
 const sizes: Record<ButtonSize, string> = {
-  sm: "px-4 py-2 text-sm",
-  md: "px-6 py-3 text-base",
-  lg: "px-8 py-4 text-lg",
+  sm: "min-h-11 px-4 py-2 text-sm",
+  md: "min-h-12 px-6 py-3 text-base",
+  lg: "min-h-14 px-8 py-4 text-lg",
 };
 
 export default function Button({
@@ -67,7 +93,6 @@ export default function Button({
     "gap-2",
     "font-body font-semibold",
     "tracking-wide cursor-pointer select-none",
-    "rounded-btn",
     "transition-colors duration-normal",
     "disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed",
     fullWidth && "w-full",
