@@ -12,7 +12,7 @@ interface AuthorCardProps {
 export default function AuthorCard({ author }: AuthorCardProps) {
   const { name, slug, image, role, shortBio, expertise, articleCount } = author;
   const imageUrl = image?.asset?._ref
-    ? urlFor(image).width(800).height(500).url()
+    ? urlFor(image).width(900).height(1125).fit("crop").url()
     : null;
 
   const profileHref = `/authors/${slug.current}`;

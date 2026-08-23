@@ -1,13 +1,15 @@
 import AuthorsGrid from "@/components/authors/AuthorsGrid";
 import AuthorsHero from "@/components/authors/AuthorsHero";
+import { getAllAuthors } from "@/sanity/lib/queries";
 
-function AuthorsListingPage() {
+export default async function AuthorsPage() {
+  const authors = await getAllAuthors();
+
   return (
     <main>
       <AuthorsHero />
-      <AuthorsGrid />
+
+      <AuthorsGrid authors={authors} />
     </main>
   );
 }
-
-export default AuthorsListingPage;
