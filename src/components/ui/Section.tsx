@@ -5,7 +5,7 @@ type SectionBackground = "page" | "surface" | "inverse";
 type SectionSpacing = "sm" | "md" | "lg";
 
 interface SectionProps extends HTMLAttributes<HTMLElement> {
-  children: ReabctNode;
+  children: ReactNode;
   container?: boolean;
   background?: SectionBackground;
   padding?: SectionSpacing;
