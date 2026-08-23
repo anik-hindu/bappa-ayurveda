@@ -1,3 +1,4 @@
+import { CACHE_TAGS } from "@/sanity/lib/cache-tags";
 import { parseBody } from "next-sanity/webhook";
 import { revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
@@ -35,19 +36,19 @@ export async function POST(req: NextRequest) {
 
   switch (body?._type) {
     case "post":
-      revalidateTag("posts", "max");
+      revalidateTag(CACHE_TAGS.posts, "max");
       break;
 
     case "author":
-      revalidateTag("authors", "max");
+      revalidateTag(CACHE_TAGS.authors, "max");
       break;
 
     case "category":
-      revalidateTag("categories", "max");
+      revalidateTag(CACHE_TAGS.categories, "max");
       break;
 
     case "tag":
-      revalidateTag("tags", "max");
+      revalidateTag(CACHE_TAGS.tags, "max");
       break;
   }
 
