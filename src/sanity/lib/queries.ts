@@ -247,7 +247,8 @@ export async function getAuthorWithPosts(slug: string) {
         category-> {
           name,
           slug
-        }
+        },
+        author-> { name, slug, image, role },
       }
     }
     `,
