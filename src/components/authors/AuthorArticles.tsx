@@ -14,6 +14,8 @@ export default function AuthorArticles({
 }: AuthorArticlesProps) {
   return (
     <Section
+      id="main-content"
+      tabIndex={-1}
       background="surface"
       aria-labelledby="author-articles-heading"
       className="border-t border-border-subtle"

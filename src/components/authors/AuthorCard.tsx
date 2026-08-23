@@ -31,7 +31,7 @@ export default function AuthorCard({ author }: AuthorCardProps) {
             alt={name}
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-            className="duration-normal object-cover transition-transform ease-default group-hover:scale-[1.02]"
+            className="object-cover transition-transform duration-(--duration-normal) ease-default group-hover:scale-[1.02]"
           />
         ) : (
           <div
@@ -55,7 +55,7 @@ export default function AuthorCard({ author }: AuthorCardProps) {
           <h2 className="font-display text-sub leading-sub text-text-primary">
             <Link
               href={profileHref}
-              className="duration-fast rounded-sm transition-colors ease-default hover:text-text-accent focus-visible:outline-none"
+              className="rounded-sm transition-colors duration-(--duration-fast) ease-default hover:text-text-accent focus-visible:outline-none"
             >
               {name}
             </Link>

@@ -9,14 +9,14 @@ interface AuthorsGridProps {
 }
 
 export default function AuthorsGrid({ authors }: AuthorsGridProps) {
-  if (authors.length === 0) {
-    return (
-      <Section
-        id="main-content"
-        tabIndex={-1}
-        aria-labelledby="authors-directory-heading"
-        padding="lg"
-      >
+  return (
+    <Section
+      id="main-content"
+      tabIndex={-1}
+      aria-labelledby="authors-directory-heading"
+      padding="lg"
+    >
+      {authors.length === 0 ? (
         <div>
           <div className="mb-8">
             <h2 id="authors-directory-heading">Our Contributors</h2>
@@ -35,33 +35,24 @@ export default function AuthorsGrid({ authors }: AuthorsGridProps) {
             </p>
           </div>
         </div>
-      </Section>
-    );
-  }
+      ) : (
+        <div>
+          <div className="mb-8">
+            <h2 id="authors-directory-heading">Our Contributors</h2>
+          </div>
 
-  return (
-    <Section
-      id="main-content"
-      tabIndex={-1}
-      aria-labelledby="authors-directory-heading"
-      padding="lg"
-    >
-      <div>
-        <div className="mb-8">
-          <h2 id="authors-directory-heading">Our Contributors</h2>
+          <ul
+            aria-label="Bappa Ayurveda authors"
+            className="grid list-none grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
+          >
+            {authors.map((author) => (
+              <li key={author._id} className="min-w-0">
+                <AuthorCard author={author} />
+              </li>
+            ))}
+          </ul>
         </div>
-
-        <ul
-          aria-label="Bappa Ayurveda authors"
-          className="grid list-none grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
-        >
-          {authors.map((author) => (
-            <li key={author._id} className="min-w-0">
-              <AuthorCard author={author} />
-            </li>
-          ))}
-        </ul>
-      </div>
+      )}
     </Section>
   );
 }
