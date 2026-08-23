@@ -1,4 +1,4 @@
-import Section from "@/components/ui/Section";
+import { Section } from "@/components/ui";
 
 export default function AuthorsHero() {
   return (
@@ -20,8 +20,9 @@ export default function AuthorsHero() {
         </h1>
 
         <p className="mx-auto mt-6 max-w-155 text-body-lg leading-relaxed text-text-body">
-          Meet the people behind Bappa Ayurveda’s educational content, bringing
-          classical Ayurvedic knowledge and relevant expertise to every article.
+          Meet the people who contribute to Bappa Ayurveda&apos;s educational
+          content, bringing together classical Ayurvedic knowledge and relevant
+          subject expertise.
         </p>
       </div>
     </Section>

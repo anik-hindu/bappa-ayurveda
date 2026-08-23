@@ -1,9 +1,14 @@
-import { AuthorsGrid, AuthorsHero } from "@/components/authors/";
+import { AuthorsGrid, AuthorsHero } from "@/components/authors";
 import { getAllAuthors } from "@/sanity/lib/queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Authors",
+  title: "Our Authors",
+  description:
+    "Meet the people behind Bappa Ayurveda's editorial content, Ayurvedic education, and classical knowledge.",
+  alternates: {
+    canonical: "/authors",
+  },
 };
 
 export const dynamic = "force-dynamic";
@@ -14,7 +19,6 @@ export default async function AuthorsPage() {
   return (
     <main>
       <AuthorsHero />
-
       <AuthorsGrid authors={authors} />
     </main>
   );
