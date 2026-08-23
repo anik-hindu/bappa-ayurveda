@@ -88,3 +88,19 @@ export type AuthorListItem = {
   expertise?: string[];
   articleCount: number;
 };
+
+// Author Detail Page
+
+export type AuthorDetail = {
+  _id: string;
+  name: string;
+  slug: SanitySlug;
+  image?: SanityImage;
+  role?: string;
+  shortBio?: string;
+  bio?: PortableTextBlock[];
+  expertise?: string[];
+  linkedIn?: string;
+  posts: Post[];
+  articleCount: number;
+};
