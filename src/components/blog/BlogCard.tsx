@@ -41,7 +41,7 @@ export default function BlogCard({
           "rounded-card border border-border-default",
           "bg-bg-page shadow-card",
 
-          "duration-normal transition-[transform,border-color,box-shadow]",
+          "transition-[transform,border-color,box-shadow] duration-(--duration-normal)",
           "motion-safe:hover:-translate-y-0.5",
           "motion-safe:hover:border-border-accent",
           "motion-safe:hover:shadow-hover",
@@ -68,7 +68,7 @@ export default function BlogCard({
               "
               className={cn(
                 "object-cover",
-                "motion-safe:duration-slow motion-safe:transition-transform",
+                "motion-safe:transition-transform motion-safe:duration-(--duration-slow)",
                 "motion-safe:group-hover:scale-[1.02]",
               )}
             />
@@ -135,7 +135,7 @@ export default function BlogCard({
               className={cn(
                 "mt-3",
                 "line-clamp-3 min-h-[4.95rem]",
-                "font-display text-[1.375rem] leading-[1.2]",
+                "font-display text-[1.375rem] leading-heading",
                 "font-medium tracking-[-0.015em]",
                 "text-text-primary",
               )}
@@ -219,7 +219,7 @@ export default function BlogCard({
               aria-hidden="true"
               className={cn(
                 "ml-auto shrink-0 text-text-primary",
-                "motion-safe:duration-fast motion-safe:transition-transform",
+                "motion-safe:transition-transform motion-safe:duration-(--duration-fast)",
                 "motion-safe:group-hover:translate-x-1",
               )}
             >
