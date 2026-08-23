@@ -26,10 +26,14 @@ export type Author = {
   _id: string;
   name: string;
   slug: SanitySlug;
-  image: SanityImage;
-  role: string;
-  bio: PortableTextBlock[];
+  image?: SanityImage;
+  role?: string;
+  shortBio?: string;
+  bio?: PortableTextBlock[];
+  expertise?: string[];
   linkedIn?: string;
+  isActive: boolean;
+  displayOrder: number;
 };
 
 export type Category = {
@@ -70,4 +74,17 @@ export type CredibilityItem = {
 export type TrustItem = {
   label: string;
   img: StaticImageData;
+};
+
+// Author Listing
+
+export type AuthorListItem = {
+  _id: string;
+  name: string;
+  slug: SanitySlug;
+  image?: SanityImage;
+  role?: string;
+  shortBio?: string;
+  expertise?: string[];
+  articleCount: number;
 };

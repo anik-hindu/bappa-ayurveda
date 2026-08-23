@@ -1,5 +1,5 @@
 import { client } from "@/sanity/lib/client";
-import { Author, Category, Post } from "@/types/index";
+import { AuthorListItem, Category, Post } from "@/types/index";
 import { CACHE_TAGS } from "./cache-tags";
 
 // Posts
@@ -181,23 +181,34 @@ export async function getRelatedPosts(
 
 // Authors
 
-export async function getAllAuthors(): Promise<Author[]> {
+export async function getAllAuthors(): Promise<AuthorListItem[]> {
   return client.fetch(
     `
-    *[_type == "author"] {
+    *[
+      _type == "author" &&
+      isActive == true
+    ]
+    | order(displayOrder asc) {
       _id,
       name,
       slug,
       image,
-      bio,
       role,
-      linkedIn
+      shortBio,
+      expertise,
+      "articleCount": count(
+        *[
+          _type == "post" &&
+          author._ref == ^._id &&
+          defined(publishedAt)
+        ]
+      )
     }
   `,
     {},
     {
       next: {
-        tags: [CACHE_TAGS.authors],
+        tags: [CACHE_TAGS.authors, CACHE_TAGS.posts],
       },
     },
   );
@@ -205,29 +216,45 @@ export async function getAllAuthors(): Promise<Author[]> {
 
 export async function getAuthorWithPosts(slug: string) {
   return client.fetch(
-    `*[_type == "author" && slug.current == $slug][0] {
+    `
+    *[
+      _type == "author" &&
+      slug.current == $slug &&
+      isActive == true
+    ][0] {
       _id,
       name,
       slug,
       image,
       bio,
       role,
+      shortBio,
+      expertise,
       linkedIn,
-      "posts": *[_type == "post" && author->slug.current == $slug]
-               | order(publishedAt desc) {
+
+      "posts": *[
+        _type == "post" &&
+        author._ref == ^._id &&
+        defined(publishedAt)
+      ]
+      | order(publishedAt desc) {
         _id,
         title,
         slug,
         excerpt,
         mainImage,
         publishedAt,
-        category-> { name, slug }
+        category-> {
+          name,
+          slug
+        }
       }
-    }`,
+    }
+    `,
     { slug },
     {
       next: {
-        tags: [CACHE_TAGS.posts],
+        tags: [CACHE_TAGS.authors, CACHE_TAGS.posts],
       },
     },
   );
