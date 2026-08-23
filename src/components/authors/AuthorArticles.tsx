@@ -1,6 +1,6 @@
 import type { Post } from "@/types";
 
-import BlogCard from "@/components/blog/BlogCard";
+import { BlogCard } from "@/components/blog/";
 import { Section } from "@/components/ui";
 
 interface AuthorArticlesProps {

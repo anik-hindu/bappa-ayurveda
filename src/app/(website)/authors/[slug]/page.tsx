@@ -1,6 +1,4 @@
-import AuthorArticles from "@/components/authors/AuthorArticles";
-import AuthorBio from "@/components/authors/AuthorBio";
-import AuthorHero from "@/components/authors/AuthorHero";
+import { AuthorArticles, AuthorBio, AuthorHero } from "@/components/authors/";
 import { getAuthorWithPosts } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 
