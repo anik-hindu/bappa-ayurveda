@@ -1,15 +1,14 @@
+import { PortableText } from "@portabletext/react";
+
 import { Section } from "@/components/ui";
 import type { AuthorDetail } from "@/types";
-import { PortableText } from "@portabletext/react";
 
 interface AuthorBioProps {
   author: AuthorDetail;
 }
 
 export default function AuthorBio({ author }: AuthorBioProps) {
-  const hasBio = author.bio && author.bio.length > 0;
-
-  if (!hasBio) {
+  if (!author.bio?.length) {
     return null;
   }
 
@@ -20,7 +19,7 @@ export default function AuthorBio({ author }: AuthorBioProps) {
     >
       <div className="grid gap-8 lg:grid-cols-[minmax(180px,280px)_minmax(0,760px)] lg:gap-20">
         {/* Section heading */}
-        <div>
+        <header>
           <p className="font-body text-label font-semibold tracking-[0.16em] text-text-accent uppercase">
             About the author
           </p>
@@ -31,10 +30,10 @@ export default function AuthorBio({ author }: AuthorBioProps) {
           >
             Background &amp; perspective
           </h2>
-        </div>
+        </header>
 
         {/* Biography */}
-        <div className="max-w-aritcle text-body-lg leading-relaxed text-text-body">
+        <div className="max-w-article text-body-lg leading-relaxed text-text-body">
           <PortableText
             value={author.bio}
             components={{
@@ -56,7 +55,9 @@ export default function AuthorBio({ author }: AuthorBioProps) {
                 ),
 
                 blockquote: ({ children }) => (
-                  <blockquote className="my-7">{children}</blockquote>
+                  <blockquote className="my-8 border-l-thick border-border-accent pl-5 font-display text-sub leading-sub text-text-primary italic">
+                    {children}
+                  </blockquote>
                 ),
               },
 
@@ -89,12 +90,10 @@ export default function AuthorBio({ author }: AuthorBioProps) {
                   return (
                     <a
                       href={href}
-                      {...(isExternal
-                        ? {
-                            target: "_blank",
-                            rel: "noopener noreferrer",
-                          }
-                        : {})}
+                      {...(isExternal && {
+                        target: "_blank",
+                        rel: "noopener noreferrer",
+                      })}
                       className="font-medium text-text-primary underline decoration-border-accent underline-offset-4 transition-colors duration-(--duration-fast) hover:text-text-accent"
                     >
                       {children}

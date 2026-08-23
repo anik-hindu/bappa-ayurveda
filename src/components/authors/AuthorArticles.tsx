@@ -1,26 +1,23 @@
 import type { Post } from "@/types";
 
-import { BlogCard } from "@/components/blog/";
+import { BlogCard } from "@/components/blog";
 import { Section } from "@/components/ui";
 
 interface AuthorArticlesProps {
   posts: Post[];
-  articleCount: number;
 }
 
-export default function AuthorArticles({
-  posts,
-  articleCount,
-}: AuthorArticlesProps) {
+export default function AuthorArticles({ posts }: AuthorArticlesProps) {
+  const articleCount = posts.length;
+
   return (
     <Section
-      id="main-content"
-      tabIndex={-1}
+    
       background="surface"
       aria-labelledby="author-articles-heading"
       className="border-t border-border-subtle"
     >
-      {/* Section header */}
+      {/* Section Header */}
       <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between lg:mb-12">
         <div>
           <p className="font-body text-label font-semibold tracking-[0.16em] text-text-accent uppercase">
@@ -36,12 +33,7 @@ export default function AuthorArticles({
         </div>
 
         {articleCount > 0 && (
-          <p
-            aria-label={`${articleCount} published ${
-              articleCount === 1 ? "article" : "articles"
-            }`}
-            className="font-body text-body text-text-muted"
-          >
+          <p className="font-body text-body text-text-muted">
             {articleCount} {articleCount === 1 ? "Article" : "Articles"}
           </p>
         )}
@@ -51,7 +43,7 @@ export default function AuthorArticles({
       {posts.length > 0 ? (
         <ul className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-7">
           {posts.map((post) => (
-            <li key={post._id}>
+            <li key={post._id} className="min-w-0">
               <BlogCard post={post} />
             </li>
           ))}
