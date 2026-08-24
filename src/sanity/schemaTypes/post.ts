@@ -70,6 +70,18 @@ export const post = defineType({
       type: "blockContent",
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: "tags",
+      title: "Tags",
+      type: "array",
+      of: [
+        {
+          type: "reference",
+          to: [{ type: "tag" }],
+        },
+      ],
+      validation: (Rule) => Rule.unique(),
+    }),
   ],
   preview: {
     select: {
