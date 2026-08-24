@@ -1,5 +1,5 @@
 import { client } from "@/sanity/lib/client";
-import { AuthorListItem, Category, Post } from "@/types/index";
+import { AuthorListItem, Category, Post, Tag } from "@/types/index";
 import { CACHE_TAGS } from "./cache-tags";
 
 // Posts
@@ -321,9 +321,142 @@ export async function getAllCategorySlugs() {
     {},
     {
       next: {
-        tags: [CACHE_TAGS.tags],
+        tags: [CACHE_TAGS.categories],
       },
     },
   );
   return categories.map((c) => ({ slug: c.slug.current }));
+}
+
+// Tags
+
+export async function getAllTags(): Promise<Tag[]> {
+  return client.fetch(
+    `
+    *[
+      _type == "tag" &&
+      isActive == true &&
+      count(
+        *[
+          _type == "post" &&
+          defined(publishedAt) &&
+          references(^._id)
+        ]
+      ) > 0
+    ]
+    | order(name asc) {
+      _id,
+      name,
+      slug,
+      description,
+      isActive,
+
+      "postCount": count(
+        *[
+          _type == "post" &&
+          defined(publishedAt) &&
+          references(^._id)
+        ]
+      )
+    }
+  `,
+    {},
+    {
+      next: {
+        tags: [CACHE_TAGS.tags, CACHE_TAGS.posts],
+      },
+    },
+  );
+}
+
+export async function getTagBySlug(slug: string): Promise<Tag | null> {
+  return client.fetch(
+    `
+    *[
+      _type == "tag" &&
+      slug.current == $slug &&
+      isActive == true
+    ][0] {
+      _id,
+      name,
+      slug,
+      description,
+      isActive,
+
+      "postCount": count(
+        *[
+          _type == "post" &&
+          defined(publishedAt) &&
+          references(^._id)
+        ]
+      )
+    }
+  `,
+    { slug },
+    {
+      next: {
+        tags: [CACHE_TAGS.tags, CACHE_TAGS.posts],
+      },
+    },
+  );
+}
+
+type GetPaginatedTagPostsByIdParams = {
+  tagId: string;
+  page: number;
+  pageSize: number;
+};
+
+export async function getPaginatedPostsByTagId({
+  tagId,
+  page,
+  pageSize,
+}: GetPaginatedTagPostsByIdParams): Promise<PaginatedPostsResult> {
+  const start = (page - 1) * pageSize;
+  const end = start + pageSize;
+
+  const postFilter = `
+    _type == "post" &&
+    defined(publishedAt) &&
+    references($tagId)
+  `;
+
+  return client.fetch(
+    `{
+      "posts": *[
+        ${postFilter}
+      ]
+      | order(publishedAt desc)
+      [${start}...${end}] {
+        _id,
+        title,
+        slug,
+        excerpt,
+        mainImage,
+        publishedAt,
+        author-> {
+          _id,
+          name,
+          slug,
+          image,
+          role
+        },
+        category-> {
+          _id,
+          name,
+          slug
+        }
+      },
+
+      "total": count(*[
+        ${postFilter}
+      ])
+    }`,
+    { tagId },
+    {
+      next: {
+        tags: [CACHE_TAGS.tags, CACHE_TAGS.posts],
+      },
+    },
+  );
 }

@@ -104,3 +104,16 @@ export type AuthorDetail = {
   posts: Post[];
   articleCount: number;
 };
+
+// Tag
+
+export type Tag = {
+  _id: string;
+  name: string;
+  slug: {
+    current: string;
+  };
+  description?: string;
+  isActive: boolean;
+  postCount: number;
+};
