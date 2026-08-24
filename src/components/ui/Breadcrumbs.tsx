@@ -25,8 +25,8 @@ export default function Breadcrumbs({
   }
 
   return (
-    <nav aria-label={ariaLabel} className={cn("w-full", className)}>
-      <ol className="flex min-w-0 items-center gap-1.5 text-caption leading-none">
+    <nav aria-label={ariaLabel} className={cn("w-full min-w-0", className)}>
+      <ol className="flex w-full min-w-0 touch-pan-x scrollbar-none items-center gap-1.5 overflow-x-auto overscroll-x-contain pb-1 text-caption leading-none [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
         {/* Home */}
         <li className="flex shrink-0 items-center">
           <Link
@@ -51,7 +51,7 @@ export default function Breadcrumbs({
           return (
             <li
               key={`${item.label}-${index}`}
-              className="flex min-w-0 items-center"
+              className="flex shrink-0 items-center"
             >
               <ChevronRightIcon
                 aria-hidden="true"
@@ -61,8 +61,10 @@ export default function Breadcrumbs({
               {isCurrent || !item.href ? (
                 <span
                   aria-current={isCurrent ? "page" : undefined}
+                  title={item.label}
                   className={cn(
-                    "min-w-0 truncate px-1",
+                    "block px-1",
+                    "whitespace-nowrap",
                     isCurrent
                       ? "font-medium text-text-primary"
                       : "text-text-muted",
@@ -74,7 +76,8 @@ export default function Breadcrumbs({
                 <Link
                   href={item.href}
                   className={cn(
-                    "min-w-0 truncate rounded-sm px-1",
+                    "block px-1",
+                    "rounded-sm whitespace-nowrap",
                     "text-text-muted",
                     "transition-colors duration-(--duration-fast) ease-default",
                     "hover:text-text-primary",

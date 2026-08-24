@@ -47,6 +47,13 @@ export const post = defineType({
           title: "Alt Text",
           validation: (Rule) => Rule.required(),
         },
+        defineField({
+          name: "caption",
+          title: "Caption",
+          type: "string",
+          description: "Optional caption displayed below the image.",
+          validation: (Rule) => Rule.max(200),
+        }),
       ],
       validation: (Rule) => Rule.required(),
     }),
