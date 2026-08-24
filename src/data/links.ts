@@ -11,13 +11,16 @@ export const footerLinks: {
   navigate: NavLink[];
   shop: NavLink[];
   legal: NavLink[];
+  social: NavLink[];
+  developer: NavLink;
 } = {
   navigate: [
     { label: "Home", href: "/" },
     { label: "Blog", href: "/blog" },
-    { label: "Aboout", href: "/about" },
-    { label: "FAQs", href: "/faq" },
+    { label: "About", href: "/about" },
+    { label: "Authors", href: "/authors" },
   ],
+
   shop: [
     {
       label: "SHUKRAVITA on Amazon",
@@ -30,8 +33,23 @@ export const footerLinks: {
       external: true,
     },
   ],
+
   legal: [
     { label: "Privacy Policy", href: "/privacy" },
     { label: "Terms of Use", href: "/terms" },
   ],
-} as const;
+
+  social: [
+    {
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/company/bappa-ayurveda/",
+      external: true,
+    },
+  ],
+
+  developer: {
+    label: "Anik Saha",
+    href: "https://github.com/anik-hindu",
+    external: true,
+  },
+};
