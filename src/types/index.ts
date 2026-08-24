@@ -54,6 +54,38 @@ export type Post = {
   body: PortableTextBlock[];
 };
 
+export type PostDetail = {
+  _id: string;
+  title: string;
+  slug: SanitySlug;
+  excerpt: string;
+  body: PortableTextBlock[];
+  mainImage: SanityImage;
+  publishedAt: string;
+  updatedAt?: string;
+
+  author: {
+    _id: string;
+    name: string;
+    slug: SanitySlug;
+    image?: SanityImage;
+    bio?: string;
+    role?: string;
+  };
+
+  category: {
+    _id: string;
+    name: string;
+    slug: SanitySlug;
+  };
+
+  tags: {
+    _id: string;
+    name: string;
+    slug: SanitySlug;
+  }[];
+};
+
 // NavLink
 
 export type NavLink = {

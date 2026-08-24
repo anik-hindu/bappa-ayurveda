@@ -65,6 +65,11 @@ export const post = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "updatedAt",
+      title: "Updated At",
+      type: "datetime",
+    }),
+    defineField({
       name: "body",
       title: "Body",
       type: "blockContent",

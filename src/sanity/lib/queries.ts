@@ -1,5 +1,5 @@
 import { client } from "@/sanity/lib/client";
-import { AuthorListItem, Category, Post, Tag } from "@/types/index";
+import { AuthorListItem, Category, Post, PostDetail, Tag } from "@/types/index";
 import { CACHE_TAGS } from "./cache-tags";
 
 // Posts
@@ -109,19 +109,46 @@ export async function getLatestPosts(count: number = 3): Promise<Post[]> {
   );
 }
 
-export async function getPost(slug: string): Promise<Post | null> {
+export async function getPost(slug: string): Promise<PostDetail | null> {
   return client.fetch(
-    `*[_type == "post" && slug.current == $slug][0] {
+    `
+    *[
+      _type == "post" &&
+      slug.current == $slug &&
+      defined(publishedAt) &&
+      publishedAt <= now()
+    ][0] {
       _id,
       title,
       slug,
+      excerpt,
       body,
       mainImage,
       publishedAt,
-      excerpt,
-      author-> { _id, name, slug, image, bio, role },
-      category-> { _id, name, slug }
-    }`,
+      updatedAt,
+
+      author-> {
+        _id,
+        name,
+        slug,
+        image,
+        bio,
+        role
+      },
+
+      category-> {
+        _id,
+        name,
+        slug
+      },
+
+      tags[]-> {
+        _id,
+        name,
+        slug
+      }
+    }
+    `,
     { slug },
     {
       next: {
@@ -154,23 +181,47 @@ export async function getPostsByCategory(slug: string): Promise<Post[]> {
 }
 
 export async function getRelatedPosts(
+  postId: string,
   categoryId: string,
-  currentSlug: string,
+  tagIds: string[],
 ): Promise<Post[]> {
   return client.fetch(
-    `*[_type == "post"
-       && category._ref == $categoryId
-       && slug.current != $currentSlug
-     ] | order(publishedAt desc) [0...3] {
+    `
+    *[
+      _type == "post" &&
+      _id != $postId &&
+      defined(publishedAt) &&
+      publishedAt <= now() &&
+      (
+        category._ref == $categoryId ||
+        references($tagIds)
+      )
+    ]
+    | order(publishedAt desc)
+    [0...3] {
       _id,
       title,
       slug,
       excerpt,
       mainImage,
       publishedAt,
-      category-> { name, slug }
-    }`,
-    { categoryId, currentSlug },
+
+      author-> {
+        name,
+        slug
+      },
+
+      category-> {
+        name,
+        slug
+      }
+    }
+    `,
+    {
+      postId,
+      categoryId,
+      tagIds,
+    },
     {
       next: {
         tags: [CACHE_TAGS.posts],
