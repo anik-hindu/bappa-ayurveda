@@ -460,3 +460,27 @@ export async function getPaginatedPostsByTagId({
     },
   );
 }
+
+export async function getAllTagSlugs() {
+  const tags = await client.fetch<{ slug: { current: string } }[]>(
+    `
+      *[
+        _type == "tag" &&
+        isActive == true &&
+        defined(slug.current)
+      ] {
+        slug
+      }
+    `,
+    {},
+    {
+      next: {
+        tags: [CACHE_TAGS.tags],
+      },
+    },
+  );
+
+  return tags.map((tag) => ({
+    slug: tag.slug.current,
+  }));
+}
