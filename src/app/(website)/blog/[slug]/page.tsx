@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 
-import { ArticleBody, ArticleHeader } from "@/components/blog";
+import { ArticleBody, ArticleHeader, ArticleTags } from "@/components/blog";
 import { getAllPostSlugs, getPost } from "@/sanity/lib/queries";
 
 interface BlogPostPageProps {
@@ -25,6 +25,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     <main>
       <ArticleHeader post={post} />
       <ArticleBody body={post.body} />
+      <ArticleTags tags={post.tags} />
     </main>
   );
 }
