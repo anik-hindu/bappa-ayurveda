@@ -27,7 +27,7 @@ export default function ArticleHeader({ post }: ArticleHeaderProps) {
     Boolean(post.updatedAt) && post.updatedAt !== post.publishedAt;
 
   return (
-    <Section padding="lg">
+    <Section padding="sm">
       {/* Breadcrumb navigation */}
       <Breadcrumbs
         items={[
@@ -122,7 +122,6 @@ export default function ArticleHeader({ post }: ArticleHeaderProps) {
   );
 }
 
-
 function AuthorLink({ post }: ArticleHeaderProps) {
   return (
     <Link
@@ -156,7 +155,6 @@ function AuthorLink({ post }: ArticleHeaderProps) {
   );
 }
 
-
 interface MetadataItemProps {
   icon: React.ReactNode;
   children: React.ReactNode;
@@ -179,7 +177,6 @@ function MetadataSeparator() {
     />
   );
 }
-
 
 interface FeaturedMediaProps {
   imageUrl: string | null;
@@ -217,7 +214,6 @@ function FeaturedMedia({ imageUrl, alt, caption }: FeaturedMediaProps) {
     </figure>
   );
 }
-
 
 function ImagePlaceholder() {
   return (
