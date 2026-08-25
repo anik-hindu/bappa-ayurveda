@@ -1,8 +1,4 @@
-import {
-  defineArrayMember,
-  defineField,
-  defineType,
-} from "sanity";
+import { defineArrayMember, defineField, defineType } from "sanity";
 
 export const blockContent = defineType({
   name: "blockContent",
@@ -109,11 +105,9 @@ export const blockContent = defineType({
           title: "Alt Text",
           type: "string",
 
-          description:
-            "Describe the image for readers who cannot see it.",
+          description: "Describe the image for readers who cannot see it.",
 
-          validation: (Rule) =>
-            Rule.required().max(200),
+          validation: (Rule) => Rule.required().max(200),
         }),
 
         defineField({
@@ -121,15 +115,16 @@ export const blockContent = defineType({
           title: "Caption",
           type: "string",
 
-          description:
-            "Optional caption displayed below the image.",
+          description: "Optional caption displayed below the image.",
 
-          validation: (Rule) =>
-            Rule.max(200),
+          validation: (Rule) => Rule.max(200),
         }),
       ],
 
       validation: (Rule) => Rule.required(),
+    }),
+    defineArrayMember({
+      type: "faqSection",
     }),
   ],
 });

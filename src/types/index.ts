@@ -150,3 +150,12 @@ export type Tag = {
   isActive: boolean;
   postCount: number;
 };
+
+// Faq
+
+export type FAQItem = {
+  _key: string;
+  _type: "faq";
+  question: string;
+  answer: PortableTextBlock[];
+};

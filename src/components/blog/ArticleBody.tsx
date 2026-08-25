@@ -3,6 +3,7 @@ import type { PortableTextBlock } from "@portabletext/types";
 
 import { extractTableOfContents } from "@/lib/tableOfContents";
 
+import ArticleFAQ from "./ArticleFAQ";
 import PortableTextImage from "./PortableTextImage";
 
 interface ArticleBodyProps {
@@ -90,6 +91,9 @@ export default function ArticleBody({ body }: ArticleBodyProps) {
 
           types: {
             image: PortableTextImage,
+            faqSection: ({ value }) => (
+              <ArticleFAQ heading={value.heading} items={value.items} />
+            ),
           },
 
           list: {
