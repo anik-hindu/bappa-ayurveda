@@ -1,8 +1,9 @@
 export { default as ArticleAuthor } from "./ArticleAuthor";
-export { default as ArticleBody } from "./ArticleBody";
+export { default as ArticleContent } from "./ArticleContent";
 export { default as ArticleHeader } from "./ArticleHeader";
 export { default as ArticleTags } from "./ArticleTags";
 export { default as BlogCard } from "./BlogCard";
 export { default as BlogHeader } from "./BlogHeader";
 export { default as CategoryFilter } from "./CategoryFilter";
 export { default as PostGrid } from "./PostGrid";
+export { default as RelatedArticles } from "./RelatedArticles";

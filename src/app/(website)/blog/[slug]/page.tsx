@@ -2,11 +2,16 @@ import { notFound } from "next/navigation";
 
 import {
   ArticleAuthor,
-  ArticleBody,
+  ArticleContent,
   ArticleHeader,
   ArticleTags,
+  RelatedArticles,
 } from "@/components/blog";
-import { getAllPostSlugs, getPost } from "@/sanity/lib/queries";
+import {
+  getAllPostSlugs,
+  getPost,
+  getRelatedPosts,
+} from "@/sanity/lib/queries";
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -25,12 +30,21 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   if (!post) {
     notFound();
   }
+
+  const tagIds = post.tags?.map((tag) => tag._id) ?? [];
+
+  const relatedPosts = await getRelatedPosts(
+    post._id,
+    post.category._id,
+    tagIds,
+  );
   return (
     <main>
       <ArticleHeader post={post} />
-      <ArticleBody body={post.body} />
-      <ArticleTags tags={post.tags} />
+      <ArticleContent body={post.body} />
+      <ArticleTags tags={post.tags ?? []} />
       <ArticleAuthor author={post.author} />
+      <RelatedArticles posts={relatedPosts} />
     </main>
   );
 }
