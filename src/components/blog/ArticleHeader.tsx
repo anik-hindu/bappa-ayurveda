@@ -47,7 +47,7 @@ export default function ArticleHeader({ post }: ArticleHeaderProps) {
       <header className="mx-auto max-w-4xl">
         {/* Category */}
         <Link
-          href={`/categories/${post.category.slug.current}`}
+          href={`/blog?page=1&category=${post.category.slug.current}`}
           className="inline-flex min-h-11 items-center rounded-btn text-label font-medium tracking-[0.16em] text-text-accent uppercase transition-colors duration-(--duration-fast) ease-default hover:text-text-primary focus-visible:outline-none"
         >
           {post.category.name}

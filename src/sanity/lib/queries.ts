@@ -132,7 +132,7 @@ export async function getPost(slug: string): Promise<PostDetail | null> {
         name,
         slug,
         image,
-        bio,
+        shortBio,
         role
       },
 
@@ -197,8 +197,7 @@ export async function getRelatedPosts(
         references($tagIds)
       )
     ]
-    | order(publishedAt desc)
-    [0...3] {
+    {
       _id,
       title,
       slug,
@@ -207,6 +206,7 @@ export async function getRelatedPosts(
       publishedAt,
 
       author-> {
+        _id,
         name,
         slug,
         image,
@@ -214,10 +214,19 @@ export async function getRelatedPosts(
       },
 
       category-> {
+        _id,
         name,
         slug
-      }
+      },
+
+      "sharedTagCount": count(
+        tags[@._ref in $tagIds]
+      ),
+
+      "sameCategory": category._ref == $categoryId
     }
+    | order(sharedTagCount desc, sameCategory desc, publishedAt desc)
+    [0...3]
     `,
     {
       postId,

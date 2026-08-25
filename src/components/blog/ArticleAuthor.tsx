@@ -1,5 +1,4 @@
 import { ArrowRightIcon, UserCircleIcon } from "@heroicons/react/20/solid";
-import { PortableText } from "@portabletext/react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -76,17 +75,10 @@ function ArticleAuthor({ author }: ArticleAuthorProps) {
                 </p>
               )}
 
-              {author.bio && author.bio?.length > 0 && (
-                <div className="mt-4 max-w-2xl text-body text-text-muted [&>p+p]:mt-3">
-                  <PortableText
-                    value={author.bio}
-                    components={{
-                      block: {
-                        normal: ({ children }) => <p>{children}</p>,
-                      },
-                    }}
-                  />
-                </div>
+              {author.shortBio && (
+                <p className="mt-4 max-w-2xl text-text-muted [&>p+p]:mt-3">
+                  {author.shortBio}
+                </p>
               )}
 
               <Link
