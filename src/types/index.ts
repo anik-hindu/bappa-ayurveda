@@ -70,7 +70,7 @@ export type PostDetail = {
     name: string;
     slug: SanitySlug;
     image?: SanityImage;
-    bio?: string;
+    bio?: PortableTextBlock[];
     role?: string;
   };
 

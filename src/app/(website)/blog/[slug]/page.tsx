@@ -1,6 +1,11 @@
 import { notFound } from "next/navigation";
 
-import { ArticleBody, ArticleHeader, ArticleTags } from "@/components/blog";
+import {
+  ArticleAuthor,
+  ArticleBody,
+  ArticleHeader,
+  ArticleTags,
+} from "@/components/blog";
 import { getAllPostSlugs, getPost } from "@/sanity/lib/queries";
 
 interface BlogPostPageProps {
@@ -20,12 +25,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   if (!post) {
     notFound();
   }
-
   return (
     <main>
       <ArticleHeader post={post} />
       <ArticleBody body={post.body} />
       <ArticleTags tags={post.tags} />
+      <ArticleAuthor author={post.author} />
     </main>
   );
 }

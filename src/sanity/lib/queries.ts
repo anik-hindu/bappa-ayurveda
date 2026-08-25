@@ -208,7 +208,9 @@ export async function getRelatedPosts(
 
       author-> {
         name,
-        slug
+        slug,
+        image,
+        role
       },
 
       category-> {

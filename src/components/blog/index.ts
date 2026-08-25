@@ -1,3 +1,4 @@
+export { default as ArticleAuthor } from "./ArticleAuthor";
 export { default as ArticleBody } from "./ArticleBody";
 export { default as ArticleHeader } from "./ArticleHeader";
 export { default as ArticleTags } from "./ArticleTags";
