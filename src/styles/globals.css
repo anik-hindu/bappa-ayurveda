@@ -238,6 +238,7 @@
   h1 {
     font-size: var(--text-hero);
     line-height: var(--leading-hero);
+    font-weight: 600;
   }
 
   h2 {
@@ -378,6 +379,12 @@
 
   /* ── Misc ─────────────────────────────────────── */
 
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   /* Offset anchor scroll for sticky navbar */
   [id] {
     scroll-margin-top: 5rem;
@@ -389,17 +396,6 @@
     }
   }
 
-  /* Touch feedback for all interactive elements */
-  @media (hover: none) {
-    button:active,
-    a:active {
-      opacity: 0.75;
-      transform: scale(0.98);
-      transition:
-        transform 100ms,
-        opacity 100ms;
-    }
-  }
   ::selection {
     background: var(--color-bg-accent);
     color: var(--color-text-inverse);
