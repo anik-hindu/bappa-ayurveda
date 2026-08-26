@@ -28,17 +28,15 @@ async function BlogPosts({ category, page }: BlogPostsProps) {
         background="surface"
       >
         <div className="mx-auto flex max-w-narrow flex-col items-center py-12 text-center sm:py-16">
-          <span className="mb-3 font-body text-xs font-semibold uppercase tracking-[0.16em] text-text-muted">
+          <span className="mb-3 font-body text-xs font-semibold tracking-[0.16em] text-text-muted uppercase">
             Journal
           </span>
 
-          <h2 className="text-2xl sm:text-3xl">
-            No articles found
-          </h2>
+          <h2 className="text-2xl sm:text-3xl">No articles found</h2>
 
           <p className="mt-3 max-w-md text-text-muted">
-            There are no articles in this category yet. Try exploring
-            another category.
+            There are no articles in this category yet. Try exploring another
+            category.
           </p>
         </div>
       </Section>
@@ -46,15 +44,10 @@ async function BlogPosts({ category, page }: BlogPostsProps) {
   }
 
   return (
-    <Section
-      id="main-content"
-      tabIndex={-1}
-      padding="md"
-      background="surface"
-    >
+    <Section id="main-content" tabIndex={-1} padding="md" background="surface">
       <div className="mb-8 border-b border-border-subtle pb-4">
         <div className="flex items-center justify-between gap-4">
-          <span className="font-body text-xs font-semibold uppercase tracking-[0.16em] text-text-muted">
+          <span className="font-body text-xs font-semibold tracking-[0.16em] text-text-muted uppercase">
             Journal
           </span>
 
