@@ -12,7 +12,9 @@ export default function ArticleFAQ({
   heading = "Frequently asked questions",
   items,
 }: ArticleFAQProps) {
-  if (!items.length) {
+  const safeItems = items ?? [];
+
+  if (safeItems.length === 0) {
     return null;
   }
 

@@ -53,6 +53,10 @@ export const blockContent = defineType({
             title: "Italic",
             value: "em",
           },
+          {
+            title: "Highlight",
+            value: "highlight",
+          },
         ],
 
         annotations: [

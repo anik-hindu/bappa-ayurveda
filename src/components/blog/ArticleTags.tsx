@@ -9,7 +9,8 @@ interface ArticleTagsProps {
 }
 
 function ArticleTags({ tags }: ArticleTagsProps) {
-  if (tags.length === 0) {
+  const safeTags = tags ?? [];
+  if (safeTags.length === 0) {
     return null;
   }
 

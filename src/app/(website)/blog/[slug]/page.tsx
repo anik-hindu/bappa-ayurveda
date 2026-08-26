@@ -63,7 +63,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       >
         <ArticleBody body={post.body} toc={toc} />
       </ArticleContent>
-      
+
       <footer aria-label="Article information">
         <ArticleShare title={post.title} />
         <ArticleTags tags={post.tags} />

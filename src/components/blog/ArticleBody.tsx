@@ -12,7 +12,9 @@ interface ArticleBodyProps {
 }
 
 export default function ArticleBody({ body, toc }: ArticleBodyProps) {
-  if (!body?.length) {
+  const safeBody = body ?? [];
+
+  if (safeBody.length === 0) {
     return null;
   }
 
@@ -99,6 +101,11 @@ export default function ArticleBody({ body, toc }: ArticleBodyProps) {
                 </a>
               );
             },
+            highlight: ({ children }) => (
+              <mark className="rounded-sm bg-bg-surface px-1 py-0.5 text-text-primary">
+                {children}
+              </mark>
+            ),
           },
 
           types: {

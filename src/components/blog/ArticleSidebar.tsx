@@ -9,7 +9,9 @@ interface ArticleSidebarProps {
 }
 
 export default function ArticleSidebar({ title, toc }: ArticleSidebarProps) {
-  if (!toc.length) {
+  const safeToc = toc ?? [];
+
+  if (!safeToc.length) {
     return null;
   }
 
