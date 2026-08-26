@@ -16,7 +16,7 @@ export default function Footer() {
       {/* Main footer */}
       <div className="border-t border-text-inverse/10">
         <div className="container-page py-section-md-mobile lg:py-section-lg-desktop">
-          <div className="grid gap-12 lg:grid-cols-[minmax(0,1.5fr)_repeat(3,minmax(0,1fr))] lg:gap-16">
+          <div className="grid gap-12 lg:grid-cols-[minmax(0,1.5fr)_repeat(2,minmax(0,1fr))] lg:gap-16">
             {/* Brand */}
             <div className="max-w-md">
               <Link
@@ -134,7 +134,7 @@ export default function Footer() {
             </nav>
 
             {/* Legal */}
-            <nav aria-labelledby="footer-legal-heading">
+            {/* <nav aria-labelledby="footer-legal-heading">
               <h2 id="footer-legal-heading" className={columnHeadingStyles}>
                 Legal
               </h2>
@@ -148,7 +148,7 @@ export default function Footer() {
                   </li>
                 ))}
               </ul>
-            </nav>
+            </nav> */}
           </div>
         </div>
       </div>

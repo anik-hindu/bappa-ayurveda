@@ -4,13 +4,12 @@ export const navLinks: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "Blog", href: "/blog" },
   { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
 ] as const;
 
 export const footerLinks: {
   navigate: NavLink[];
   shop: NavLink[];
-  legal: NavLink[];
+  // legal: NavLink[];
   social: NavLink[];
   developer: NavLink;
 } = {
@@ -34,10 +33,10 @@ export const footerLinks: {
     },
   ],
 
-  legal: [
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Terms of Use", href: "/terms" },
-  ],
+  // legal: [
+  //   { label: "Privacy Policy", href: "/privacy" },
+  //   { label: "Terms of Use", href: "/terms" },
+  // ],
 
   social: [
     {
