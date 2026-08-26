@@ -10,5 +10,5 @@ export { default as BlogCard } from "./BlogCard";
 export { default as BlogHeader } from "./BlogHeader";
 export { default as CategoryFilter } from "./CategoryFilter";
 export { default as MobileTableOfContents } from "./MobileTableOfContents";
-export { default as PostGrid } from "./PostGrid";
+export { default as BlogPostSection } from "./BlogPostSection";
 export { default as RelatedArticles } from "./RelatedArticles";

@@ -1,14 +1,18 @@
 import { Button } from "@/components/ui";
-import { getPageUrl, getVisiblePages } from "@/lib/blog";
+import { getPageUrl, getVisiblePages } from "@/lib/pagination";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
-type PaginationProps = {
+type BlogPaginationProps = {
   currentPage: number;
   totalPages: number;
   category: string;
 };
 
-function Pagination({ currentPage, totalPages, category }: PaginationProps) {
+function BlogPagination({
+  currentPage,
+  totalPages,
+  category,
+}: BlogPaginationProps) {
   if (totalPages <= 1) {
     return null;
   }
@@ -34,7 +38,7 @@ function Pagination({ currentPage, totalPages, category }: PaginationProps) {
           </Button>
         )}
 
-        <div className="flex items-center gap-1" aria-label="Pages">
+        <div className="flex items-center gap-1">
           {pages.map((page, index) =>
             page === "ellipsis" ? (
               <span
@@ -89,10 +93,7 @@ function Pagination({ currentPage, totalPages, category }: PaginationProps) {
           <span className="min-w-21" aria-hidden="true" />
         )}
 
-        <span
-          aria-current="page"
-          className="min-w-18 text-center text-sm font-semibold text-text-primary"
-        >
+        <span className="min-w-18 text-center text-sm font-semibold text-text-primary">
           {currentPage} / {totalPages}
         </span>
 
@@ -114,4 +115,4 @@ function Pagination({ currentPage, totalPages, category }: PaginationProps) {
   );
 }
 
-export default Pagination;
+export default BlogPagination;

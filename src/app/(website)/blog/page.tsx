@@ -1,4 +1,4 @@
-import { BlogHeader, CategoryFilter, PostGrid } from "@/components/blog";
+import { BlogHeader, BlogPostSection, CategoryFilter } from "@/components/blog";
 import { getAllCategories } from "@/sanity/lib/queries";
 import type { Metadata } from "next";
 
@@ -8,14 +8,14 @@ export const metadata: Metadata = {
     "Explore Ayurveda insights, wellness guidance, and evidence-informed articles from Bappa Ayurveda.",
 };
 
-type BlogListingSearchParams = {
+interface BlogListingSearchParams {
   category?: string;
   page?: string;
-};
+}
 
-type BlogListingPageProps = {
+interface BlogListingPageProps {
   searchParams: Promise<BlogListingSearchParams>;
-};
+}
 
 export default async function BlogListingPage({
   searchParams,
@@ -28,10 +28,10 @@ export default async function BlogListingPage({
   const page = Number.isInteger(parsedPage) && parsedPage > 0 ? parsedPage : 1;
 
   return (
-    <main>
+    <main id="main-content" tabIndex={-1}>
       <BlogHeader />
       <CategoryFilter categories={categories} />
-      <PostGrid category={category} page={page} />
+      <BlogPostSection category={category} page={page} />
     </main>
   );
 }

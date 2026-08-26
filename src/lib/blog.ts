@@ -22,31 +22,3 @@ export function estimateReadTime(body?: PortableTextBlock[]): number {
 
   return Math.max(1, Math.ceil(words / 200));
 }
-
-export function getPageUrl(page: number, category: string) {
-  const params = new URLSearchParams();
-
-  params.set("page", String(page));
-
-  if (category !== "all") {
-    params.set("category", category);
-  }
-
-  return `/blog?${params.toString()}`;
-}
-
-export function getVisiblePages(currentPage: number, totalPages: number) {
-  if (totalPages <= 5) {
-    return Array.from({ length: totalPages }, (_, i) => i + 1);
-  }
-
-  if (currentPage <= 3) {
-    return [1, 2, 3, "ellipsis", totalPages];
-  }
-
-  if (currentPage >= totalPages - 2) {
-    return [1, "ellipsis", totalPages - 2, totalPages - 1, totalPages];
-  }
-
-  return [1, "ellipsis", currentPage, "ellipsis", totalPages];
-}
