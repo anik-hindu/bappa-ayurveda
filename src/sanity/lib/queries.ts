@@ -146,7 +146,7 @@ export async function getPost(slug: string): Promise<PostDetail | null> {
         _id,
         name,
         slug
-      }
+      },
     }
     `,
     { slug },

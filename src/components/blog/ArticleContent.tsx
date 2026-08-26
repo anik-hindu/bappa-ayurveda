@@ -1,34 +1,35 @@
-import { Section } from "@/components/ui";
-import { extractTableOfContents } from "@/lib/tableOfContents";
-import type { PortableTextBlock } from "@portabletext/types";
+import type { ReactNode } from "react";
 
-import ArticleBody from "./ArticleBody";
-import TableOfContents from "./TableOfContents";
+import { Section } from "@/components/ui";
 
 interface ArticleContentProps {
-  body: PortableTextBlock[];
+  sidebar?: ReactNode;
+  children: ReactNode;
+  mobileBefore?: ReactNode;
 }
 
-export default function ArticleContent({ body }: ArticleContentProps) {
-  if (!body?.length) {
-    return null;
-  }
-
-  const toc = extractTableOfContents(body);
-  const hasToc = toc.length >= 2;
-
+export default function ArticleContent({
+  sidebar,
+  children,
+  mobileBefore,
+}: ArticleContentProps) {
   return (
-    <Section padding="md">
-      <div
-        className={
-          hasToc
-            ? "mx-auto grid max-w-7xl grid-cols-1 gap-10 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-14 xl:grid-cols-[240px_minmax(0,1fr)] xl:gap-20"
-            : "mx-auto max-w-article"
-        }
-      >
-        {hasToc && <TableOfContents items={toc} />}
+    <Section padding="sm">
+      <div className="mx-auto max-w-6xl">
+        {mobileBefore && <div className="mb-8 lg:hidden">{mobileBefore}</div>}
 
-        <ArticleBody body={body} />
+        <div className="grid items-start lg:grid-cols-[200px_minmax(0,760px)] lg:justify-center lg:gap-12 xl:grid-cols-[220px_minmax(0,760px)] xl:gap-16">
+          {sidebar && (
+            <aside
+              aria-label="Article navigation"
+              className="sticky top-24 hidden self-start lg:block"
+            >
+              {sidebar}
+            </aside>
+          )}
+
+          <div className="min-w-0">{children}</div>
+        </div>
       </div>
     </Section>
   );

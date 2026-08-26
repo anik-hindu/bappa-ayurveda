@@ -1,26 +1,30 @@
 import { PortableText } from "@portabletext/react";
 import type { PortableTextBlock } from "@portabletext/types";
 
-import { extractTableOfContents } from "@/lib/tableOfContents";
+import type { TableOfContentsItem } from "@/lib/tableOfContents";
 
 import ArticleFAQ from "./ArticleFAQ";
 import PortableTextImage from "./PortableTextImage";
 
 interface ArticleBodyProps {
   body: PortableTextBlock[];
+  toc: TableOfContentsItem[];
 }
 
-export default function ArticleBody({ body }: ArticleBodyProps) {
+export default function ArticleBody({ body, toc }: ArticleBodyProps) {
   if (!body?.length) {
     return null;
   }
 
-  const toc = extractTableOfContents(body);
-
   const headingIds = new Map(toc.map((item) => [item.key, item.id]));
 
   return (
-    <article tabIndex={-1} id="main-content" className="max-w-article min-w-0">
+    <article
+      id="main-content"
+      tabIndex={-1}
+      aria-labelledby="article-title"
+      className="max-w-article min-w-0"
+    >
       <PortableText
         value={body}
         components={{
@@ -29,26 +33,34 @@ export default function ArticleBody({ body }: ArticleBodyProps) {
               <p className="leading-relaxed">{children}</p>
             ),
 
-            h2: ({ value, children }) => (
-              <h2
-                id={value._key ? headingIds.get(value._key) : undefined}
-                className="mt-12 mb-5 scroll-mt-24 text-section text-text-primary first:mt-0"
-              >
-                {children}
-              </h2>
-            ),
+            h2: ({ value, children }) => {
+              const id = value._key ? headingIds.get(value._key) : undefined;
 
-            h3: ({ value, children }) => (
-              <h3
-                id={value._key ? headingIds.get(value._key) : undefined}
-                className="mt-10 mb-4 scroll-mt-24 text-sub text-text-primary"
-              >
-                {children}
-              </h3>
-            ),
+              return (
+                <h2
+                  id={id}
+                  className="mt-14 mb-5 scroll-mt-24 text-section text-text-primary first:mt-0"
+                >
+                  {children}
+                </h2>
+              );
+            },
+
+            h3: ({ value, children }) => {
+              const id = value._key ? headingIds.get(value._key) : undefined;
+
+              return (
+                <h3
+                  id={id}
+                  className="mt-10 mb-4 scroll-mt-24 text-sub text-text-primary"
+                >
+                  {children}
+                </h3>
+              );
+            },
 
             blockquote: ({ children }) => (
-              <blockquote className="my-10 border-l-thick border-border-accent pl-6 font-display text-sub leading-sub text-text-primary italic sm:pl-8">
+              <blockquote className="my-10 border-l-2 border-border-accent pl-6 font-display text-sub leading-sub text-text-primary italic sm:pl-8">
                 {children}
               </blockquote>
             ),
@@ -75,13 +87,13 @@ export default function ArticleBody({ body }: ArticleBodyProps) {
               return (
                 <a
                   href={href}
-                  {...(isExternal && value?.blank
-                    ? {
-                        target: "_blank",
-                        rel: "noopener noreferrer",
-                      }
-                    : {})}
-                  className="font-medium text-text-primary underline decoration-border-accent underline-offset-3 transition-colors duration-(--duration-fast) hover:text-text-accent focus-visible:outline-none"
+                  target={isExternal && value?.blank ? "_blank" : undefined}
+                  rel={
+                    isExternal && value?.blank
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
+                  className="font-medium text-text-primary underline decoration-border-accent underline-offset-3 transition-colors duration-(--duration-fast) hover:text-text-accent focus-visible:ring-2 focus-visible:ring-border-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-page focus-visible:outline-none"
                 >
                   {children}
                 </a>
@@ -91,6 +103,7 @@ export default function ArticleBody({ body }: ArticleBodyProps) {
 
           types: {
             image: PortableTextImage,
+
             faqSection: ({ value }) => (
               <ArticleFAQ heading={value.heading} items={value.items} />
             ),
