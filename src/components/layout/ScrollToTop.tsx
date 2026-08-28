@@ -7,7 +7,7 @@ import { ArrowUpIcon } from "@heroicons/react/24/outline";
 export default function ScrollToTop() {
   const visible = useScrolled(400);
 
-  const scrollToTop = () => {
+  const handleScrollToTop = () => {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
@@ -22,23 +22,32 @@ export default function ScrollToTop() {
     <button
       type="button"
       aria-label="Back to top"
-      onClick={scrollToTop}
+      onClick={handleScrollToTop}
+      tabIndex={visible ? 0 : -1}
       className={cn(
-        "fixed right-8 bottom-8 z-(--z-toast)",
-        "flex size-12 items-center justify-center",
+        "fixed right-4 bottom-4 z-(--z-toast)",
+        "flex size-11 items-center justify-center",
         "rounded-full",
         "bg-btn-primary-bg text-btn-primary-text",
         "shadow-card",
-        "transition-all duration-(--duration-normal)",
+        "transition-[opacity,transform,background-color,box-shadow]",
+        "duration-(--duration-normal)",
+        "ease-default",
         "hover:bg-btn-primary-bg-hover",
         "hover:-translate-y-1 hover:shadow-hover",
-        "focus-visible:ring-2 focus-visible:ring-gold",
+        "focus-visible:outline-2",
+        "focus-visible:outline-offset-2",
+        "focus-visible:outline-gold",
+        "motion-reduce:transition-none",
+        "motion-reduce:hover:transform-none",
+        "sm:right-6 sm:bottom-6",
+        "md:right-8 md:bottom-8",
         visible
           ? "translate-y-0 opacity-100"
           : "pointer-events-none translate-y-4 opacity-0",
       )}
     >
-      <ArrowUpIcon className="h-5 w-5" />
+      <ArrowUpIcon aria-hidden="true" className="size-5" />
     </button>
   );
 }
