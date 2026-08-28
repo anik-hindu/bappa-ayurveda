@@ -1,42 +1,22 @@
 "use client";
 
+import { announcements } from "@/data/home";
 import { cn } from "@/lib/cn";
 import { useEffect, useRef, useState } from "react";
-import { announcements } from "@/data/home"
-
 
 const SLIDE_DURATION = 4500;
-const TRANSITION_DURATION = 300;
 
 export default function AnnouncementBar() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
-  const slideTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const transitionTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
-    null,
-  );
-
-  const clearTimers = () => {
-    if (slideTimeoutRef.current) {
-      clearTimeout(slideTimeoutRef.current);
-      slideTimeoutRef.current = null;
-    }
-
-    if (transitionTimeoutRef.current) {
-      clearTimeout(transitionTimeoutRef.current);
-      transitionTimeoutRef.current = null;
-    }
-  };
+  const prefersReducedMotionRef = useRef(false);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
     const updatePreference = () => {
-      setPrefersReducedMotion(mediaQuery.matches);
+      prefersReducedMotionRef.current = mediaQuery.matches;
     };
 
     updatePreference();
@@ -49,45 +29,41 @@ export default function AnnouncementBar() {
   }, []);
 
   useEffect(() => {
-    clearTimers();
-
-    if (isPaused || prefersReducedMotion) {
+    if (isPaused) {
       return;
     }
 
-    slideTimeoutRef.current = setTimeout(() => {
-      setIsVisible(false);
-
-      transitionTimeoutRef.current = setTimeout(() => {
+    const interval = window.setInterval(() => {
+      if (
+        document.visibilityState === "visible" &&
+        !prefersReducedMotionRef.current
+      ) {
         setActiveIndex((current) => (current + 1) % announcements.length);
-
-        setIsVisible(true);
-        transitionTimeoutRef.current = null;
-      }, TRANSITION_DURATION);
+      }
     }, SLIDE_DURATION);
 
-    return clearTimers;
-  }, [activeIndex, isPaused, prefersReducedMotion]);
+    return () => {
+      window.clearInterval(interval);
+    };
+  }, [isPaused]);
 
-  useEffect(() => {
-    return clearTimers;
-  }, []);
+  const pause = () => setIsPaused(true);
+  const resume = () => setIsPaused(false);
 
   return (
     <div
       role="region"
-      aria-roledescription="carousel"
       aria-label="Announcements"
       className={cn(
         "border-b border-white/10",
         "bg-bg-inverse text-text-inverse",
       )}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onFocus={() => setIsPaused(true)}
+      onMouseEnter={pause}
+      onMouseLeave={resume}
+      onFocus={pause}
       onBlur={(event) => {
         if (!event.currentTarget.contains(event.relatedTarget)) {
-          setIsPaused(false);
+          resume();
         }
       }}
     >
@@ -100,18 +76,13 @@ export default function AnnouncementBar() {
           )}
         >
           <p
-            aria-live="polite"
-            aria-atomic="true"
             className={cn(
-              "w-full text-center",
+              "w-full max-w-full text-center wrap-break-word",
               "text-[0.8125rem] sm:text-caption md:text-body",
               "font-medium",
               "leading-snug sm:leading-relaxed",
               "tracking-[0.005em]",
               "text-white",
-              !prefersReducedMotion &&
-                "transition-opacity duration-(--duration-normal)",
-              isVisible ? "opacity-100" : "opacity-0",
             )}
           >
             {announcements[activeIndex]}

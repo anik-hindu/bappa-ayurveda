@@ -143,7 +143,6 @@ export default function Navbar() {
                 className={cn(
                   "font-display text-xl font-bold text-text-primary",
                   "md:hidden",
-                  scrolled && "hidden",
                 )}
               >
                 Bappa Ayurveda
