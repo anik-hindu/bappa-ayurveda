@@ -1,6 +1,6 @@
 "use client";
 
-import { AnnouncementBar } from "@/components/home/";
+import { AnnouncementBar } from "@/components/home";
 import { Button } from "@/components/ui";
 import { navLinks } from "@/data/links";
 import useScrolled from "@/hooks/useScrolled";
@@ -9,35 +9,31 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+const SHOP_URL = "https://amzn.in/d/0irbMWo1";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
+
   const pathname = usePathname();
   const scrolled = useScrolled();
 
-  
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const firstMenuLinkRef = useRef<HTMLAnchorElement>(null);
 
-  // Close menu on route change
-  useEffect(() => {
-    const timeout = setTimeout(() => setMenuOpen(false), 0);
-    return () => clearTimeout(timeout);
-  }, [pathname]);
-
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
-
+  /*
+   * Close the menu with Escape and return focus to the menu button.
+   */
   useEffect(() => {
     if (!menuOpen) return;
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setMenuOpen(false);
-      }
+      if (event.key !== "Escape") return;
+
+      event.preventDefault();
+      setMenuOpen(false);
+      menuButtonRef.current?.focus();
     };
 
     document.addEventListener("keydown", handleKeyDown);
@@ -45,6 +41,34 @@ export default function Navbar() {
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
     };
+  }, [menuOpen]);
+
+  /*
+   * Prevent background scrolling while the mobile navigation is open.
+   */
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+    };
+  }, [menuOpen]);
+
+  /*
+   * When the menu opens, move keyboard focus into the menu.
+   *
+   * When it closes, return focus to the menu button.
+   */
+  useEffect(() => {
+    if (menuOpen) {
+      firstMenuLinkRef.current?.focus();
+    } else {
+      menuButtonRef.current?.focus();
+    }
   }, [menuOpen]);
 
   const isActiveLink = (href: string) => {
@@ -57,14 +81,20 @@ export default function Navbar() {
     return pathname === path || pathname.startsWith(`${path}/`);
   };
 
+  const toggleMenu = () => {
+    setMenuOpen((current) => !current);
+  };
+
   return (
     <>
       {isActiveLink("/") && <AnnouncementBar />}
+
       <header
         className={cn(
           "sticky top-0 z-(--z-navbar)",
           "w-full bg-bg-page",
           "transition-shadow duration-(--duration-normal)",
+          "motion-reduce:transition-none",
           scrolled && "shadow-card",
         )}
       >
@@ -73,7 +103,8 @@ export default function Navbar() {
             aria-label="Main navigation"
             className={cn(
               "flex items-center justify-between",
-              "transition-all duration-(--duration-normal)",
+              "transition-[min-height,padding] duration-(--duration-normal)",
+              "motion-reduce:transition-none",
               scrolled ? "min-h-16 py-2" : "min-h-20 py-4",
             )}
           >
@@ -83,7 +114,11 @@ export default function Navbar() {
               aria-label="Bappa Ayurveda — Home"
               className={cn(
                 "flex items-center gap-2",
-                "transition-all duration-(--duration-normal)",
+                "rounded-btn",
+                "focus-visible:outline-2",
+                "focus-visible:outline-offset-4",
+                "transition-[gap] duration-(--duration-normal)",
+                "motion-reduce:transition-none",
                 scrolled && "gap-0",
               )}
             >
@@ -92,17 +127,22 @@ export default function Navbar() {
                 alt=""
                 width={88}
                 height={80}
-                className={cn(
-                  "hidden h-20 w-22 shrink-0 rounded-sm object-cover mix-blend-multiply md:block",
-                  "transition-all duration-(--duration-normal)",
-                  scrolled && "block h-10 w-12",
-                )}
                 priority
+                sizes="(min-width: 768px) 88px, 0px"
+                className={cn(
+                  "hidden h-20 w-22 shrink-0",
+                  "rounded-sm object-cover mix-blend-multiply",
+                  "transition-[width,height] duration-(--duration-normal)",
+                  "motion-reduce:transition-none",
+                  "md:block",
+                  scrolled && "h-10 w-12",
+                )}
               />
 
               <span
                 className={cn(
-                  "font-display text-xl font-bold text-text-primary md:hidden",
+                  "font-display text-xl font-bold text-text-primary",
+                  "md:hidden",
                   scrolled && "hidden",
                 )}
               >
@@ -110,53 +150,68 @@ export default function Navbar() {
               </span>
             </Link>
 
-            {/* Desktop Links */}
-            <ul className="hidden items-center gap-8 md:flex" role="list">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    aria-current={isActiveLink(link.href) ? "page" : undefined}
-                    className={cn(
-                      "font-body text-nav font-medium",
-                      "transition-colors duration-(--duration-fast)",
-                      "relative pb-0.5",
-                      "after:absolute after:bottom-0 after:left-0",
-                      "after:h-px after:w-0 after:bg-text-accent",
-                      "after:transition-[width] after:duration-(--duration-normal)",
-                      "hover:text-text-accent hover:after:w-full",
-                      isActiveLink(link.href)
-                        ? "font-semibold text-text-accent after:w-full"
-                        : "text-text-body",
-                    )}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
+            {/* Desktop navigation */}
+            <ul role="list" className="hidden items-center gap-8 md:flex">
+              {navLinks.map((link) => {
+                const active = isActiveLink(link.href);
+
+                return (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      aria-current={active ? "page" : undefined}
+                      className={cn(
+                        "relative pb-0.5",
+                        "font-body text-nav font-medium",
+                        "text-text-body",
+                        "transition-colors duration-(--duration-fast)",
+                        "motion-reduce:transition-none",
+                        "hover:text-text-accent",
+                        "focus-visible:rounded-sm",
+                        "after:absolute after:bottom-0 after:left-0",
+                        "after:transition-[width] after:duration-(--duration-normal)",
+                        "after:ease-default",
+                        "motion-reduce:after:transition-none",
+                        "relative pb-0.5",
+                        "after:absolute after:bottom-0 after:left-0",
+                        "after:h-px after:w-0 after:bg-text-accent",
+                        "hover:after:w-full",
+                        active && "font-semibold text-text-accent after:w-full",
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
 
             {/* Desktop CTA */}
             <div className="hidden md:block">
-              <Button href="https://amzn.in/d/0irbMWo1" external size="sm">
+              <Button href={SHOP_URL} external size="sm">
                 Shop Now
               </Button>
             </div>
 
-            {/* Mobile Menu Toggle */}
+            {/* Mobile menu toggle */}
             <button
+              ref={menuButtonRef}
               type="button"
-              onClick={() => setMenuOpen(!menuOpen)}
+              onClick={toggleMenu}
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
-              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              aria-label={
+                menuOpen ? "Close navigation menu" : "Open navigation menu"
+              }
               className={cn(
                 "md:hidden",
-                "flex h-10 w-10 items-center justify-center",
+                "flex h-11 w-11 items-center justify-center",
                 "rounded-btn",
                 "text-text-primary",
                 "transition-colors duration-(--duration-fast)",
-                "hover:bg-bg-hover active:bg-bg-hover",
+                "motion-reduce:transition-none",
+                "hover:bg-bg-hover",
+                "active:bg-bg-hover",
               )}
             >
               {menuOpen ? (
@@ -168,51 +223,63 @@ export default function Navbar() {
           </nav>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile navigation */}
         <nav
           id="mobile-menu"
           aria-label="Mobile navigation"
+          aria-hidden={!menuOpen}
+          inert={!menuOpen ? true : undefined}
           className={cn(
             "md:hidden",
-            "overflow-hidden",
+            "grid overflow-hidden",
             "border-t border-border-subtle",
             "bg-bg-page",
-            "transition-all duration-300",
-            menuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0",
+            "transition-[grid-template-rows,opacity]",
+            "duration-(--duration-normal)",
+            "motion-reduce:transition-none",
+            menuOpen
+              ? "grid-rows-[1fr] opacity-100"
+              : "pointer-events-none grid-rows-[0fr] opacity-0",
           )}
         >
-          <div className="container-page space-y-1 py-6">
-            <ul role="list" className="space-y-1">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    aria-current={isActiveLink(link.href) ? "page" : undefined}
-                    className={cn(
-                      "block px-3 py-3",
-                      "font-body text-nav font-medium",
-                      "rounded-btn",
-                      "transition-colors duration-(--duration-fast)",
-                      isActiveLink(link.href)
-                        ? "bg-bg-hover text-text-accent"
-                        : "text-text-body hover:bg-bg-hover hover:text-text-primary active:bg-bg-hover active:text-text-primary",
-                    )}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          <div className="min-h-0 overflow-hidden">
+            <div className="container-page space-y-1 py-6">
+              <ul role="list" className="space-y-1">
+                {navLinks.map((link, index) => {
+                  const active = isActiveLink(link.href);
 
-            <div className="border-t border-border-subtle pt-4">
-              <Button
-                href="https://amzn.in/d/0irbMWo1"
-                external
-                fullWidth
-                size="sm"
-              >
-                Shop SHUKRAVITA on Amazon
-              </Button>
+                  return (
+                    <li key={link.href}>
+                      <Link
+                        ref={index === 0 ? firstMenuLinkRef : undefined}
+                        href={link.href}
+                        aria-current={active ? "page" : undefined}
+                        className={cn(
+                          "block min-h-11 rounded-btn px-3 py-3",
+                          "font-body text-nav font-medium",
+                          "text-text-body",
+                          "transition-colors duration-(--duration-fast)",
+                          "motion-reduce:transition-none",
+                          "hover:bg-bg-hover hover:text-text-primary",
+                          "active:bg-bg-hover active:text-text-primary",
+                          "focus-visible:outline-2",
+                          "focus-visible:outline-offset-2",
+                          "focus-visible:outline-border-accent",
+                          active && "bg-bg-hover text-text-accent",
+                        )}
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+
+              <div className="border-t border-border-subtle pt-4">
+                <Button href={SHOP_URL} external fullWidth size="sm">
+                  Shop SHUKRAVITA on Amazon
+                </Button>
+              </div>
             </div>
           </div>
         </nav>

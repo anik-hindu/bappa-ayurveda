@@ -17,7 +17,9 @@ export default function WebsiteLayout({
         Skip to main content
       </Link>
       <Navbar />
-      <main id="main-content">{children}</main>
+      <main id="main-content" tabIndex={-1}>
+        {children}
+      </main>
       <CredibilityBar />
       <Footer />
       <ScrollToTop />
