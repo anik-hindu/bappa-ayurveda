@@ -16,6 +16,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const scrolled = useScrolled();
 
+  
+
   // Close menu on route change
   useEffect(() => {
     const timeout = setTimeout(() => setMenuOpen(false), 0);
@@ -26,6 +28,22 @@ export default function Navbar() {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [menuOpen]);
 
@@ -46,7 +64,6 @@ export default function Navbar() {
         className={cn(
           "sticky top-0 z-(--z-navbar)",
           "w-full bg-bg-page",
-          "will-change-[hKeight,box-shadow]",
           "transition-shadow duration-(--duration-normal)",
           scrolled && "shadow-card",
         )}
@@ -99,6 +116,7 @@ export default function Navbar() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
+                    aria-current={isActiveLink(link.href) ? "page" : undefined}
                     className={cn(
                       "font-body text-nav font-medium",
                       "transition-colors duration-(--duration-fast)",
@@ -151,7 +169,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu */}
-        <div
+        <nav
           id="mobile-menu"
           aria-label="Mobile navigation"
           className={cn(
@@ -169,6 +187,7 @@ export default function Navbar() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
+                    aria-current={isActiveLink(link.href) ? "page" : undefined}
                     className={cn(
                       "block px-3 py-3",
                       "font-body text-nav font-medium",
@@ -196,7 +215,7 @@ export default function Navbar() {
               </Button>
             </div>
           </div>
-        </div>
+        </nav>
       </header>
     </>
   );
