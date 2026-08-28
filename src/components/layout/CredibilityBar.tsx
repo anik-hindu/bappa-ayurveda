@@ -1,5 +1,3 @@
-"use client";
-
 import { Section } from "@/components/ui";
 import { credibilityItems } from "@/data/credibility";
 import { cn } from "@/lib/cn";
@@ -18,26 +16,30 @@ function CredibilityItem({ label, description, img }: CredibilityItemProps) {
       <div
         className={cn(
           "flex items-center gap-3",
-          "px-5 sm:px-7 lg:px-9",
-          "py-2",
           "border-r border-border-default",
+          "px-5 py-2 sm:px-7 lg:px-9",
         )}
       >
         <div
           className={cn(
-            "flex shrink-0 items-center justify-center",
-            "size-11 sm:size-13 lg:size-14",
+            "flex size-11 shrink-0 items-center justify-center",
+            "sm:size-13 lg:size-14",
           )}
-          aria-hidden="true"
         >
-          <Image src={img} alt="" className="size-full object-contain" />
+          <Image
+            src={img}
+            alt=""
+            sizes="56px"
+            className="size-full object-contain"
+          />
         </div>
 
         <div className="min-w-0">
           <p
             className={cn(
+              "whitespace-nowrap",
               "text-label font-semibold",
-              "whitespace-nowrap text-text-primary",
+              "text-text-primary",
             )}
           >
             {label}
@@ -45,8 +47,9 @@ function CredibilityItem({ label, description, img }: CredibilityItemProps) {
 
           <p
             className={cn(
+              "whitespace-nowrap",
               "text-label leading-tight",
-              "whitespace-nowrap text-text-muted",
+              "text-text-muted",
             )}
           >
             {description}
@@ -58,8 +61,6 @@ function CredibilityItem({ label, description, img }: CredibilityItemProps) {
 }
 
 function CredibilityTrack() {
-  const items = [...credibilityItems, ...credibilityItems];
-
   return (
     <div
       className={cn(
@@ -67,24 +68,40 @@ function CredibilityTrack() {
         "mask-[linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]",
       )}
     >
-      <ul
+      <div
         className={cn(
-          "flex w-max list-none items-center",
+          "flex w-max",
           "animate-credibility-marquee",
           "group-hover:[animation-play-state:paused]",
           "group-focus-within:[animation-play-state:paused]",
           "motion-reduce:animate-none",
         )}
       >
-        {items.map((item, index) => (
-          <CredibilityItem
-            key={`${item.label}-${index}`}
-            label={item.label}
-            description={item.description}
-            img={item.img}
-          />
-        ))}
-      </ul>
+        <ul
+          aria-label="Bappa Ayurveda credentials"
+          className="flex shrink-0 list-none items-center"
+        >
+          {credibilityItems.map((item) => (
+            <CredibilityItem
+              key={item.label}
+              label={item.label}
+              description={item.description}
+              img={item.img}
+            />
+          ))}
+        </ul>
+
+        <ul aria-hidden="true" className="flex shrink-0 list-none items-center">
+          {credibilityItems.map((item) => (
+            <CredibilityItem
+              key={`duplicate-${item.label}`}
+              label={item.label}
+              description={item.description}
+              img={item.img}
+            />
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
@@ -98,10 +115,9 @@ export default function CredibilityBar() {
     >
       <div className="flex flex-col gap-5 sm:gap-6">
         <div className="text-center">
-          <h3 className="leading-tight">Trusted by Authorities.</h3>
-
-          <h3 className="leading-tight text-text-muted">
-            Chosen by Thousands.
+          <h3 className="leading-tight">
+            Trusted by Authorities.
+            <span className="block text-text-muted">Chosen by Thousands.</span>
           </h3>
         </div>
 
