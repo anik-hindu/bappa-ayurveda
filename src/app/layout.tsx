@@ -1,35 +1,13 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+
 import "./globals.css";
 
-export const metadata: Metadata = {
-  title: {
-    default: "Bappa Ayurveda: Rooted in Science, Backed by Tradition",
-    template: "%s | Bappa Ayurveda",
-  },
-  description:
-    "DPIIT recognized, AYUSH licensed Ayurvedic wellness brand. " +
-    "Discover SHUKRAVITA — premium men's vitality supplement rooted " +
-    "in classical Ayurvedic science.",
-  icons: {
-    icon: [
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-    ],
-    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
-    other: [{ rel: "manifest", url: "/site.webmanifest" }],
-  },
-  metadataBase: new URL("https://bappaayurveda.com"),
-  openGraph: {
-    siteName: "Bappa Ayurveda",
-    locale: "en_IN",
-    type: "website",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+
+if (!siteUrl) {
+  throw new Error("NEXT_PUBLIC_SITE_URL is not configured");
+}
 
 const dmSans = DM_Sans({
   subsets: ["latin"],
@@ -44,6 +22,48 @@ const cormorant = Cormorant_Garamond({
   display: "swap",
 });
 
+export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Bappa Ayurveda: Rooted in Science, Backed by Tradition",
+    template: "%s | Bappa Ayurveda",
+  },
+  description:
+    "Bappa Ayurveda explores Ayurveda through educational, editorial, and wellness-focused content rooted in traditional knowledge.",
+  applicationName: "Bappa Ayurveda",
+  creator: "SPRTA AYURENIGMA PRIVATE LIMITED",
+  publisher: "SPRTA AYURENIGMA PRIVATE LIMITED",
+  icons: {
+    icon: [
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    other: [{ rel: "manifest", url: "/site.webmanifest" }],
+  },
+  openGraph: {
+    title: "Bappa Ayurveda: Rooted in Science, Backed by Tradition",
+    description:
+      "Bappa Ayurveda explores Ayurveda through educational, editorial, and wellness-focused content rooted in traditional knowledge.",
+    siteName: "Bappa Ayurveda",
+    url: siteUrl,
+    locale: "en_IN",
+    type: "website",
+    images: [
+      {
+        url: "/opengraph-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Bappa Ayurveda",
+      },
+    ],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -55,7 +75,7 @@ export default function RootLayout({
       className={`${dmSans.variable} ${cormorant.variable}`}
       data-scroll-behavior="smooth"
     >
-      <body suppressHydrationWarning>{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
