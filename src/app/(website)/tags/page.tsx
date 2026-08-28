@@ -6,9 +6,9 @@ export default async function TagsPage() {
   const tags = await getAllTags();
 
   return (
-    <main>
+    <>
       <TagsHero />
       <TagsList tags={tags} />
-    </main>
+    </>
   );
 }

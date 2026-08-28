@@ -18,10 +18,10 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
   }
 
   return (
-    <main id="main-content" tabIndex={-1}>
+    <>
       <AuthorHero author={author} />
       <AuthorBio author={author} />
       <AuthorArticles posts={author.posts} />
-    </main>
+    </>
   );
 }

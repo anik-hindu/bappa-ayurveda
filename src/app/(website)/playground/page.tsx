@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function DesignSystemPage() {
   return (
-    <main className="container-page">
+    <div className="container-page">
       <div className="flex flex-col lg:grid lg:grid-cols-[160px_minmax(0,1fr)] lg:gap-16">
         <SidebarNavigation />
         <article
@@ -43,6 +43,6 @@ export default function DesignSystemPage() {
           <Guidelines />
         </article>
       </div>
-    </main>
+    </div>
   );
 }

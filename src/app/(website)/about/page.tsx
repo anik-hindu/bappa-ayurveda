@@ -29,7 +29,7 @@ const principles = [
 
 export default function AboutPage() {
   return (
-    <main>
+    <>
       {/* Hero */}
       <Section
         background="surface"
@@ -269,6 +269,6 @@ export default function AboutPage() {
           </Button>
         </div>
       </Section>
-    </main>
+    </>
   );
 }

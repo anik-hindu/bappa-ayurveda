@@ -54,7 +54,7 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
   }
 
   return (
-    <main>
+    <>
       <TagHero tag={tag} />
 
       <TagArticles
@@ -65,6 +65,6 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
         currentPage={currentPage}
         pageSize={PAGE_SIZE}
       />
-    </main>
+    </>
   );
 }

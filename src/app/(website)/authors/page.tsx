@@ -17,9 +17,9 @@ export default async function AuthorsPage() {
   const authors = await getAllAuthors();
 
   return (
-    <main>
+    <>
       <AuthorsHero />
       <AuthorsGrid authors={authors} />
-    </main>
+    </>
   );
 }

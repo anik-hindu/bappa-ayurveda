@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: "%s | Bappa Ayurveda",
   },
   description:
-    "Bappa Ayurveda explores Ayurveda through educational, editorial, and wellness-focused content rooted in traditional knowledge.",
+    "Explore Ayurveda through educational and editorial content rooted in traditional knowledge.",
   applicationName: "Bappa Ayurveda",
   creator: "SPRTA AYURENIGMA PRIVATE LIMITED",
   publisher: "SPRTA AYURENIGMA PRIVATE LIMITED",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Bappa Ayurveda: Rooted in Science, Backed by Tradition",
     description:
-      "Bappa Ayurveda explores Ayurveda through educational, editorial, and wellness-focused content rooted in traditional knowledge.",
+      "Explore Ayurveda through educational and editorial content rooted in traditional knowledge.",
     siteName: "Bappa Ayurveda",
     url: siteUrl,
     locale: "en_IN",

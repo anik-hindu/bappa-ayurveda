@@ -28,10 +28,10 @@ export default async function BlogListingPage({
   const page = Number.isInteger(parsedPage) && parsedPage > 0 ? parsedPage : 1;
 
   return (
-    <main id="main-content" tabIndex={-1}>
+    <>
       <BlogHeader />
       <CategoryFilter categories={categories} />
       <BlogPostSection category={category} page={page} />
-    </main>
+    </>
   );
 }

@@ -50,7 +50,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const toc = extractTableOfContents(post.body);
 
   return (
-    <main>
+    <>
       <ArticleHeader post={post} />
 
       <ArticleContent
@@ -70,6 +70,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <ArticleAuthor author={post.author} />
       </footer>
       <RelatedArticles posts={relatedPosts} />
-    </main>
+    </>
   );
 }

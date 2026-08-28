@@ -6,7 +6,7 @@ import {
 } from "@/components/layout";
 import Link from "next/link";
 
-export default function RootLayout({
+export default function WebsiteLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -17,7 +17,7 @@ export default function RootLayout({
         Skip to main content
       </Link>
       <Navbar />
-      {children}
+      <main id="main-content">{children}</main>
       <CredibilityBar />
       <Footer />
       <ScrollToTop />

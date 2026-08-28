@@ -13,16 +13,12 @@ export const metadata: Metadata = {
 
 export default function HomePage() {
   return (
-    <main
-      id="main-content"
-      tabIndex={-1}
-      className="flex min-h-screen flex-col items-center justify-center"
-    >
+    <>
       <Hero />
       <BrandStory />
       <ProductPreview />
       <PieTeaser />
       <BlogPreview />
-    </main>
+    </>
   );
 }
