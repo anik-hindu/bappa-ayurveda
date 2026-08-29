@@ -3,7 +3,22 @@ import { cn } from "@/lib/cn";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "About Bappa Ayurveda",
+  description:
+    "Learn about Bappa Ayurveda, our founding story, classical Ayurvedic foundations, traditional processing methods, and commitment to disciplined manufacturing standards.",
+  openGraph: {
+    title: "About Bappa Ayurveda",
+    description:
+      "Learn about Bappa Ayurveda, our founding story, classical Ayurvedic foundations, traditional processing methods, and commitment to disciplined manufacturing standards.",
+    url: "/about",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Bappa Ayurveda",
+    description:
+      "Learn about Bappa Ayurveda, our founding story, classical Ayurvedic foundations, traditional processing methods, and commitment to disciplined manufacturing standards.",
+  },
 };
 
 const principles = [
@@ -90,7 +105,7 @@ export default function AboutPage() {
             )}
           >
             <p>
-              Bappa Ayurveda was founded in February 2026 by Shivansh Mishra — a
+              Bappa Ayurveda was founded in February 2026 by Shivansh Mishra, a
               BAMS student.
             </p>
 

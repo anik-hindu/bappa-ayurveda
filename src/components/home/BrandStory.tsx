@@ -22,7 +22,6 @@ const principles = [
 export default function BrandStory() {
   return (
     <Section
-      id="about"
       background="surface"
       padding="lg"
       aria-labelledby="brand-story-heading"
@@ -31,7 +30,7 @@ export default function BrandStory() {
       <div className="max-w-3xl">
         <p
           className={cn(
-            "font-body text-label font-semibold",
+            "text-label font-semibold",
             "tracking-wider uppercase",
             "text-text-primary",
           )}
@@ -49,7 +48,7 @@ export default function BrandStory() {
         <p
           className={cn(
             "mt-5 max-w-2xl",
-            "font-body text-body-lg leading-relaxed",
+            "text-body-lg leading-relaxed",
             "text-text-body",
           )}
         >
@@ -61,7 +60,6 @@ export default function BrandStory() {
 
       {/* Principles */}
       <ul
-        role="list"
         aria-label="Bappa Ayurveda approach"
         className={cn(
           "mt-10 grid overflow-hidden",
@@ -112,7 +110,7 @@ export default function BrandStory() {
         <Link
           href="/about"
           className={cn(
-            "group inline-flex shrink-0 items-center gap-2",
+            "group inline-flex min-h-11 shrink-0 items-center gap-2 px-1 py-2",
             "font-body text-label font-semibold",
             "text-text-primary",
             "transition-colors duration-(--duration-fast)",
