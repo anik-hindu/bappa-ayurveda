@@ -31,8 +31,24 @@ export const metadata: Metadata = {
   description:
     "Explore Ayurveda through educational and editorial content rooted in traditional knowledge.",
   applicationName: "Bappa Ayurveda",
-  creator: "SPRTA AYURENIGMA PRIVATE LIMITED",
-  publisher: "SPRTA AYURENIGMA PRIVATE LIMITED",
+  keywords: [
+    "Ayurvedic supplement for men",
+    "SHUKRAVITA",
+    "Vajikarana formula",
+    "men vitality Ayurveda",
+    "Ashwagandha supplement India",
+    "AYUSH licensed supplement",
+    "classical Ayurveda",
+    "Bappa Ayurveda",
+  ],
+  authors: [
+    {
+      name: "Shivansh Mishra",
+      url: "/authors/shivansh-mishra",
+    },
+  ],
+  creator: "Bappa Ayurveda",
+  publisher: "SPRTA Ayurenigma Private Limited",
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -61,6 +77,12 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
@@ -75,7 +97,7 @@ export default function RootLayout({
       className={`${dmSans.variable} ${cormorant.variable}`}
       data-scroll-behavior="smooth"
     >
-      <body>{children}</body>
+      <body suppressHydrationWarning>{children}</body>
     </html>
   );
 }

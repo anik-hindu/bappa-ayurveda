@@ -346,10 +346,24 @@ export async function getAllCategories(): Promise<Category[]> {
 // Static Params Helpers
 
 export async function getAllPostSlugs() {
-  const posts = await client.fetch<{ slug: { current: string } }[]>(
+  return client.fetch<
+    {
+      slug: string;
+      updatedAt?: string;
+      publishedAt: string;
+    }[]
+  >(
     `
-    *[_type == "post"] { slug }
-  `,
+      *[
+        _type == "post" &&
+        defined(slug.current) &&
+        defined(publishedAt)
+      ] {
+        "slug": slug.current,
+        updatedAt,
+        publishedAt
+      }
+    `,
     {},
     {
       next: {
@@ -357,14 +371,19 @@ export async function getAllPostSlugs() {
       },
     },
   );
-  return posts.map((p) => ({ slug: p.slug.current }));
 }
 
 export async function getAllAuthorSlugs() {
   const authors = await client.fetch<{ slug: { current: string } }[]>(
     `
-    *[_type == "author"] { slug }
-  `,
+      *[
+        _type == "author" &&
+        isActive == true &&
+        defined(slug.current)
+      ] {
+        slug
+      }
+    `,
     {},
     {
       next: {
@@ -372,22 +391,34 @@ export async function getAllAuthorSlugs() {
       },
     },
   );
-  return authors.map((a) => ({ slug: a.slug.current }));
+
+  return authors.map((author) => ({
+    slug: author.slug.current,
+  }));
 }
 
-export async function getAllCategorySlugs() {
-  const categories = await client.fetch<{ slug: { current: string } }[]>(
+export async function getAllTagSlugs() {
+  const tags = await client.fetch<{ slug: { current: string } }[]>(
     `
-    *[_type == "category"] { slug }
-  `,
+      *[
+        _type == "tag" &&
+        isActive == true &&
+        defined(slug.current)
+      ] {
+        slug
+      }
+    `,
     {},
     {
       next: {
-        tags: [CACHE_TAGS.categories],
+        tags: [CACHE_TAGS.tags],
       },
     },
   );
-  return categories.map((c) => ({ slug: c.slug.current }));
+
+  return tags.map((tag) => ({
+    slug: tag.slug.current,
+  }));
 }
 
 // Tags
@@ -521,28 +552,4 @@ export async function getPaginatedPostsByTagId({
       },
     },
   );
-}
-
-export async function getAllTagSlugs() {
-  const tags = await client.fetch<{ slug: { current: string } }[]>(
-    `
-      *[
-        _type == "tag" &&
-        isActive == true &&
-        defined(slug.current)
-      ] {
-        slug
-      }
-    `,
-    {},
-    {
-      next: {
-        tags: [CACHE_TAGS.tags],
-      },
-    },
-  );
-
-  return tags.map((tag) => ({
-    slug: tag.slug.current,
-  }));
 }
