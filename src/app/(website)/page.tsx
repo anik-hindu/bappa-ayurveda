@@ -8,7 +8,9 @@ import {
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Bappa Ayurveda | Rooted in Science, Backed by Tradition",
+  title: {
+    absolute: "Bappa Ayurveda | Rooted in Science, Backed by Tradition",
+  },
   description:
     "Explore Ayurveda through traditional knowledge, modern science, and responsible wellness education with Bappa Ayurveda.",
   openGraph: {

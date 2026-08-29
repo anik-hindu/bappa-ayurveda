@@ -18,9 +18,10 @@
   /* ── Text Tokens ──────────────────────────────── */
   --color-text-primary: var(--color-forest);
   --color-text-body: var(--color-charcoal);
-  --color-text-muted: rgba(42, 42, 42, 0.55);
+  --color-text-muted: #5f625d;
   --color-text-inverse: var(--color-off-white);
   --color-text-accent: var(--color-gold);
+  --color-text-accent-strong: #6b4f16;
 
   /* ── Border Tokens ────────────────────────────── */
   --color-border-default: rgba(44, 74, 62, 0.15);

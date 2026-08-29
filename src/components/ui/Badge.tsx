@@ -17,7 +17,11 @@ const variants: Record<BadgeVariant, string> = {
     "text-text-primary",
   ),
 
-  accent: cn("bg-bg-hover", "border border-border-accent", "text-text-accent"),
+  accent: cn(
+    "bg-bg-hover",
+    "border border-border-accent",
+    "text-accent-strong",
+  ),
 
   outline: cn(
     "bg-transparent",
@@ -42,7 +46,7 @@ export default function Badge({
         "leading-none tracking-wider",
         "whitespace-nowrap",
         "select-none",
-        "duration-fast transition-colors",
+        "transition-colors duration-(--duration-fast)",
         variants[variant],
         className,
       )}
