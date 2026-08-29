@@ -58,18 +58,6 @@ export default function Navbar() {
     };
   }, [menuOpen]);
 
-  /*
-   * When the menu opens, move keyboard focus into the menu.
-   *
-   * When it closes, return focus to the menu button.
-   */
-  useEffect(() => {
-    if (menuOpen) {
-      firstMenuLinkRef.current?.focus();
-    } else {
-      menuButtonRef.current?.focus();
-    }
-  }, [menuOpen]);
 
   const isActiveLink = (href: string) => {
     const path = href.split("#")[0];

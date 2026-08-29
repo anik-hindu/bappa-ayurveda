@@ -149,7 +149,7 @@ export default function Footer() {
             </div>
 
             {/* Developer attribution */}
-            <div className="border-t border-text-inverse/10 pt-4">
+            <div className="border-t border-text-inverse/10 pt-4 text-center sm:text-left">
               <p className="font-body text-caption text-text-inverse/50">
                 Website designed &amp; developed by{" "}
                 <Link
