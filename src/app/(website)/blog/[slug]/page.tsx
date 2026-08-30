@@ -41,12 +41,9 @@ export async function generateMetadata({
   if (!post) {
     return {};
   }
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;
-  if (!baseUrl) {
-    throw new Error("NEXT_PUBLIC_SITE_URL is not configured.");
-  }
-  const canonicalUrl = `${baseUrl}/blog/${post.slug.current}`;
-  const title = `${post.title} | Bappa Ayurveda`;
+
+  const canonicalUrl = `/blog/${post.slug.current}`;
+  const title = `${post.title}`;
   const description = post.excerpt.trim();
   const publishedTime = post.publishedAt
     ? new Date(post.publishedAt)
@@ -72,6 +69,7 @@ export async function generateMetadata({
       modifiedTime: modifiedTime?.toISOString(),
       authors: post.author?.name ? [post.author.name] : undefined,
       section: post.category?.name,
+      siteName: "Bappa Ayurveda",
       images: imageUrl
         ? [
             {

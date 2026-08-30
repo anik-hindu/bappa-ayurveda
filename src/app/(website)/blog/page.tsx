@@ -3,7 +3,9 @@ import { getAllCategories } from "@/sanity/lib/queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Ayurveda Blog | Insights, Wellness & Evidence-Informed Guidance",
+  title: {
+    absolute: "Ayurveda Blog | Insights, Wellness & Evidence-Informed Guidance",
+  },
   description:
     "Explore practical Ayurveda insights, wellness guidance, and evidence-informed articles from Bappa Ayurveda, rooted in classical knowledge and modern standards.",
   alternates: { canonical: "/blog" },

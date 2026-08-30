@@ -63,7 +63,14 @@ export const blockContent = defineType({
           defineArrayMember({
             name: "link",
             type: "object",
-            title: "External Link",
+            title: "Smart Link",
+
+            options: {
+              modal: {
+                type: "popover",
+                width: 1,
+              },
+            },
 
             fields: [
               defineField({
@@ -74,21 +81,76 @@ export const blockContent = defineType({
                 validation: (Rule) =>
                   Rule.required().uri({
                     scheme: ["http", "https"],
-                    allowRelative: false,
+                    allowRelative: true,
                   }),
               }),
 
               defineField({
-                name: "blank",
+                name: "type",
+                title: "Link type",
+                type: "string",
+
+                options: {
+                  list: [
+                    { title: "Auto", value: "auto" },
+                    { title: "Internal", value: "internal" },
+                    { title: "External", value: "external" },
+                  ],
+                },
+
+                initialValue: "auto",
+              }),
+
+              defineField({
+                name: "openInNewTab",
                 title: "Open in new tab",
                 type: "boolean",
                 initialValue: true,
+              }),
+
+              defineField({
+                name: "affiliate",
+                title: "Affiliate link",
+                type: "boolean",
+                initialValue: false,
+
+                description:
+                  "Enable for links that generate commission or affiliate revenue.",
+              }),
+
+              defineField({
+                name: "sponsored",
+                title: "Sponsored link",
+                type: "boolean",
+                initialValue: false,
+
+                description: "Enable for paid or sponsored relationships.",
               }),
             ],
 
             preview: {
               select: {
-                title: "href",
+                href: "href",
+                type: "type",
+                affiliate: "affiliate",
+                sponsored: "sponsored",
+              },
+
+              prepare({ href, type, affiliate, sponsored }) {
+                const labels = [
+                  type === "internal"
+                    ? "Internal"
+                    : type === "external"
+                      ? "External"
+                      : "Auto",
+                  affiliate ? "Affiliate" : null,
+                  sponsored ? "Sponsored" : null,
+                ].filter(Boolean);
+
+                return {
+                  title: href,
+                  subtitle: labels.join(" • "),
+                };
               },
             },
           }),

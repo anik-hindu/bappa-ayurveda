@@ -3,8 +3,12 @@ import type { PortableTextBlock } from "@portabletext/types";
 
 import type { TableOfContentsItem } from "@/lib/tableOfContents";
 
+import { SmartLink } from "@/components/blog/SmartLink";
 import ArticleFAQ from "./ArticleFAQ";
 import PortableTextImage from "./PortableTextImage";
+
+const linkClassName =
+  "font-medium text-text-primary underline decoration-border-accent underline-offset-3 transition-colors duration-(--duration-fast) hover:text-text-accent focus-visible:ring-2 focus-visible:ring-border-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-page focus-visible:outline-none";
 
 interface ArticleBodyProps {
   body: PortableTextBlock[];
@@ -84,21 +88,17 @@ export default function ArticleBody({ body, toc }: ArticleBodyProps) {
                 return <>{children}</>;
               }
 
-              const isExternal = /^https?:\/\//i.test(href);
-
               return (
-                <a
+                <SmartLink
                   href={href}
-                  target={isExternal && value?.blank ? "_blank" : undefined}
-                  rel={
-                    isExternal && value?.blank
-                      ? "noopener noreferrer"
-                      : undefined
-                  }
-                  className="font-medium text-text-primary underline decoration-border-accent underline-offset-3 transition-colors duration-(--duration-fast) hover:text-text-accent focus-visible:ring-2 focus-visible:ring-border-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-page focus-visible:outline-none"
+                  type={value?.type ?? "auto"}
+                  openInNewTab={value?.openInNewTab ?? true}
+                  affiliate={value?.affiliate ?? false}
+                  sponsored={value?.sponsored ?? false}
+                  className={linkClassName}
                 >
                   {children}
-                </a>
+                </SmartLink>
               );
             },
             highlight: ({ children }) => (
