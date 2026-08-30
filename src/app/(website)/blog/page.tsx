@@ -13,6 +13,7 @@ export const metadata: Metadata = {
       "Explore practical Ayurveda insights, wellness guidance, and evidence-informed articles from Bappa Ayurveda.",
     url: "/blog",
     type: "website",
+    siteName: "Bappa Ayurveda",
     images: [
       {
         url: "/og/blog.jpg",

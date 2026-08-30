@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import {
@@ -17,6 +18,7 @@ import {
   getPost,
   getRelatedPosts,
 } from "@/sanity/lib/queries";
+import { urlFor } from "@/sanity/lib/image";
 
 import { extractTableOfContents } from "@/lib/tableOfContents";
 
@@ -29,6 +31,67 @@ interface BlogPostPageProps {
 export async function generateStaticParams() {
   const posts = await getAllPostSlugs();
   return posts.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: BlogPostPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await getPost(slug);
+  if (!post) {
+    return {};
+  }
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  if (!baseUrl) {
+    throw new Error("NEXT_PUBLIC_SITE_URL is not configured.");
+  }
+  const canonicalUrl = `${baseUrl}/blog/${post.slug.current}`;
+  const title = `${post.title} | Bappa Ayurveda`;
+  const description = post.excerpt.trim();
+  const publishedTime = post.publishedAt
+    ? new Date(post.publishedAt)
+    : undefined;
+  const modifiedTime = post.updatedAt
+    ? new Date(post.updatedAt)
+    : publishedTime;
+
+  const imageUrl = post.mainImage?.asset?._ref
+    ? urlFor(post.mainImage).width(1200).height(630).url()
+    : null;
+  return {
+    title,
+    description,
+    alternates: { canonical: canonicalUrl },
+    authors: post.author?.name ? [{ name: post.author.name }] : undefined,
+    openGraph: {
+      type: "article",
+      url: canonicalUrl,
+      title,
+      description,
+      publishedTime: publishedTime?.toISOString(),
+      modifiedTime: modifiedTime?.toISOString(),
+      authors: post.author?.name ? [post.author.name] : undefined,
+      section: post.category?.name,
+      images: imageUrl
+        ? [
+            {
+              url: imageUrl,
+              width: 1200,
+              height: 630,
+              alt: post.mainImage.alt || `${post.title} — Bappa Ayurveda`,
+            },
+          ]
+        : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
+      images: imageUrl
+        ? [imageUrl]
+        : undefined,
+    },
+  };
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
