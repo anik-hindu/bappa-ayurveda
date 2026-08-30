@@ -7,22 +7,39 @@ import {
 } from "@/components/home/";
 import type { Metadata } from "next";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL;
-
 export const metadata: Metadata = {
-  title: {
-    absolute: "Bappa Ayurveda | Rooted in Science, Backed by Tradition",
-  },
+  title: "Bappa Ayurveda | Rooted in Science. Backed by Tradition.",
   description:
-    "Explore Ayurveda through traditional knowledge, modern science, and responsible wellness education with Bappa Ayurveda.",
+    "Discover Bappa Ayurveda's approach to classical Ayurvedic formulations—thoughtfully crafted for modern life and held to modern standards.",
+
   alternates: {
-    canonical: BASE_URL,
+    canonical: "/",
   },
+
   openGraph: {
+    title: "Bappa Ayurveda | Rooted in Science. Backed by Tradition.",
+    description:
+      "Classical Ayurvedic formulations, thoughtfully crafted for modern life and held to modern standards.",
+    url: "/",
+    siteName: "Bappa Ayurveda",
     type: "website",
+    locale: "en_IN",
+    images: [
+      {
+        url: "/og/home.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Bappa Ayurveda — Rooted in Science. Backed by Tradition.",
+      },
+    ],
   },
+
   twitter: {
     card: "summary_large_image",
+    title: "Bappa Ayurveda | Rooted in Science. Backed by Tradition.",
+    description:
+      "Classical Ayurvedic formulations, thoughtfully crafted for modern life and held to modern standards.",
+    images: ["/og/home.jpg"],
   },
 };
 
