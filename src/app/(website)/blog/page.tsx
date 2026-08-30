@@ -3,9 +3,32 @@ import { getAllCategories } from "@/sanity/lib/queries";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: "Ayurveda Blog | Insights, Wellness & Evidence-Informed Guidance",
   description:
-    "Explore Ayurveda insights, wellness guidance, and evidence-informed articles from Bappa Ayurveda.",
+    "Explore practical Ayurveda insights, wellness guidance, and evidence-informed articles from Bappa Ayurveda, rooted in classical knowledge and modern standards.",
+  alternates: { canonical: "/blog" },
+  openGraph: {
+    title: "Ayurveda Blog | Bappa Ayurveda",
+    description:
+      "Explore practical Ayurveda insights, wellness guidance, and evidence-informed articles from Bappa Ayurveda.",
+    url: "/blog",
+    type: "website",
+    images: [
+      {
+        url: "/og/blog.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Bappa Ayurveda Blog — Ayurveda insights and wellness guidance",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Ayurveda Blog | Bappa Ayurveda",
+    description:
+      "Explore practical Ayurveda insights, wellness guidance, and evidence-informed articles from Bappa Ayurveda.",
+    images: ["/og/blog.jpg"],
+  },
 };
 
 interface BlogListingSearchParams {
