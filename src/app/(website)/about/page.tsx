@@ -3,21 +3,38 @@ import { cn } from "@/lib/cn";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About Bappa Ayurveda",
+  title: { absolute: "About Bappa Ayurveda | Our Story & Approach" },
   description:
-    "Learn about Bappa Ayurveda, our founding story, classical Ayurvedic foundations, traditional processing methods, and commitment to disciplined manufacturing standards.",
-  openGraph: {
-    title: "About Bappa Ayurveda",
-    description:
-      "Learn about Bappa Ayurveda, our founding story, classical Ayurvedic foundations, traditional processing methods, and commitment to disciplined manufacturing standards.",
-    url: "/about",
-    type: "website",
+    "Learn about Bappa Ayurveda, our approach to classical Ayurveda, and how we connect traditional knowledge with modern standards and responsible education.",
+
+  alternates: {
+    canonical: "/about",
   },
+
+  openGraph: {
+    title: "About Bappa Ayurveda | Our Story & Approach",
+    description:
+      "Discover Bappa Ayurveda's approach to preserving classical Ayurvedic knowledge while bringing it into modern life with care and credibility.",
+    url: "/about",
+    siteName: "Bappa Ayurveda",
+    type: "website",
+    locale: "en_IN",
+    images: [
+      {
+        url: "/og/opengraph-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "About Bappa Ayurveda — Classical Roots. Clinical Credibility.",
+      },
+    ],
+  },
+
   twitter: {
     card: "summary_large_image",
-    title: "About Bappa Ayurveda",
+    title: "About Bappa Ayurveda | Our Story & Approach",
     description:
-      "Learn about Bappa Ayurveda, our founding story, classical Ayurvedic foundations, traditional processing methods, and commitment to disciplined manufacturing standards.",
+      "Learn about Bappa Ayurveda's approach to classical Ayurveda, modern standards, and responsible education.",
+    images: ["/og/opengraph-image.jpg"],
   },
 };
 

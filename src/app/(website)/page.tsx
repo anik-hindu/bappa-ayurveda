@@ -8,7 +8,9 @@ import {
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Bappa Ayurveda | Rooted in Science. Backed by Tradition.",
+  title: {
+    absolute: "Bappa Ayurveda | Rooted in Science. Backed by Tradition.",
+  },
   description:
     "Discover Bappa Ayurveda's approach to classical Ayurvedic formulations—thoughtfully crafted for modern life and held to modern standards.",
 
