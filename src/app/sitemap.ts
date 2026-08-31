@@ -42,38 +42,46 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     {
       url: `${BASE_URL}/`,
+      lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1,
     },
     {
       url: `${BASE_URL}/about`,
+      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.8,
     },
     {
       url: `${BASE_URL}/blog`,
-      changeFrequency: "daily",
+      lastModified: new Date(),
+      changeFrequency: "weekly",
       priority: 0.9,
     },
     {
       url: `${BASE_URL}/authors`,
+      lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.6,
     },
     {
       url: `${BASE_URL}/tags`,
+      lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.5,
     },
   ];
 
   const postRoutes: MetadataRoute.Sitemap = posts.map(
-    ({ slug, updatedAt, publishedAt }) => ({
-      url: `${BASE_URL}/blog/${encodeURIComponent(slug)}`,
-      lastModified: updatedAt ?? publishedAt,
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    }),
+    ({ slug, updatedAt, publishedAt }) => {
+      const rawDate = updatedAt ?? publishedAt;
+      return {
+        url: `${BASE_URL}/blog/${encodeURIComponent(slug)}`,
+        lastModified: rawDate ? new Date(rawDate) : new Date(),
+        changeFrequency: "monthly",
+        priority: 0.8,
+      };
+    },
   );
 
   const authorRoutes: MetadataRoute.Sitemap = authors.map(({ slug }) => ({

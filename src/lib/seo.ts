@@ -2,37 +2,44 @@ import type { Metadata } from "next";
 
 /**
  * ---------------------------------------------------------------------------
- * Site configuration
+ * Environment & Site Configuration
  * ---------------------------------------------------------------------------
  */
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+
+if (!siteUrl) {
+  throw new Error(
+    "NEXT_PUBLIC_SITE_URL environment variable is missing. " +
+      "Please define it in your environment config (e.g. .env.local or deployment settings).",
+  );
+}
+
 /**
- * The base URL of the website.
- * Pulls from the `NEXT_PUBLIC_SITE_URL` environment variable, falling back to production domain.
+ * The primary base URL of the website.
+ * Guaranteed to be non-null at runtime.
  */
-export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://bappaayurveda.com";
+export const SITE_URL: string = siteUrl;
 
-/** Primary application and brand name. */
-export const SITE_NAME = "Bappa Ayurveda";
+/** Primary application and official brand name. */
+export const SITE_NAME: string = "Bappa Ayurveda";
 
-/** Shortened brand identity used for compact UI placements or site tags. */
-export const SITE_SHORT_NAME = "Bappa";
+/** Shortened brand identity used for compact UI placements or micro-badges. */
+export const SITE_SHORT_NAME: string = "Bappa";
 
-/** Fallback page title used when no specific route title is supplied. */
-export const DEFAULT_TITLE =
+/** Default fallback page title used when a route does not supply an explicit title. */
+export const DEFAULT_TITLE: string =
   "Bappa Ayurveda: Rooted in Science, Backed by Tradition";
 
-/** Default fallback meta description for general web crawling and social previews. */
-export const DEFAULT_DESCRIPTION =
+/** Default meta description used for general web crawling and social preview fallbacks. */
+export const DEFAULT_DESCRIPTION: string =
   "Explore Ayurveda through educational and editorial content rooted in traditional knowledge.";
 
-/** Default ISO language-territory locale tag for Open Graph configurations. */
-export const DEFAULT_LOCALE = "en_IN";
+/** Default ISO language-territory locale tag applied to Open Graph configurations. */
+export const DEFAULT_LOCALE: string = "en_IN";
 
 /**
  * Default Open Graph preview image metadata applied when a page does not supply a custom image.
- * Uses `as const` to ensure type immutability.
  */
 export const DEFAULT_OG_IMAGE = {
   url: "/og/opengraph-image.jpg",
@@ -44,76 +51,95 @@ export const DEFAULT_OG_IMAGE = {
 
 /**
  * ---------------------------------------------------------------------------
- * Types
+ * Types & Interfaces
  * ---------------------------------------------------------------------------
  */
-
-/**
- * Represents a root-relative URI string starting with a slash (`/`).
- * Preferred for canonical routing and relative asset definitions.
- */
-export type SitePath = `/${string}`;
 
 /**
  * Image descriptor object for social media preview cards (Open Graph & Twitter).
  */
 export type OgImageDescriptor = {
-  /** Relative path (e.g. `"/og/blog.jpg"`) or fully qualified external URL. */
+  /** Relative path (e.g., `"/og/blog.jpg"`) or fully qualified external URL. */
   url: string;
-  /** Alt text description for screen readers and accessibility. */
+  /** Alt text description for screen readers and accessibility tools. */
   alt: string;
   /** Image width in pixels. */
   width?: number;
   /** Image height in pixels. */
   height?: number;
-  /** Image MIME type (e.g. `"image/jpeg"`, `"image/png"`). */
+  /** Image MIME type (e.g., `"image/jpeg"`, `"image/png"`). */
   type?: string;
 };
 
 /**
- * Options configuration for building page-level Next.js metadata.
+ * Article-specific metadata attributes applied when building metadata for editorial or blog content.
+ */
+export type ArticleMetadata = {
+  /** ISO 8601 formatted publication timestamp string (e.g., `"2026-02-15T08:00:00Z"`). */
+  publishedTime?: string;
+  /** ISO 8601 formatted modification timestamp string. */
+  modifiedTime?: string;
+  /** Array of author names or URLs associated with the article. */
+  authors?: string[];
+  /** Primary category or section classification (e.g., `"Herbology"`). */
+  section?: string;
+};
+
+/**
+ * Options configuration passed into {@link buildPageMetadata} for generating Next.js metadata objects.
  */
 export type BuildMetadataOptions = {
   /**
-   * Page title.
+   * Page title string.
    *
    * @remarks
-   * The root layout's title template will automatically append:
-   * `"| Bappa Ayurveda"`
+   * By default, this title will be formatted by the layout template:
+   * `"<title> | Bappa Ayurveda"`.
    */
   title: string;
 
   /**
-   * Page-specific meta description.
+   * Bypasses the root layout's title template string (`%s | Bappa Ayurveda`).
+   *
+   * @defaultValue `false`
+   *
+   * @remarks
+   * Set to `true` on the home page or landing pages to prevent doubled brand titles.
+   */
+  absoluteTitle?: boolean;
+
+  /**
+   * Page-specific meta description string.
    *
    * @defaultValue {@link DEFAULT_DESCRIPTION}
    */
   description?: string;
 
   /**
-   * Canonical page path segment.
+   * Relative path segment or route path for canonical URL generation.
    *
    * @example `"/blog/what-is-ayurveda"`
    */
-  path: SitePath;
+  path: string;
 
   /**
-   * Optional array of page-specific keywords for meta search hints.
+   * Optional keyword metadata.
    *
    * @remarks
-   * Do not add keywords unless they genuinely describe the page content.
+   * Major search engines (such as Google) do not use the meta keywords tag for ranking.
+   * Only include this when another consumer or internal utility explicitly benefits from it.
    */
   keywords?: string[];
 
   /**
-   * Optional Open Graph preview image object.
+   * Custom Open Graph preview image descriptor.
    *
    * @defaultValue {@link DEFAULT_OG_IMAGE}
    */
   image?: OgImageDescriptor;
 
   /**
-   * Flag to prevent search engine indexing while allowing link crawling.
+   * Instructs search crawlers to exclude the route from search index results while continuing to follow links.
    *
    * @defaultValue `false`
    */
@@ -121,32 +147,37 @@ export type BuildMetadataOptions = {
 
   /**
    * Open Graph content classification type.
-   * Use `"article"` for blog or editorial routes.
+   * Set to `"article"` for blog posts, tutorials, or long-form editorial content.
    *
    * @defaultValue `"website"`
    */
   type?: "website" | "article";
+
+  /**
+   * Supplementary Open Graph article metadata properties applied when {@link BuildMetadataOptions.type} is set to `"article"`.
+   */
+  article?: ArticleMetadata;
 };
 
 /**
  * ---------------------------------------------------------------------------
- * URL helpers
+ * Utility Helpers
  * ---------------------------------------------------------------------------
  */
 
 /**
- * Converts a root-relative path or fully qualified URL string into a complete absolute URL using {@link SITE_URL}.
+ * Converts a relative path segment or absolute URL into a fully qualified URL using {@link SITE_URL}.
  *
- * @param pathOrUrl - A relative path (e.g. `"/blog"`) or an absolute URL (e.g. `"https://cdn.example.com/image.jpg"`).
+ * @param pathOrUrl - A relative path (e.g., `"/blog"`) or an absolute URL string.
  * @returns Fully qualified absolute URL string.
  *
  * @example
  * ```ts
- * absoluteUrl("/blog")
- * // Output: "[https://bappaayurveda.com/blog](https://bappaayurveda.com/blog)"
+ * absoluteUrl("/blog");
+ * // => "[https://bappaayurveda.com/blog](https://bappaayurveda.com/blog)"
  *
- * absoluteUrl("[https://cdn.example.com/image.jpg](https://cdn.example.com/image.jpg)")
- * // Output: "[https://cdn.example.com/image.jpg](https://cdn.example.com/image.jpg)"
+ * absoluteUrl("[https://cdn.example.com/hero.jpg](https://cdn.example.com/hero.jpg)");
+ * // => "[https://cdn.example.com/hero.jpg](https://cdn.example.com/hero.jpg)"
  * ```
  */
 export function absoluteUrl(pathOrUrl: string): string {
@@ -154,20 +185,12 @@ export function absoluteUrl(pathOrUrl: string): string {
 }
 
 /**
- * ---------------------------------------------------------------------------
- * Image helpers
- * ---------------------------------------------------------------------------
- */
-
-/**
- * Normalizes an Open Graph image descriptor object by resolving its `url` field into an absolute URL.
+ * Normalizes an Open Graph image descriptor by resolving its `url` property to an absolute URL.
  *
- * @remarks
- * Caller-supplied images retain their explicit custom dimensions and MIME types rather than falling
- * back on {@link DEFAULT_OG_IMAGE} dimension properties.
+ * @param image - The input {@link OgImageDescriptor} object to process.
+ * @returns Normalized image descriptor containing a fully qualified absolute URL string.
  *
- * @param image - The image descriptor object to process.
- * @returns A normalized {@link OgImageDescriptor} with an absolute URL string.
+ * @defaultValue {@link DEFAULT_OG_IMAGE}
  */
 export function normalizeImage(
   image: OgImageDescriptor = DEFAULT_OG_IMAGE,
@@ -180,38 +203,27 @@ export function normalizeImage(
 
 /**
  * ---------------------------------------------------------------------------
- * Metadata builder
+ * Metadata Builder
  * ---------------------------------------------------------------------------
  */
 
 /**
- * Builds a structured, reusable Next.js {@link Metadata} object tailored for page routes.
- * Handles titles, descriptions, canonical references, Open Graph tags, Twitter card specifications, and robot instructions.
+ * Generates a standard, strongly typed Next.js {@link Metadata} object for page routes.
+ * Handles meta descriptions, canonical paths, Open Graph parameters, Twitter cards, and crawl instructions.
  *
- * @param options - Configuration options defined in {@link BuildMetadataOptions}.
- * @returns Formatted Next.js `Metadata` object ready for export in page routes.
- *
- * @remarks
- * This helper exclusively generates standard page-level HTML metadata. It intentionally does **not** handle:
- * - Sanity CMS client queries
- * - Dynamic `sitemap.xml` generation
- * - Dynamic `robots.txt` generation
- * - JSON-LD Structured Data insertion
- * - Web App Manifest file generation
+ * @param options - Configuration settings defined in {@link BuildMetadataOptions}.
+ * @returns Formatted {@link Metadata} object ready to be exported by page routes or `generateMetadata` functions.
  *
  * @example
  * ```ts
- * // app/blog/[slug]/page.tsx
+ * // app/about/page.tsx
  * import { buildPageMetadata } from "@/lib/seo";
-
- * export function generateMetadata(): Metadata {
- *   return buildPageMetadata({
- *     title: "Understanding Ashwagandha Benefits",
- *     description: "A deep dive into classical Ayurvedic formulations.",
- *     path: "/blog/understanding-ashwagandha-benefits",
- *     type: "article",
- *   });
- * }
+ *
+ * export const metadata = buildPageMetadata({
+ *   title: "About Us",
+ *   description: "Learn about Bappa Ayurveda's mission and history.",
+ *   path: "/about",
+ * });
  * ```
  */
 export function buildPageMetadata({
@@ -222,21 +234,19 @@ export function buildPageMetadata({
   image,
   noIndex = false,
   type = "website",
+  article,
+  absoluteTitle = false,
 }: BuildMetadataOptions): Metadata {
   const metaDescription = description ?? DEFAULT_DESCRIPTION;
   const ogImage = normalizeImage(image);
   const canonicalUrl = absoluteUrl(path);
 
   return {
-    title,
+    title: absoluteTitle ? { absolute: title } : title,
 
     description: metaDescription,
 
-    ...(keywords?.length
-      ? {
-          keywords,
-        }
-      : {}),
+    ...(keywords?.length ? { keywords } : {}),
 
     alternates: {
       canonical: path,
@@ -259,6 +269,19 @@ export function buildPageMetadata({
           ...(ogImage.type ? { type: ogImage.type } : {}),
         },
       ],
+
+      ...(type === "article" && article
+        ? {
+            ...(article.publishedTime
+              ? { publishedTime: article.publishedTime }
+              : {}),
+            ...(article.modifiedTime
+              ? { modifiedTime: article.modifiedTime }
+              : {}),
+            ...(article.authors?.length ? { authors: article.authors } : {}),
+            ...(article.section ? { section: article.section } : {}),
+          }
+        : {}),
     },
 
     twitter: {

@@ -10,6 +10,7 @@ const BASE_URL = siteUrl.replace(/\/$/, "");
 
 export default function robots(): MetadataRoute.Robots {
   return {
+    host: BASE_URL,
     rules: {
       userAgent: "*",
       allow: "/",
