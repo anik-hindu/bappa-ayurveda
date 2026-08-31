@@ -30,6 +30,7 @@ export const metadata: Metadata = {
   },
   description:
     "Explore Ayurveda through educational and editorial content rooted in traditional knowledge.",
+    manifest: "/site.webmanifest",
   applicationName: "Bappa Ayurveda",
   keywords: [
     "Ayurvedic supplement for men",
@@ -55,7 +56,6 @@ export const metadata: Metadata = {
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
     apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
-    other: [{ rel: "manifest", url: "/site.webmanifest" }],
   },
   openGraph: {
     title: "Bappa Ayurveda: Rooted in Science, Backed by Tradition",
