@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   title: "Design System",
   description:
     "Bappa Ayurveda design system: tokens, components, and guidelines.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function DesignSystemPage() {
@@ -25,11 +29,7 @@ export default function DesignSystemPage() {
     <div className="container-page">
       <div className="flex flex-col lg:grid lg:grid-cols-[160px_minmax(0,1fr)] lg:gap-16">
         <SidebarNavigation />
-        <article
-          id="main-content"
-          tabIndex={-1}
-          className="min-w-0 divide-y divide-border-subtle"
-        >
+        <article className="min-w-0 divide-y divide-border-subtle">
           <Hero />
           <PrimitiveColors />
           <SemanticTokens />

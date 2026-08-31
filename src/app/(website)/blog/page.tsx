@@ -39,6 +39,15 @@ export async function generateMetadata({
     description:
       "Explore practical Ayurveda insights, wellness guidance, and evidence-informed articles from Bappa Ayurveda, rooted in classical knowledge and modern standards.",
     path: "/blog",
+    keywords: [
+    "Ayurveda",
+    "Ayurveda blog",
+    "Ayurvedic wellness",
+    "Ayurvedic health guidance",
+    "classical Ayurveda",
+    "Ayurvedic education",
+    "evidence-informed Ayurveda",
+  ],
     image: {
       url: "/og/blog.jpg",
       width: 1200,

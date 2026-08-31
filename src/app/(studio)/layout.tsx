@@ -1,18 +1,21 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Sanity Studio",
-  description: "Content Management System",
+  title: {
+    default: "Sanity Studio",
+    template: "%s | Sanity Studio",
+  },
+  description: "Bappa Ayurveda content management system.",
+  robots: {
+    index: false,
+    follow: false,
+  },
 };
 
 export default function StudioLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body suppressHydrationWarning>{children}</body>
-    </html>
-  );
+}>) {
+  return children;
 }

@@ -1,6 +1,8 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { TagArticles, TagHero } from "@/components/tags";
+import { buildPageMetadata } from "@/lib/seo";
 import {
   getAllTagSlugs,
   getPaginatedPostsByTagId,
@@ -21,6 +23,37 @@ interface TagPageProps {
 
 export async function generateStaticParams() {
   return getAllTagSlugs();
+}
+
+export async function generateMetadata({
+  params,
+  searchParams,
+}: TagPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const { page: pageParam } = await searchParams;
+
+  const tag = await getTagBySlug(slug);
+
+  if (!tag) {
+    return {};
+  }
+
+  const parsedPage = Number(pageParam ?? DEFAULT_PAGE);
+
+  const currentPage =
+    Number.isInteger(parsedPage) && parsedPage > 0 ? parsedPage : DEFAULT_PAGE;
+
+  const isPaginated = currentPage > DEFAULT_PAGE;
+
+  return buildPageMetadata({
+    title: `${tag.name} Articles`,
+    description:
+      tag.description?.trim() ||
+      `Explore Ayurvedic articles, insights, and educational content about ${tag.name} from Bappa Ayurveda.`,
+    path: `/tags/${tag.slug.current}`,
+    keywords: [tag.name, `${tag.name} Ayurveda`, "Ayurveda", "Bappa Ayurveda"],
+    noIndex: isPaginated,
+  });
 }
 
 export default async function TagPage({ params, searchParams }: TagPageProps) {
