@@ -5,7 +5,9 @@ import {
   PieTeaser,
   ProductPreview,
 } from "@/components/home/";
+import JsonLd from "@/components/seo/JsonLd";
 import { buildPageMetadata } from "@/lib/seo";
+import { buildOrganizationData } from "@/lib/structured-data/organization";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -31,6 +33,7 @@ export default function HomePage() {
       <ProductPreview />
       <PieTeaser />
       <BlogPreview />
+      <JsonLd data={buildOrganizationData()} />
     </>
   );
 }
