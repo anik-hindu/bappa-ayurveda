@@ -7,6 +7,7 @@ import { TagArticles, TagHero } from "@/components/tags";
 import { buildPageMetadata } from "@/lib/seo";
 import {
   buildBreadcrumbData,
+  buildCollectionPageData,
   buildGraph,
   buildItemListData,
   buildOrganizationData,
@@ -102,26 +103,15 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
   const itemListId = SCHEMA_IDS.itemList(tagPath);
 
   // 1. CollectionPage node representing this tag archive
-  const collectionPageNode = {
-    "@type": "CollectionPage",
-    "@id": `https://bappa-ayurveda.vercel.app${tagPath}#webpage`,
-    url: `https://bappa-ayurveda.vercel.app${tagPath}`,
+  const collectionPageNode = buildCollectionPageData({
     name: `${tag.name} Articles | Bappa Ayurveda`,
     description:
       tag.description?.trim() ||
       `Explore Ayurvedic articles, insights, and educational content about ${tag.name} from Bappa Ayurveda.`,
-    isPartOf: {
-      "@id": SCHEMA_IDS.website,
-    },
-    breadcrumb: {
-      "@id": breadcrumbId,
-    },
-    mainEntity: {
-      "@id": itemListId,
-    },
-    inLanguage: "en-IN",
-  };
-
+    path: tagPath,
+    breadcrumbId,
+    mainEntityId: itemListId,
+  });
   // 2. Breadcrumb Node matching UI hierarchy
   const breadcrumbNode = buildBreadcrumbData([
     { name: "Home", path: "/" },
