@@ -140,7 +140,7 @@ export default async function BlogListingPage({
     name: itemListName,
     items: posts.map((post) => {
       const postPath = `/blog/${post.slug.current}`;
-      const imageUrl = post.mainImage ? urlFor(post.mainImage).url() : null;
+      const imageUrl = post.mainImage?.asset?._ref ? urlFor(post.mainImage).url() : null;
       const authorSlug = post.author?.slug?.current;
 
       return {
