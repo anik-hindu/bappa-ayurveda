@@ -101,7 +101,6 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
     path: authorPath,
     personId,
     breadcrumbId,
-    ...(author.posts?.length ? { mainEntityId: itemListId } : {}),
     ...(imageUrl ? { image: imageUrl } : {}),
   });
 

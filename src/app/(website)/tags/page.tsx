@@ -1,58 +1,96 @@
-import JsonLd from "@/components/seo/JsonLd";
-import TagsHero from "@/components/tags/TagsHero";
-import TagsList from "@/components/tags/TagsList";
+import type { Metadata } from "next";
 
-import { buildPageMetadata } from "@/lib/seo";
+import JsonLd from "@/components/seo/JsonLd";
+import { TagsList, TagsHero } from "@/components/tags";
+
+import { absoluteUrl, buildPageMetadata } from "@/lib/seo";
 import {
   buildBreadcrumbData,
   buildCollectionPageData,
+  buildDefinedTermData,
+  buildDefinedTermSetData,
   buildGraph,
   buildOrganizationData,
   buildWebsiteData,
-} from "@/lib/structured-data/";
-
+  SCHEMA_IDS,
+} from "@/lib/structured-data";
 import { getAllTags } from "@/sanity/lib/queries";
 
-import type { Metadata } from "next";
-
 export const metadata: Metadata = buildPageMetadata({
-  title: "Ayurveda Topics & Tags",
+  title: "All Tags",
   description:
-    "Browse Ayurveda topics and editorial tags from Bappa Ayurveda, covering classical knowledge, wellness, herbs, formulations, and related subjects.",
+    "Explore Ayurvedic topics, terminology, and classical health concepts organized by tag on Bappa Ayurveda.",
   path: "/tags",
+  keywords: [
+    "Ayurveda tags",
+    "Ayurvedic topics",
+    "Ayurvedic terms",
+    "classical Ayurveda index",
+  ],
 });
 
-export default async function TagsPage() {
+export default async function TagsIndexPage() {
   const tags = await getAllTags();
+  const tagsPath = "/tags";
 
+  const termSetId = SCHEMA_IDS.definedTermSet(tagsPath);
+  const breadcrumbId = SCHEMA_IDS.breadcrumb(tagsPath);
+
+  // 1. CollectionPage host node
   const collectionPageNode = buildCollectionPageData({
-    name: "Ayurveda Topics & Tags",
+    name: "All Tags | Bappa Ayurveda",
     description:
-      "Browse Ayurveda topics and editorial tags from Bappa Ayurveda, covering classical knowledge, wellness, herbs, formulations, and related subjects.",
-    path: "/tags",
+      "Explore Ayurvedic topics, terminology, and classical health concepts organized by tag on Bappa Ayurveda.",
+    path: tagsPath,
+    breadcrumbId,
+    mainEntityId: termSetId,
   });
 
+  // 2. DefinedTermSet node containing canonical term references
+  const termSetNode = buildDefinedTermSetData({
+    path: tagsPath,
+    name: "Bappa Ayurveda Topic Taxonomy",
+    description: "Complete list of Ayurvedic topics and terminology tags.",
+    terms: tags.map((tag) => {
+      const tagPath = `/tags/${tag.slug.current}`;
+      return {
+        id: SCHEMA_IDS.definedTerm(tagPath),
+        name: tag.name,
+        path: tagPath,
+      };
+    }),
+  });
+
+  // 3. Independent DefinedTerm nodes matching the exact @ids in the term set above
+  const termNodes = tags.map((tag) => {
+    const tagPath = `/tags/${tag.slug.current}`;
+    return buildDefinedTermData({
+      id: SCHEMA_IDS.definedTerm(tagPath),
+      name: tag.name,
+      url: absoluteUrl(tagPath),
+      ...(tag.description ? { description: tag.description.trim() } : {}),
+    });
+  });
+
+  // 4. Breadcrumb trail
   const breadcrumbNode = buildBreadcrumbData([
-    {
-      name: "Home",
-      path: "/",
-    },
-    {
-      name: "Tags",
-      path: "/tags",
-    },
+    { name: "Home", path: "/" },
+    { name: "Tags", path: tagsPath },
   ]);
 
-  const jsonLd = buildGraph([
+  // Unified Graph Construction
+  const tagsGraph = buildGraph([
     buildOrganizationData(),
     buildWebsiteData(),
     collectionPageNode,
+    termSetNode,
     breadcrumbNode,
+    ...termNodes,
   ]);
 
   return (
     <>
-      <JsonLd data={jsonLd} />
+      <JsonLd data={tagsGraph} />
       <TagsHero />
       <TagsList tags={tags} />
     </>

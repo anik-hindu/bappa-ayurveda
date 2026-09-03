@@ -1,98 +1,186 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 
 import JsonLd from "@/components/seo/JsonLd";
-import { TagsList, TagsHero } from "@/components/tags";
+import { TagArticles, TagHero } from "@/components/tags";
 
-import { absoluteUrl, buildPageMetadata } from "@/lib/seo";
+import { buildPageMetadata } from "@/lib/seo";
 import {
   buildBreadcrumbData,
-  buildCollectionPageData,
-  buildDefinedTermData,
-  buildDefinedTermSetData,
   buildGraph,
+  buildItemListData,
   buildOrganizationData,
   buildWebsiteData,
   SCHEMA_IDS,
 } from "@/lib/structured-data";
-import { getAllTags } from "@/sanity/lib/queries";
+import { urlFor } from "@/sanity/lib/image";
+import {
+  getAllTagSlugs,
+  getPaginatedPostsByTagId,
+  getTagBySlug,
+} from "@/sanity/lib/queries";
 
-export const metadata: Metadata = buildPageMetadata({
-  title: "All Tags",
-  description:
-    "Explore Ayurvedic topics, terminology, and classical health concepts organized by tag on Bappa Ayurveda.",
-  path: "/tags",
-  keywords: [
-    "Ayurveda tags",
-    "Ayurvedic topics",
-    "Ayurvedic terms",
-    "classical Ayurveda index",
-  ],
-});
+const DEFAULT_PAGE = 1;
+const PAGE_SIZE = 9;
 
-export default async function TagsIndexPage() {
-  const tags = await getAllTags();
-  const tagsPath = "/tags";
+interface TagPageProps {
+  params: Promise<{
+    slug: string;
+  }>;
+  searchParams: Promise<{
+    page?: string;
+  }>;
+}
 
-  const termSetId = SCHEMA_IDS.definedTermSet(tagsPath);
-  const breadcrumbId = SCHEMA_IDS.breadcrumb(tagsPath);
+export async function generateStaticParams() {
+  return getAllTagSlugs();
+}
 
-  // 1. CollectionPage host node
-  const collectionPageNode = buildCollectionPageData({
-    name: "All Tags | Bappa Ayurveda",
+export async function generateMetadata({
+  params,
+  searchParams,
+}: TagPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const { page: pageParam } = await searchParams;
+
+  const tag = await getTagBySlug(slug);
+
+  if (!tag) {
+    return {};
+  }
+
+  const parsedPage = Number(pageParam ?? DEFAULT_PAGE);
+
+  const currentPage =
+    Number.isInteger(parsedPage) && parsedPage > 0 ? parsedPage : DEFAULT_PAGE;
+
+  const isPaginated = currentPage > DEFAULT_PAGE;
+
+  return buildPageMetadata({
+    title: `${tag.name} Articles`,
     description:
-      "Explore Ayurvedic topics, terminology, and classical health concepts organized by tag on Bappa Ayurveda.",
-    path: tagsPath,
-    breadcrumbId,
-    mainEntityId: termSetId,
+      tag.description?.trim() ||
+      `Explore Ayurvedic articles, insights, and educational content about ${tag.name} from Bappa Ayurveda.`,
+    path: `/tags/${tag.slug.current}`,
+    keywords: [tag.name, `${tag.name} Ayurveda`, "Ayurveda", "Bappa Ayurveda"],
+    noIndex: isPaginated,
+  });
+}
+
+export default async function TagPage({ params, searchParams }: TagPageProps) {
+  const { slug } = await params;
+  const { page: pageParam } = await searchParams;
+
+  const tag = await getTagBySlug(slug);
+
+  if (!tag) {
+    notFound();
+  }
+
+  const parsedPage = Number(pageParam ?? DEFAULT_PAGE);
+
+  const currentPage =
+    Number.isInteger(parsedPage) && parsedPage > 0 ? parsedPage : DEFAULT_PAGE;
+
+  const { posts, total } = await getPaginatedPostsByTagId({
+    tagId: tag._id,
+    page: currentPage,
+    pageSize: PAGE_SIZE,
   });
 
-  // 2. DefinedTermSet node containing canonical term references
-  const termSetNode = buildDefinedTermSetData({
-    path: tagsPath,
-    name: "Bappa Ayurveda Topic Taxonomy",
-    description: "Complete list of Ayurvedic topics and terminology tags.",
-    terms: tags.map((tag) => {
-      const tagPath = `/tags/${tag.slug.current}`;
-      return {
-        id: SCHEMA_IDS.definedTerm(tagPath),
-        name: tag.name,
-        path: tagPath,
-      };
-    }),
-  });
+  const totalPages = Math.ceil(total / PAGE_SIZE);
 
-  // 3. Independent DefinedTerm nodes matching the exact @ids in the term set above
-  const termNodes = tags.map((tag) => {
-    const tagPath = `/tags/${tag.slug.current}`;
-    return buildDefinedTermData({
-      id: SCHEMA_IDS.definedTerm(tagPath),
-      name: tag.name,
-      url: absoluteUrl(tagPath),
-      ...(tag.description ? { description: tag.description.trim() } : {}),
-    });
-  });
+  if (
+    (total === 0 && currentPage > DEFAULT_PAGE) ||
+    (totalPages > 0 && currentPage > totalPages)
+  ) {
+    notFound();
+  }
 
-  // 4. Breadcrumb trail
+  const tagPath = `/tags/${tag.slug.current}`;
+  const breadcrumbId = SCHEMA_IDS.breadcrumb(tagPath);
+  const itemListId = SCHEMA_IDS.itemList(tagPath);
+
+  // 1. CollectionPage node representing this tag archive
+  const collectionPageNode = {
+    "@type": "CollectionPage",
+    "@id": `https://bappa-ayurveda.vercel.app${tagPath}#webpage`,
+    url: `https://bappa-ayurveda.vercel.app${tagPath}`,
+    name: `${tag.name} Articles | Bappa Ayurveda`,
+    description:
+      tag.description?.trim() ||
+      `Explore Ayurvedic articles, insights, and educational content about ${tag.name} from Bappa Ayurveda.`,
+    isPartOf: {
+      "@id": SCHEMA_IDS.website,
+    },
+    breadcrumb: {
+      "@id": breadcrumbId,
+    },
+    mainEntity: {
+      "@id": itemListId,
+    },
+    inLanguage: "en-IN",
+  };
+
+  // 2. Breadcrumb Node matching UI hierarchy
   const breadcrumbNode = buildBreadcrumbData([
     { name: "Home", path: "/" },
-    { name: "Tags", path: tagsPath },
+    { name: "Tags", path: "/tags" },
+    { name: tag.name, path: tagPath },
   ]);
 
-  // Unified Graph Construction
-  const tagsGraph = buildGraph([
+  // 3. ItemList representing the paginated list of posts for this tag
+  const itemListNode = posts?.length
+    ? buildItemListData({
+        path: tagPath,
+        name: `${tag.name} Articles`,
+        items: posts.map((post) => {
+          const postPath = `/blog/${post.slug.current}`;
+          return {
+            id: SCHEMA_IDS.blogPosting(postPath),
+            name: post.title,
+            path: postPath,
+            ...(post.mainImage
+              ? { image: urlFor(post.mainImage).width(1200).url() }
+              : {}),
+            ...(post.author
+              ? {
+                  author: {
+                    id: SCHEMA_IDS.person(
+                      `/authors/${post.author.slug.current}`,
+                    ),
+                    name: post.author.name,
+                  },
+                }
+              : {}),
+          };
+        }),
+        totalItems: total,
+      })
+    : null;
+
+  // Assemble the graph array
+  const tagGraph = buildGraph([
     buildOrganizationData(),
     buildWebsiteData(),
     collectionPageNode,
-    termSetNode,
     breadcrumbNode,
-    ...termNodes,
+    ...(itemListNode ? [itemListNode] : []),
   ]);
 
   return (
     <>
-      <JsonLd data={tagsGraph} />
-      <TagsHero />
-      <TagsList tags={tags} />
+      <JsonLd data={tagGraph} />
+      <TagHero tag={tag} />
+
+      <TagArticles
+        tagName={tag.name}
+        tagSlug={tag.slug.current}
+        posts={posts}
+        total={total}
+        currentPage={currentPage}
+        pageSize={PAGE_SIZE}
+      />
     </>
   );
 }
