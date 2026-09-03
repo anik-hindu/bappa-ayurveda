@@ -1,5 +1,12 @@
 import { client } from "@/sanity/lib/client";
-import { AuthorListItem, Category, Post, PostDetail, Tag } from "@/types/index";
+import {
+  AuthorListItem,
+  Category,
+  GetAuthorWithPostsResult,
+  Post,
+  PostDetail,
+  Tag,
+} from "@/types/index";
 import { CACHE_TAGS } from "./cache-tags";
 
 // Posts
@@ -265,6 +272,7 @@ export async function getAllAuthors(): Promise<AuthorListItem[]> {
           defined(publishedAt)
         ]
       )
+        
     }
   `,
     {},
@@ -276,7 +284,9 @@ export async function getAllAuthors(): Promise<AuthorListItem[]> {
   );
 }
 
-export async function getAuthorWithPosts(slug: string) {
+export async function getAuthorWithPosts(
+  slug: string,
+): Promise<GetAuthorWithPostsResult> {
   return client.fetch(
     `
     *[
@@ -311,7 +321,15 @@ export async function getAuthorWithPosts(slug: string) {
           slug
         },
         author-> { name, slug, image, role },
-      }
+        body,
+      },
+      "articleCount": count(
+        *[
+          _type == "post" &&
+          author._ref == ^._id &&
+          defined(publishedAt)
+        ]
+      )
     }
     `,
     { slug },

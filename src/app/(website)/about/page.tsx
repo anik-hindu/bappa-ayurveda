@@ -1,6 +1,16 @@
+import JsonLd from "@/components/seo/JsonLd";
 import { Button, Section } from "@/components/ui";
+
 import { cn } from "@/lib/cn";
 import { buildPageMetadata } from "@/lib/seo";
+import {
+  buildAboutPageData,
+  buildGraph,
+  buildOrganizationData,
+  buildPersonData,
+  buildWebsiteData,
+  SCHEMA_IDS,
+} from "@/lib/structured-data";
 
 import type { Metadata } from "next";
 
@@ -33,8 +43,30 @@ const principles = [
 ];
 
 export default function AboutPage() {
+  const [aboutPageNode, breadcrumbNode] = buildAboutPageData({
+    name: "Our Story & Classical Philosophy",
+    description:
+      "Learn how Bappa Ayurveda connects classical Ayurvedic knowledge, traditional processing, and modern manufacturing standards to create disciplined Ayurvedic formulations.",
+    path: "/about",
+  });
+
+  const personNode = buildPersonData({
+    id: SCHEMA_IDS.person("/authors/shivansh-mishra"),
+    name: "Shivansh Mishra",
+    url: "/authors/shivansh-mishra",
+    jobTitle: "Founder & BAMS Student",
+  });
+
+  const aboutGraph = buildGraph([
+    buildOrganizationData(),
+    personNode,
+    buildWebsiteData(),
+    aboutPageNode,
+    breadcrumbNode,
+  ]);
   return (
     <>
+      <JsonLd data={aboutGraph} />
       {/* Hero */}
       <Section
         background="surface"

@@ -1,23 +1,25 @@
 import { Section } from "@/components/ui";
-import { getPaginatedPosts } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import BlogCard from "./BlogCard";
 import BlogPagination from "./BlogPagination";
 
+import type { Post } from "@/types/index";
+
 interface BlogPostSectionProps {
   category: string;
   page: number;
+  posts: Post[];
+  total: number;
 }
 
 const PAGE_SIZE = 6;
 
-async function BlogPostSection({ category, page }: BlogPostSectionProps) {
-  const { posts, total } = await getPaginatedPosts({
-    category,
-    page,
-    pageSize: PAGE_SIZE,
-  });
-
+async function BlogPostSection({
+  category,
+  page,
+  posts,
+  total,
+}: BlogPostSectionProps) {
   const totalPages = Math.ceil(total / PAGE_SIZE);
 
   if (page > totalPages && totalPages > 0) {

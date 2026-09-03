@@ -159,3 +159,19 @@ export type FAQItem = {
   question: string;
   answer: PortableTextBlock[];
 };
+
+export type AuthorWithPosts = {
+  _id: string;
+  name: string;
+  slug: SanitySlug;
+  image?: SanityImage;
+  bio?: PortableTextBlock[];
+  role?: string;
+  shortBio?: string;
+  expertise?: string[];
+  linkedIn?: string;
+  posts: Post[];
+  articleCount: number;
+};
+
+export type GetAuthorWithPostsResult = AuthorWithPosts | null;

@@ -6,8 +6,15 @@ import {
   ProductPreview,
 } from "@/components/home/";
 import JsonLd from "@/components/seo/JsonLd";
+
 import { buildPageMetadata } from "@/lib/seo";
-import { buildOrganizationData } from "@/lib/structured-data/organization";
+import {
+  buildGraph,
+  buildOrganizationData,
+  buildWebPageData,
+  buildWebsiteData,
+} from "@/lib/structured-data";
+
 import type { Metadata } from "next";
 
 export const metadata: Metadata = buildPageMetadata({
@@ -26,14 +33,25 @@ export const metadata: Metadata = buildPageMetadata({
 });
 
 export default function HomePage() {
+  const homepageGraph = buildGraph([
+    buildOrganizationData(),
+    buildWebsiteData(),
+    buildWebPageData({
+      name: "Bappa Ayurveda | Rooted in Science. Backed by Tradition.",
+      description:
+        "Discover classical Ayurvedic formulations crafted with modern standards.",
+      path: "/",
+    }),
+  ]);
+
   return (
     <>
+      <JsonLd data={homepageGraph} />
       <Hero />
       <BrandStory />
       <ProductPreview />
       <PieTeaser />
       <BlogPreview />
-      <JsonLd data={buildOrganizationData()} />
     </>
   );
 }
