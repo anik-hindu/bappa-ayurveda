@@ -28,6 +28,7 @@ export function buildBreadcrumbData(
   return {
     "@type": "BreadcrumbList",
     "@id": SCHEMA_IDS.breadcrumb(currentPath),
+    "name": "Breadcrumbs",
     itemListElement,
   };
 }

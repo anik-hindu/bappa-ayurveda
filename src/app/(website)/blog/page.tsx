@@ -1,3 +1,4 @@
+import { urlFor } from "@/sanity/lib/image";
 import type { Metadata } from "next";
 
 import { BlogHeader, BlogPostSection, CategoryFilter } from "@/components/blog";
@@ -139,10 +140,24 @@ export default async function BlogListingPage({
     name: itemListName,
     items: posts.map((post) => {
       const postPath = `/blog/${post.slug.current}`;
+      const imageUrl = post.mainImage ? urlFor(post.mainImage).url() : null;
+      const authorSlug = post.author?.slug?.current;
+
       return {
         name: post.title,
         id: SCHEMA_IDS.blogPosting(postPath),
         path: postPath,
+        // Conditionally attach image only if it exists (avoids passing explicit undefined)
+        ...(imageUrl ? { image: imageUrl } : {}),
+        // Pass object matching { id, name } structure expected by ItemListElement
+        ...(authorSlug && post.author?.name
+          ? {
+              author: {
+                id: SCHEMA_IDS.person(`/authors/${authorSlug}`),
+                name: post.author.name,
+              },
+            }
+          : {}),
       };
     }),
     currentPage: page,

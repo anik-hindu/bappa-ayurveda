@@ -6,6 +6,11 @@ export type ItemListElement = {
   name: string;
   id: string; // Enforces entity identity ownership at the call site
   path?: string;
+  image?: string;
+  author?: {
+    id: string;
+    name: string;
+  };
 };
 
 export type ItemListData = {
@@ -35,8 +40,20 @@ export function buildItemListData({
     position: startIndex + index + 1,
     name: item.name,
     item: {
+      "@type": "BlogPosting",
       "@id": item.id,
+      headline: item.name,
       ...(item.path ? { url: absoluteUrl(item.path) } : {}),
+      ...(item.image ? { image: item.image } : {}),
+      ...(item.author
+        ? {
+            author: {
+              "@type": "Person",
+              "@id": item.author.id,
+              name: item.author.name,
+            },
+          }
+        : {}),
     },
   }));
 
