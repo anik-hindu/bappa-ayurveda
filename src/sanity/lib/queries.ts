@@ -515,6 +515,46 @@ export async function getAllTags(): Promise<Tag[]> {
   );
 }
 
+export async function getPopularTags(limit = 8): Promise<Tag[]> {
+  return client.fetch(
+    `
+    *[
+      _type == "tag" &&
+      isActive == true &&
+      count(
+        *[
+          _type == "post" &&
+          defined(publishedAt) &&
+          references(^._id)
+        ]
+      ) > 0
+    ] {
+      _id,
+      name,
+      slug,
+      description,
+      isActive,
+
+      "postCount": count(
+        *[
+          _type == "post" &&
+          defined(publishedAt) &&
+          references(^._id)
+        ]
+      )
+    }
+    | order(postCount desc)
+    [0...$limit]
+  `,
+    { limit },
+    {
+      next: {
+        tags: [CACHE_TAGS.tags, CACHE_TAGS.posts],
+      },
+    },
+  );
+}
+
 export async function getTagBySlug(slug: string): Promise<Tag | null> {
   return client.fetch(
     `
