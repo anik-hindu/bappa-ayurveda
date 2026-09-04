@@ -128,7 +128,7 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
             id: SCHEMA_IDS.blogPosting(postPath),
             name: post.title,
             path: postPath,
-            ...(post.mainImage
+            ...(post.mainImage?.asset?._ref
               ? { image: urlFor(post.mainImage).width(1200).url() }
               : {}),
             ...(post.author

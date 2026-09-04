@@ -194,6 +194,7 @@ function FeaturedMedia({ imageUrl, alt, caption }: FeaturedMediaProps) {
             alt={alt}
             fill
             priority
+            fetchPriority="high"
             sizes="
               (max-width: 767px) calc(100vw - 48px),
               (max-width: 1023px) calc(100vw - 96px),
