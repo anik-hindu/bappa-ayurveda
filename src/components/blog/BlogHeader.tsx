@@ -4,7 +4,6 @@ import { cn } from "@/lib/cn";
 function BlogHeader() {
   return (
     <Section
-      padding="lg"
       className="border-b border-forest/10"
       aria-labelledby="blog-heading"
     >
@@ -13,7 +12,7 @@ function BlogHeader() {
           className={cn(
             "mb-4 inline-block",
             "text-xs font-medium tracking-[0.2em] uppercase",
-            "text-text-accent"
+            "text-text-accent",
           )}
         >
           The Bappa Journal
