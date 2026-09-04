@@ -6,6 +6,7 @@ import {
   Post,
   PostDetail,
   Tag,
+  PopularPost
 } from "@/types/index";
 import { CACHE_TAGS } from "./cache-tags";
 
@@ -157,6 +158,46 @@ export async function getPost(slug: string): Promise<PostDetail | null> {
     }
     `,
     { slug },
+    {
+      next: {
+        tags: [CACHE_TAGS.posts],
+      },
+    },
+  );
+}
+
+export async function getPopularPosts(
+  currentSlug: string,
+  limit: number = 4,
+): Promise<PopularPost[]> {
+  return client.fetch(
+    `
+    *[
+      _type == "post" &&
+      slug.current != $currentSlug &&
+      defined(publishedAt) &&
+      publishedAt <= now() &&
+      popularityScore > 0
+    ]
+    | order(popularityScore desc, publishedAt desc)
+    [0...$limit] {
+      _id,
+      title,
+      slug,
+      mainImage,
+      popularityScore,
+
+      category-> {
+        _id,
+        name,
+        slug
+      }
+    }
+  `,
+    {
+      currentSlug,
+      limit,
+    },
     {
       next: {
         tags: [CACHE_TAGS.posts],

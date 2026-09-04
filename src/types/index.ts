@@ -175,3 +175,28 @@ export type AuthorWithPosts = {
 };
 
 export type GetAuthorWithPostsResult = AuthorWithPosts | null;
+
+// Popular Post Widget
+export type PopularPost = {
+  _id: string;
+  title: string;
+  slug: {
+    current: string;
+  };
+  mainImage: {
+    _type: "image";
+    asset: {
+      _ref: string;
+      _type: "reference";
+    };
+    alt?: string;
+  };
+  category: {
+    _id: string;
+    name: string;
+    slug: {
+      current: string;
+    };
+  };
+  popularityScore: number;
+};

@@ -1,14 +1,14 @@
 import type { TableOfContentsItem } from "@/lib/tableOfContents";
 
-import ArticleShare from "./ArticleShare";
+import PopularPosts from "./PopularPosts";
 import TableOfContents from "./TableOfContents";
 
 interface ArticleSidebarProps {
-  title: string;
+  slug: string;
   toc: TableOfContentsItem[];
 }
 
-export default function ArticleSidebar({ title, toc }: ArticleSidebarProps) {
+export default function ArticleSidebar({ slug, toc }: ArticleSidebarProps) {
   const safeToc = toc ?? [];
 
   if (!safeToc.length) {
@@ -21,7 +21,7 @@ export default function ArticleSidebar({ title, toc }: ArticleSidebarProps) {
         <TableOfContents items={toc} />
 
         <div className="border-t border-border-subtle pt-5">
-          <ArticleShare title={title} variant="sidebar" />
+          <PopularPosts currentSlug={slug}/>
         </div>
       </div>
     </nav>

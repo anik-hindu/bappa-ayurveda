@@ -77,6 +77,14 @@ export const post = defineType({
       type: "datetime",
     }),
     defineField({
+  name: "popularityScore",
+  title: "Popularity Score",
+  type: "number",
+  description: "Used to rank posts in the Popular Posts sidebar widget.",
+  initialValue: 0,
+  validation: (Rule) => Rule.required().min(0).integer(),
+}),
+    defineField({
       name: "body",
       title: "Body",
       type: "blockContent",

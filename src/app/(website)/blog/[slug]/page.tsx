@@ -187,7 +187,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <ArticleContent
         sidebar={
           toc.length > 0 ? (
-            <ArticleSidebar title={post.title} toc={toc} />
+            <ArticleSidebar slug={post.slug.current} toc={toc} />
           ) : undefined
         }
         mobileBefore={<MobileTableOfContents items={toc} />}
