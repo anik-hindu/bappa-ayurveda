@@ -22,24 +22,18 @@ export default function ArticleContent({
         <div
           className={cn(
             "grid items-start lg:justify-center",
-            sidebar
-              ? [
-                  "lg:grid-cols-[240px_minmax(0,760px)]",
-                  "lg:gap-8",
-                  "xl:grid-cols-[240px_minmax(0,760px)]",
-                  "xl:gap-8",
-                ]
-              : "lg:grid-cols-[minmax(0,760px)]",
+            "lg:grid-cols-[240px_minmax(0,760px)]",
+            "lg:gap-8",
+            "xl:grid-cols-[240px_minmax(0,760px)]",
+            "xl:gap-8",
           )}
         >
-          {sidebar && (
-            <aside
+          <aside
               aria-label="Article navigation"
               className="sticky top-24 hidden self-start lg:block"
             >
               {sidebar}
             </aside>
-          )}
 
           <div className="min-w-0">{children}</div>
         </div>
