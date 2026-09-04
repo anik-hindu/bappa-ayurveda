@@ -18,7 +18,7 @@ export default async function PopularPosts({ currentSlug }: PopularPostsProps) {
   return (
     <section
       aria-labelledby="popular-posts-heading"
-      className="mt-10 border-t border-border-subtle pt-6"
+      className="pt-6"
     >
       <div className="mb-5">
         <p className="mb-1 font-body text-label font-semibold tracking-[0.14em] text-text-accent uppercase">
@@ -33,7 +33,7 @@ export default async function PopularPosts({ currentSlug }: PopularPostsProps) {
         </h2>
       </div>
 
-      <ul className="divide-y divide-border-subtle">
+      <ul className="space-y-4">
         {posts.map((post, index) => {
           const imageUrl = post.mainImage
             ? urlFor(post.mainImage).width(160).height(100).fit("crop").url()

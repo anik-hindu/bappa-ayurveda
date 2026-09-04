@@ -24,10 +24,10 @@ export default function ArticleContent({
             "grid items-start lg:justify-center",
             sidebar
               ? [
-                  "lg:grid-cols-[200px_minmax(0,760px)]",
-                  "lg:gap-12",
-                  "xl:grid-cols-[220px_minmax(0,760px)]",
-                  "xl:gap-16",
+                  "lg:grid-cols-[240px_minmax(0,760px)]",
+                  "lg:gap-8",
+                  "xl:grid-cols-[240px_minmax(0,760px)]",
+                  "xl:gap-8",
                 ]
               : "lg:grid-cols-[minmax(0,760px)]",
           )}
