@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 
 import { BlogHeader, BlogPostSection, CategoryFilter } from "@/components/blog";
 import JsonLd from "@/components/seo/JsonLd";
+import PopularTagsSection from "@/components/tags/PopularTagsSection"
 
 import { buildPageMetadata } from "@/lib/seo";
 import {
@@ -195,6 +196,7 @@ export default async function BlogListingPage({
         category={category}
         page={page}
       />
+      <PopularTagsSection />
     </>
   );
 }
