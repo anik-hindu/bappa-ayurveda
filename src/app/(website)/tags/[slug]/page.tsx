@@ -102,7 +102,6 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
   const breadcrumbId = SCHEMA_IDS.breadcrumb(tagPath);
   const itemListId = SCHEMA_IDS.itemList(tagPath);
 
-  // 1. CollectionPage node representing this tag archive
   const collectionPageNode = buildCollectionPageData({
     name: `${tag.name} Articles | Bappa Ayurveda`,
     description:
@@ -112,14 +111,13 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
     breadcrumbId,
     mainEntityId: itemListId,
   });
-  // 2. Breadcrumb Node matching UI hierarchy
+
   const breadcrumbNode = buildBreadcrumbData([
     { name: "Home", path: "/" },
     { name: "Tags", path: "/tags" },
     { name: tag.name, path: tagPath },
   ]);
 
-  // 3. ItemList representing the paginated list of posts for this tag
   const itemListNode = posts?.length
     ? buildItemListData({
         path: tagPath,
@@ -149,7 +147,6 @@ export default async function TagPage({ params, searchParams }: TagPageProps) {
       })
     : null;
 
-  // Assemble the graph array
   const tagGraph = buildGraph([
     buildOrganizationData(),
     buildWebsiteData(),

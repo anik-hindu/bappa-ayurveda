@@ -4,7 +4,7 @@ import { SCHEMA_IDS } from "./ids";
 
 export type ItemListElement = {
   name: string;
-  id: string; // Enforces entity identity ownership at the call site
+  id: string; 
   path?: string;
   image?: string;
   author?: {

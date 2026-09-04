@@ -250,6 +250,41 @@ export async function getRelatedPosts(
 
 // Authors
 
+export async function getFeaturedAuthors(): Promise<AuthorListItem[]> {
+  return client.fetch(
+    `
+    *[
+      _type == "author" &&
+      isActive == true &&
+      featuredOnHomepage == true
+    ]
+    | order(displayOrder asc) {
+      _id,
+      name,
+      slug,
+      image,
+      role,
+      shortBio,
+      expertise,
+      "articleCount": count(
+        *[
+          _type == "post" &&
+          author._ref == ^._id &&
+          defined(publishedAt) &&
+          publishedAt <= now()
+        ]
+      )
+    }
+  `,
+    {},
+    {
+      next: {
+        tags: [CACHE_TAGS.authors, CACHE_TAGS.posts],
+      },
+    },
+  );
+}
+
 export async function getAllAuthors(): Promise<AuthorListItem[]> {
   return client.fetch(
     `

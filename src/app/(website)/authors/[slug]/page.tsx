@@ -74,14 +74,12 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
   const authorPath = `/authors/${author.slug.current}`;
   const personId = SCHEMA_IDS.person(authorPath);
   const breadcrumbId = SCHEMA_IDS.breadcrumb(authorPath);
-  const itemListId = SCHEMA_IDS.itemList(authorPath);
   const authorUrl = absoluteUrl(authorPath);
 
   const imageUrl = author.image?.asset?._ref
     ? urlFor(author.image).width(1200).height(1200).url()
     : undefined;
 
-  // 1. Person entity (identical @id and url used in BlogPosting author references)
   const personNode = buildPersonData({
     id: personId,
     name: author.name,
@@ -92,7 +90,6 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
     ...(author.expertise?.length ? { knowsAbout: author.expertise } : {}),
   });
 
-  // 2. ProfilePage node linking mainEntity -> Person node
   const profilePageNode = buildProfilePageData({
     name: `${author.name} | Bappa Ayurveda`,
     description:
@@ -104,14 +101,12 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
     ...(imageUrl ? { image: imageUrl } : {}),
   });
 
-  // 3. Breadcrumb Node matching UI trail
   const breadcrumbNode = buildBreadcrumbData([
     { name: "Home", path: "/" },
     { name: "Authors", path: "/authors" },
     { name: author.name, path: authorPath },
   ]);
 
-  // 4. ItemList of posts written by this author (if any)
   const itemListNode = author.posts?.length
     ? buildItemListData({
         path: authorPath,
@@ -128,7 +123,6 @@ export default async function AuthorPage({ params }: AuthorPageProps) {
       })
     : null;
 
-  // Unified Graph Construction
   const authorGraph = buildGraph([
     buildOrganizationData(),
     buildWebsiteData(),

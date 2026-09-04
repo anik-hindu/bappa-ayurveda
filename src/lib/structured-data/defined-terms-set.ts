@@ -7,7 +7,7 @@ export type DefinedTermSetData = {
   name: string;
   description?: string;
   terms: Array<{
-    id: string; // Enforces entity ownership at the call site
+    id: string; 
     name: string;
     path: string;
   }>;

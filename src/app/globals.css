@@ -66,11 +66,15 @@
   --spacing-page-x-mobile: 24px;
 
   --spacing-section-sm-mobile: 48px;
-  --spacing-section-md-mobile: 56px;
-  --spacing-section-lg-mobile: 60px;
-
+  --spacing-section-sm-tablet: 64px;
   --spacing-section-sm-desktop: 80px;
+
+  --spacing-section-md-mobile: 56px;
+  --spacing-section-md-tablet: 72px;
   --spacing-section-md-desktop: 88px;
+
+  --spacing-section-lg-mobile: 60px;
+  --spacing-section-lg-tablet: 80px;
   --spacing-section-lg-desktop: 100px;
 
   /* ── Layout ───────────────────────────────────── */

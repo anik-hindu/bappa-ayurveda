@@ -132,7 +132,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const personId = authorPath ? SCHEMA_IDS.person(authorPath) : undefined;
   const authorUrl = authorPath ? absoluteUrl(authorPath) : undefined;
 
-  // 1. Article Node
   const articleNode = buildArticleData({
     headline: post.title,
     description: post.excerpt.trim(),
@@ -147,7 +146,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     ...(post.tags?.length ? { keywords: post.tags.map((t) => t.name) } : {}),
   });
 
-  // 2. WebPage Host Node
   const webPageNode = buildWebPageData({
     name: post.title,
     description: post.excerpt.trim(),
@@ -156,14 +154,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     mainEntityId: articleId,
   });
 
-  // 3. Breadcrumb Node
   const breadcrumbNode = buildBreadcrumbData([
     { name: "Home", path: "/" },
     { name: "Blog", path: "/blog" },
     { name: post.title, path: articlePath },
   ]);
 
-  // 4. Person Node (Canonical declaration matching the author's ProfilePage)
   const personNode =
     personId && authorUrl && post.author?.name
       ? buildPersonData({
@@ -174,7 +170,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         })
       : null;
 
-  // Build Graph Structure
   const articleGraph = buildGraph([
     buildOrganizationData(),
     buildWebsiteData(),

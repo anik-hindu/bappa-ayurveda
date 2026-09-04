@@ -36,7 +36,6 @@ export default async function TagsIndexPage() {
   const termSetId = SCHEMA_IDS.definedTermSet(tagsPath);
   const breadcrumbId = SCHEMA_IDS.breadcrumb(tagsPath);
 
-  // 1. CollectionPage host node
   const collectionPageNode = buildCollectionPageData({
     name: "All Tags | Bappa Ayurveda",
     description:
@@ -46,7 +45,6 @@ export default async function TagsIndexPage() {
     mainEntityId: termSetId,
   });
 
-  // 2. DefinedTermSet node containing canonical term references
   const termSetNode = buildDefinedTermSetData({
     path: tagsPath,
     name: "Bappa Ayurveda Topic Taxonomy",
@@ -61,7 +59,6 @@ export default async function TagsIndexPage() {
     }),
   });
 
-  // 3. Independent DefinedTerm nodes matching the exact @ids in the term set above
   const termNodes = tags.map((tag) => {
     const tagPath = `/tags/${tag.slug.current}`;
     return buildDefinedTermData({
@@ -72,13 +69,11 @@ export default async function TagsIndexPage() {
     });
   });
 
-  // 4. Breadcrumb trail
   const breadcrumbNode = buildBreadcrumbData([
     { name: "Home", path: "/" },
     { name: "Tags", path: tagsPath },
   ]);
 
-  // Unified Graph Construction
   const tagsGraph = buildGraph([
     buildOrganizationData(),
     buildWebsiteData(),

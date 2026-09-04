@@ -70,7 +70,16 @@ export const author = defineType({
       type: "boolean",
       initialValue: true,
     }),
-
+    
+    defineField({
+      name: "featuredOnHomepage",
+      title: "Featured on Homepage",
+      description:
+        "Controls whether this author appears in the homepage team section.",
+      type: "boolean",
+      initialValue: false,
+    }),
+    
     defineField({
       name: "displayOrder",
       title: "Display Order",
@@ -80,6 +89,7 @@ export const author = defineType({
       initialValue: 10,
       validation: (Rule) => Rule.required().integer().min(0),
     }),
+
   ],
 
   preview: {

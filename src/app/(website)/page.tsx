@@ -1,4 +1,5 @@
 import {
+  AuthorsSection,
   BlogPreview,
   BrandStory,
   Hero,
@@ -50,6 +51,7 @@ export default function HomePage() {
       <Hero />
       <BrandStory />
       <ProductPreview />
+      <AuthorsSection />
       <PieTeaser />
       <BlogPreview />
     </>

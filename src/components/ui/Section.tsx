@@ -18,9 +18,9 @@ const backgrounds: Record<SectionBackground, string> = {
 };
 
 const spacings: Record<SectionSpacing, string> = {
-  sm: "py-section-sm-mobile lg:py-section-sm-desktop",
-  md: "py-section-md-mobile lg:py-section-md-desktop",
-  lg: "py-section-lg-mobile lg:py-section-lg-desktop",
+  sm: "py-section-sm-mobile md:py-section-sm-tablet lg:py-section-sm-desktop",
+  md: "py-section-md-mobile md:py-section-md-tablet lg:py-section-md-desktop",
+  lg: "py-section-lg-mobile md:py-section-lg-tablet lg:py-section-lg-desktop",
 };
 
 export default function Section({
@@ -41,7 +41,11 @@ export default function Section({
         className,
       )}
     >
-      {container ? <div className="container-page">{children}</div> : children}
+      {container ? (
+        <div className="container-page">{children}</div>
+      ) : (
+        children
+      )}
     </section>
   );
 }

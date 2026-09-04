@@ -45,7 +45,6 @@ export default async function AuthorsPage() {
   const itemListId = SCHEMA_IDS.itemList(authorsPath);
   const breadcrumbId = SCHEMA_IDS.breadcrumb(authorsPath);
 
-  // 1. CollectionPage host node
   const collectionPageNode = buildCollectionPageData({
     name: "Our Authors | Bappa Ayurveda",
     description:
@@ -55,7 +54,6 @@ export default async function AuthorsPage() {
     mainEntityId: itemListId,
   });
 
-  // 2. ItemList node referencing Person @ids
   const itemListNode = buildItemListData({
     path: authorsPath,
     name: "Bappa Ayurveda Authors",
@@ -70,7 +68,6 @@ export default async function AuthorsPage() {
     totalItems: authors.length,
   });
 
-  // 3. Entity Person nodes matching the exact IDs referenced by the ItemList above
   const personNodes = authors.map((author) => {
     const authorPath = `/authors/${author.slug.current}`;
     const imageUrl = author.image?.asset?._ref
@@ -86,13 +83,11 @@ export default async function AuthorsPage() {
     });
   });
 
-  // 4. Breadcrumb trail
   const breadcrumbNode = buildBreadcrumbData([
     { name: "Home", path: "/" },
     { name: "Authors", path: authorsPath },
   ]);
 
-  // Construct unified graph
   const authorsGraph = buildGraph([
     buildOrganizationData(),
     buildWebsiteData(),
