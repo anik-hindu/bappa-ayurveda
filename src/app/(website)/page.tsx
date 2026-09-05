@@ -51,9 +51,9 @@ export default function HomePage() {
       <Hero />
       <BrandStory />
       <ProductPreview />
-      <AuthorsSection />
       <PieTeaser />
       <BlogPreview />
+      <AuthorsSection />
     </>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { ListBulletIcon } from "@heroicons/react/20/solid";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import type { TableOfContentsItem } from "@/lib/tableOfContents";
 
@@ -10,7 +10,9 @@ interface TableOfContentsProps {
 }
 
 export default function TableOfContents({ items }: TableOfContentsProps) {
-  const [activeId, setActiveId] = useState<string>(items[0]?.id ?? "");
+  const [activeId, setActiveId] = useState(items[0]?.id ?? "");
+
+  const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({});
 
   useEffect(() => {
     if (!items.length) return;
@@ -27,12 +29,20 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
           .filter((entry) => entry.isIntersecting)
           .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
 
-        if (visible[0]?.target.id) {
-          setActiveId(visible[0].target.id);
-        }
+        const nextActiveId = visible[0]?.target.id;
+
+        if (!nextActiveId) return;
+
+        setActiveId((currentId) => {
+          if (currentId === nextActiveId) {
+            return currentId;
+          }
+
+          return nextActiveId;
+        });
       },
       {
-        rootMargin: "-18% 0px -68% 0px",
+        rootMargin: "-20% 0px -60% 0px",
         threshold: 0,
       },
     );
@@ -42,12 +52,29 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
     return () => observer.disconnect();
   }, [items]);
 
+  /*
+   * Keep the active TOC item visible inside
+   * the sidebar's own scroll container.
+   */
+  useEffect(() => {
+    if (!activeId) return;
+
+    const activeLink = linkRefs.current[activeId];
+
+    if (!activeLink) return;
+
+    activeLink.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+    });
+  }, [activeId]);
+
   if (!items.length) {
     return null;
   }
 
   return (
-    <nav aria-label="Table of contents" className="max-w-55">
+    <nav aria-label="Table of contents" className="w-full">
       <div className="flex items-center gap-2 text-text-accent">
         <ListBulletIcon aria-hidden="true" className="size-4 shrink-0" />
 
@@ -63,11 +90,15 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
           return (
             <li key={item.id}>
               <a
+                ref={(element) => {
+                  linkRefs.current[item.id] = element;
+                }}
                 href={`#${item.id}`}
                 aria-current={isActive ? "location" : undefined}
                 onClick={() => setActiveId(item.id)}
                 className={[
-                  "relative block py-2 pr-2 text-caption leading-snug",
+                  "relative block py-2 pr-2",
+                  "text-caption leading-snug",
                   "transition-colors duration-(--duration-fast) ease-default",
                   "focus-visible:ring-2 focus-visible:outline-none",
                   "focus-visible:ring-border-accent focus-visible:ring-offset-2",
@@ -84,7 +115,7 @@ export default function TableOfContents({ items }: TableOfContentsProps) {
                   />
                 )}
 
-                <span className="line-clamp-2">{item.text}</span>
+                <span className="line-clamp-3">{item.text}</span>
               </a>
             </li>
           );
