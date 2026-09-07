@@ -67,7 +67,7 @@ export const blockContent = defineType({
 
             options: {
               modal: {
-                type: "popover",
+                type: "dialog",
                 width: 1,
               },
             },
