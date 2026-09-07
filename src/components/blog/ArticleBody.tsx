@@ -6,6 +6,7 @@ import type { TableOfContentsItem } from "@/lib/tableOfContents";
 import { SmartLink } from "@/components/blog/SmartLink";
 import ArticleFAQ from "./ArticleFAQ";
 import PortableTextImage from "./PortableTextImage";
+import PortableTextTable from "./PortableTextTable";
 
 const linkClassName =
   "font-medium text-text-primary underline decoration-border-accent underline-offset-3 transition-colors duration-(--duration-fast) hover:text-text-accent focus-visible:ring-2 focus-visible:ring-border-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg-page focus-visible:outline-none";
@@ -114,6 +115,7 @@ export default function ArticleBody({ body, toc }: ArticleBodyProps) {
             faqSection: ({ value }) => (
               <ArticleFAQ heading={value.heading} items={value.items} />
             ),
+            table: PortableTextTable,
           },
 
           list: {

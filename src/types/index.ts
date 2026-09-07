@@ -209,3 +209,24 @@ export type PopularPost = {
   };
   popularityScore: number;
 };
+
+// Sanity TAble
+
+export type SanityTableCell = {
+  _type: "cell";
+  _key: string;
+  value?: PortableTextBlock[];
+};
+
+export type SanityTableRow = {
+  _type: "row";
+  _key: string;
+  cells: SanityTableCell[];
+};
+
+export type SanityTable = {
+  _type: "table";
+  _key: string;
+  headerRows: number;
+  rows: SanityTableRow[];
+};

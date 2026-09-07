@@ -4,8 +4,9 @@ import { blockContent } from "./blockContent";
 import { category } from "./category";
 import { faqSection } from "./faqSection";
 import { post } from "./post";
+import { table } from "./table";
 import { tag } from "./tag";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [author, category, faqSection, blockContent, post, tag],
+  types: [author, category, faqSection, blockContent, table, post, tag],
 };

@@ -188,7 +188,7 @@ export const blockContent = defineType({
         defineField({
           name: "href",
           title: "Link URL",
-           description: "Optional URL to open when the image is clicked.",
+          description: "Optional URL to open when the image is clicked.",
           type: "url",
           validation: (Rule) =>
             Rule.uri({
@@ -240,6 +240,9 @@ export const blockContent = defineType({
     }),
     defineArrayMember({
       type: "faqSection",
+    }),
+    defineArrayMember({
+      type: "table",
     }),
   ],
 });
