@@ -2,6 +2,8 @@ import { PortableTextBlock } from "@portabletext/types";
 import { ImageCrop, ImageHotspot } from "@sanity/types";
 import type { StaticImageData } from "next/image";
 
+type LinkType = "auto" | "internal" | "external";
+
 // Sanity Base
 
 export type SanityImage = {
@@ -14,6 +16,13 @@ export type SanityImage = {
   caption?: string;
   crop?: ImageCrop;
   hotspot?: ImageHotspot;
+
+  // Optional image link
+  href?: string;
+  type?: LinkType;
+  openInNewTab?: boolean;
+  affiliate?: boolean;
+  sponsored?: boolean;
 };
 
 export type SanitySlug = {

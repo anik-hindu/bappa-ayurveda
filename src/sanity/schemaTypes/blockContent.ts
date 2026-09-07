@@ -185,6 +185,55 @@ export const blockContent = defineType({
 
           validation: (Rule) => Rule.max(200),
         }),
+        defineField({
+          name: "href",
+          title: "Link URL",
+           description: "Optional URL to open when the image is clicked.",
+          type: "url",
+          validation: (Rule) =>
+            Rule.uri({
+              scheme: ["http", "https"],
+              allowRelative: true,
+            }),
+        }),
+
+        defineField({
+          name: "type",
+          title: "Link type",
+          type: "string",
+          options: {
+            list: [
+              { title: "Auto", value: "auto" },
+              { title: "Internal", value: "internal" },
+              { title: "External", value: "external" },
+            ],
+          },
+          initialValue: "auto",
+        }),
+
+        defineField({
+          name: "openInNewTab",
+          title: "Open in new tab",
+          type: "boolean",
+          initialValue: false,
+          hidden: ({ parent }) => !parent?.href,
+        }),
+
+        defineField({
+          name: "affiliate",
+          title: "Affiliate link",
+          type: "boolean",
+          initialValue: false,
+          hidden: ({ parent }) => !parent?.href,
+        }),
+
+        defineField({
+          name: "sponsored",
+          title: "Sponsored link",
+          type: "boolean",
+          initialValue: false,
+          hidden: ({ parent }) => !parent?.href,
+        }),
       ],
 
       validation: (Rule) => Rule.required(),
